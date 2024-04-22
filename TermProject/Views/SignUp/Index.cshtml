@@ -1,0 +1,108 @@
+﻿@using TermProject.Models
+@model TermProject.Models.AccountModel
+
+@{
+    ViewData["Title"] = "Sign Up";
+}
+
+@{
+    Layout = "LoggedOutLayout";
+}
+
+<form asp-controller="SignUp" asp-action="CreateAccount" method="POST">
+    <br />
+    <br />
+
+    <div class="center-div">
+
+        <div class="centered-content">
+
+            <h2>Create an Account!</h2>
+
+
+            <label asp-for="UserName">Username: </label>
+            <input asp-for="UserName" />
+            <br />
+            <span asp-validation-for="UserName" class="error-message"></span>
+
+            <br />
+
+
+            <label asp-for="Password">Password: </label>
+            <input asp-for="Password" />
+            <br />
+            <span asp-validation-for="Password" class="error-message"></span>
+
+
+            <br />
+
+
+            <label asp-for="FirstName">First Name: </label>
+            <input asp-for="FirstName" />
+            <br />
+            <span asp-validation-for="FirstName" class="error-message"></span>
+
+            <br />
+
+            <label asp-for="LastName"> Last Name: </label>
+            <input asp-for="LastName" />
+            <br />
+            <span asp-validation-for="LastName" class="error-message"></span>
+
+            <br />
+
+            <label asp-for="Email"> Email: </label>
+            <input asp-for="Email" />
+            <br />
+            <span asp-validation-for="Email" class="error-message"></span>
+
+            <br />
+            <br />
+
+
+            <label asp-for="Answer1"> Security Question 1:  What is your mother's maiden name? </label>
+            <br />
+            <input asp-for="Answer1" />
+            <br />
+            <span asp-validation-for="Answer1" class="error-message"></span>
+            <br />
+
+
+            <label asp-for="Answer2">  Security Question 2:  What city were you born in? </label>
+            <br />
+            <input asp-for="Answer2" />
+            <br />
+            <span asp-validation-for="Answer2" class="error-message"></span>
+            <br />
+
+            <label asp-for="Answer3"> Question 3:  What was your favorite childhood toy?</label>
+            <br />
+            <input asp-for="Answer3" />
+            <br />
+            <span asp-validation-for="Answer3" class="error-message"></span>
+            <br />
+            <br />
+
+
+            <input type="checkbox" id="chkBoxAddToCookie" name="addToCookie" />
+            <label for="chkBoxAddToCookie"> Remember Me </label>
+
+            <br />
+            <br />
+
+
+            <button class="btn btn-danger" id="btnCreatAccount" type="submit" name="submitType" value="create">Create Account</button>
+            <button class="btn btn-danger" id="btnBack" type="submit" name="submitType" value="back">Back</button>
+
+
+        </div>
+
+    </div>
+
+
+</form>
+
+<div>
+    @ViewBag.UsernameErrorMessage
+    @ViewBag.AccountAdded
+</div>

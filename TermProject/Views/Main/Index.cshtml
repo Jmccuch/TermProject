@@ -1,0 +1,152 @@
+﻿@model List<TermProjectAPI.User>
+
+@{
+    ViewData["Title"] = "Login";
+}
+
+@{
+    Layout = "LoggedInLayout";
+}
+
+ <form asp-controller="Main" asp-action="ApplyFilters" method="post">
+    <!-- Filters -->
+    <div class="repeater-search" style ="padding-top: 10%">
+        <h2>SEARCH FOR MATCHES</h2>
+        <br />
+        <h3>Filters:</h3>
+        <p style="margin-left: 40px">
+            Dog or Cat Lover:
+            <select id="DropDownListCatOrDog" name="CatOrDog">
+                <option value="No Selection">No Selection</option>
+                <option value="Neither">Neither</option>
+                <option value="Cat">Cat</option>
+                <option value="Dog">Dog</option>
+                   asp-for="UserSearchFilterModel.CatOrDog">
+            </select>
+            &nbsp;&nbsp;&nbsp;State:
+            <select id="DropDownListStates" name="State">
+                <option value="No Selection">No Selection</option>
+                <option value="Alabama">Alabama</option>
+                    <option value="Alaska">Alaska</option>
+                    <option value="Arizona">Arizona</option>
+                    <option value="Arkansas">Arkansas</option>
+                    <option value="California">California</option>
+                    <option value="Colorado">Colorado</option>
+                    <option value="Connecticut">Connecticut</option>
+                    <option value="Delaware">Delaware</option>
+                    <option value="Florida">Florida</option>
+                    <option value="Georgia">Georgia</option>
+                    <option value="Hawaii">Hawaii</option>
+                    <option value="Idaho">Idaho</option>
+                    <option value="Illinois">Illinois</option>
+                    <option value="Indiana">Indiana</option>
+                    <option value="Iowa">Iowa</option>
+                    <option value="Kansas">Kansas</option>
+                    <option value="Kentucky">Kentucky</option>
+                    <option value="Louisiana">Louisiana</option>
+                    <option value="Maine">Maine</option>
+                    <option value="Maryland">Maryland</option>
+                    <option value="Massachusetts">Massachusetts</option>
+                    <option value="Michigan">Michigan</option>
+                    <option value="Minnesota">Minnesota</option>
+                    <option value="Mississippi">Mississippi</option>
+                    <option value="Missouri">Missouri</option>
+                    <option value="Montana">Montana</option>
+                    <option value="Nebraska">Nebraska</option>
+                    <option value="Nevada">Nevada</option>
+                    <option value="New Hampshire">New Hampshire</option>
+                    <option value="New Jersey">New Jersey</option>
+                    <option value="New Mexico">New Mexico</option>
+                    <option value="New York">New York</option>
+                    <option value="North Carolina">North Carolina</option>
+                    <option value="North Dakota">North Dakota</option>
+                    <option value="Ohio">Ohio</option>
+                    <option value="Oklahoma">Oklahoma</option>
+                    <option value="Oregon">Oregon</option>
+                    <option value="Pennsylvania">Pennsylvania</option>
+                    <option value="Rhode Island">Rhode Island</option>
+                    <option value="South Carolina">South Carolina</option>
+                    <option value="South Dakota">South Dakota</option>
+                    <option value="Tennessee">Tennessee</option>
+                    <option value="Texas">Texas</option>
+                    <option value="Utah">Utah</option>
+                    <option value="Vermont">Vermont</option>
+                    <option value="Virginia">Virginia</option>
+                    <option value="Washington">Washington</option>
+                    <option value="West Virginia">West Virginia</option>
+                    <option value="Wisconsin">Wisconsin</option>
+                    <option value="Wyoming">Wyoming</option>
+                </select>
+   
+        </p>
+        <p style="margin-left: 40px">
+            Desired Relationship:
+            <select id="DropDownListCommitmentType" name="CommitmentType">
+                <option value="No Selection">No Selection</option>
+                <option value="Friends">Friends</option>
+                <option value="Relationship">Relationship</option>
+                <option value="Marriage">Marriage</option>
+                <option value="Not Sure">Not Sure</option>
+            </select>
+      
+     
+            Same Occupation:
+            <input id="CheckBoxOccupation" type="checkbox" name="Occupation" />
+        </p>
+        <br />
+        <button type="submit" class="btn">Search</button>
+    </div>
+</form>
+
+
+
+<div class="text-center" style="margin: 0 auto">
+    <div class="card-deck">
+        <hr />
+
+        @for (int i = 0; i < Model.Count; i++)
+        {
+            var profile = Model[i];
+
+            if (i % 3 == 0)
+            {
+                // Start a new row
+                @:<div class="row">
+            }
+            
+            <div class="col-sm-4 mb-4">
+                <div class="card">
+                    <div class="card-body">
+                        @if (!string.IsNullOrEmpty(profile.profileImage))
+                        {
+                            <img src="@profile.profileImage" alt="Profile Image" width="200" height="200">
+                        }
+                        else
+                        {
+                            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/ac/No_image_available.svg/2048px-No_image_available.svg.png" alt="Stock Image" width="200" height="200">
+                        }
+                        <h2><p class="card-text">@profile.userAccount.firstName</p></h2>
+
+                        <h4><p class="card-text">@profile.age</p></h4>
+                    
+                        <h4><p class="card-text">@profile.city, @profile.state</p></h4>
+
+                        <p class="card-text">@profile.description</p>
+                    </div>
+
+                        <form asp-controller="Main" asp-action="ViewProfile" method="post">
+                            <button type="submit" class="btn">View Profile</button>
+
+                         </form>
+                         <br />
+                </div>
+            </div>
+
+            if (i % 3 == 2 || i == Model.Count - 1)
+            {
+                // End the current row
+                @:</div>
+            }
+        }
+    </div>
+</div>
