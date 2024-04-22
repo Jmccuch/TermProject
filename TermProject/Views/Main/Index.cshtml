@@ -1,7 +1,7 @@
 ﻿@model List<TermProjectAPI.User>
 
 @{
-    ViewData["Title"] = "Login";
+    ViewData["Title"] = "Main";
 }
 
 @{
@@ -132,12 +132,16 @@
                         <h4><p class="card-text">@profile.city, @profile.state</p></h4>
 
                         <p class="card-text">@profile.description</p>
+
+
+                       
                     </div>
 
-                        <form asp-controller="Main" asp-action="ViewProfile" method="post">
+                       <form asp-controller="Main" asp-action="ViewProfile" method="post">
+                            <input type="hidden" name="username" value="@profile.userAccount.userName" />
                             <button type="submit" class="btn">View Profile</button>
+                    </form>
 
-                         </form>
                          <br />
                 </div>
             </div>

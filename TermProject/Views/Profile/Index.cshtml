@@ -1,0 +1,140 @@
+﻿@model TermProjectAPI.User
+
+@{
+    ViewData["Title"] = "Main";
+}
+
+@{
+    Layout = "LoggedInLayout";
+}
+<div class="col-sm-4 mb-4" style="padding-top: 10%; margin: 0 auto">
+    <div class="card">
+        <div class="card-body">
+
+            photos
+
+        </div>
+    </div>
+</div>
+
+
+<div class="col-sm-4 mb-4" style="padding-top: 10%; margin: 0 auto">
+    <div class="card">
+        <div class="card-body">
+            <h2> <p class="card-text">@Model.userAccount.firstName</p></h2>
+            <br />
+            <h4> <p class="card-text">@Model.age</p></h4>
+            <br />
+            <h4><p class="card-text">@Model.city, @Model.state</p></h4>
+                <br />
+            <p class="card-text">@Model.description</p>
+
+        </div>
+    </div>
+</div>
+
+<div class="row" style="padding-top: 2%; margin: 0 auto" ">
+
+
+    <div class="col-sm-6 mb-4">
+        <div class="card">
+            <div class="card-body">
+                <h2><p class="card-text">About:</p></h2>
+                <h4>Commitment Type: </h4><p class="card-text">@Model.commitmentType</p>
+                <h4>Occupation: </h4><p class="card-text">@Model.occupation</p>
+                <h4>Cat or Dog: </h4><p class="card-text">@Model.catOrDog</p>
+            
+
+
+
+            </div>
+        </div>
+    </div>
+
+
+
+    <div class="col-sm-6 mb-4">
+        <div class="card">
+            <div class="card-body">
+                <h2><p class="card-text">Height and Weight:</p></h2>
+                <h4>Height: </h4> @Model.height Feet
+                <br>
+                <h4>Weight:  </h4> @Model.weight Pounds
+
+            </div>
+        </div>
+    </div>
+
+
+
+
+
+</div>
+
+<div class="row" style="padding-top: 2%">
+
+    <div class="col-sm-6 mb-4">
+        <div class="card">
+            <div class="card-body">
+
+                <h2>Likes: </h2>
+
+@foreach (string like in Model.likes)
+{
+                    <p class="card-text"> @like</p>
+
+}
+            </div>
+        </div>
+    </div>
+
+
+    <div class="col-sm-6 mb-4">
+        <div class="card">
+            <div class="card-body">
+                <br />
+
+                <h2>Dislikes:</h2>
+@foreach (string dislike in Model.dislikes)
+{
+                    <p class="card-text"> @dislike</p>
+
+}
+            </div>
+        </div>
+    </div>
+
+
+</div>
+
+
+<div class="row" style="padding-top: 2%">
+
+    <div class="col-sm-6 mb-4">
+        <div class="card">
+            <div class="card-body">
+
+                <h2>Favorites: </h2>
+                <h3>Restaurant: </h3> <p class="card-text"> @Model.restaurant</p>
+                <h3>Quote: </h3> <p class="card-text"> @Model.quote</p>
+                <h3>Book: </h3> <p class="card-text"> @Model.book</p>
+                <h3>Movie: </h3> <p class="card-text"> @Model.movie</p>
+
+            </div>
+        </div>
+    </div>
+
+
+    <div class="col-sm-6 mb-4">
+        <div class="card">
+            <div class="card-body">
+                <br />
+
+                <h4>Dislikes:</h4>
+
+            </div>
+        </div>
+    </div>
+
+
+</div>

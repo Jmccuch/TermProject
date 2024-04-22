@@ -32,6 +32,7 @@ namespace TermProjectAPI.Controllers
                 UserAccount account = new UserAccount();
 
                 account.firstName = record["FirstName"].ToString();
+                account.userName = record["UserName"].ToString();
                 profile.userAccount = account;
                 profile.age = int.Parse(record["Age"].ToString());
                 profile.profileImage = record["ProfileImage"].ToString();
