@@ -59,7 +59,8 @@ namespace TermProjectAPI.Controllers
                 UserAccount account = new UserAccount();
 
                 account.userName = record["UserName"].ToString();
-          
+
+                account.password = record["Password"].ToString();
 
 
                 accounts.Add(account);

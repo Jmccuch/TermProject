@@ -41,14 +41,14 @@
                     </li>
                     <li class="nav-item">
                         <a class="nav-link active" asp-controller="EditProfile" asp-action="Index" id="lnkProfile">
-                            Profile
+                           Edit Profile
                         </a>
                     </li>
                 </ul>
             </div>
         </div>
 
-        <form asp-controller="Home" asp-action="RedirectLogOut" method="post">
+        <form asp-controller="Login" asp-action="Index" method="post">
             <button type="submit" id="btnLogOut" class="btn btn-danger m-3">Log Out</button>
         </form>
     </nav>
