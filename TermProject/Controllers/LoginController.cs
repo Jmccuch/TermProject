@@ -20,8 +20,6 @@ namespace TermProject.Controllers
             string username = "Jmccuch";
 
 
-            List<User> profiles = api.GetUserPotentialMatches(username);
-
             return RedirectToAction("Index", "Main");
         }
     }

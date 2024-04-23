@@ -27,12 +27,11 @@ namespace TermProject.Controllers
         }
 
 
-        public IActionResult ViewProfile()
+        public IActionResult ViewProfile(string username)
         {
+            System.Diagnostics.Debug.WriteLine("main un: " + username);
 
-
-
-            return View(potentialMatches);
+            return RedirectToAction("Index", "Profile", new { username = username });
         }
 
 

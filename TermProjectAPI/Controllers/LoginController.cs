@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
 using Utilities;
-using TermProjectAPI;
+
 
 namespace TermProjectAPI.Controllers
 {
@@ -13,7 +13,7 @@ namespace TermProjectAPI.Controllers
         DBConnect objDB = new DBConnect();
         SqlCommand objCommand = new SqlCommand();
 
-        /*
+        
         [HttpGet("GetUserInfo/{username}")]
         public User GetUserInfo(string username)
         {
@@ -24,22 +24,49 @@ namespace TermProjectAPI.Controllers
 
             DataSet userAccount = objDB.GetDataSetUsingCmdObj(objCommand);
 
-           User profile = new User();
-            /
+            User info = new User();
+
+            
+
             foreach (DataRow record in userAccount.Tables[0].Rows)
             {
+
                 User profile = new User();
                 UserAccount account = new UserAccount();
 
+
                 account.firstName = record["FirstName"].ToString();
-               
-                account.firstName = record["FirstName"].ToString();
+                account.lastName = record["LastName"].ToString();
+                account.email = record["Email"].ToString();
+                account.userName = record["UserName"].ToString();
+
                 profile.userAccount = account;
                 profile.age = int.Parse(record["Age"].ToString());
-                profile.age = int.Parse(record["Height"].ToString());
-                profile.age = int.Parse(record["Weight"].ToString());
+                profile.height = float.Parse(record["Height"].ToString());
+                profile.weight = float.Parse(record["Weight"].ToString());
 
 
+                profile.restaurant = record["Restaurant"].ToString();
+                profile.movie = record["Movie"].ToString();
+                profile.quote = record["Quote"].ToString();
+                profile.book = record["Book"].ToString();
+
+                List<string> likes = new List<string>();
+                likes.Add(record["Like1"].ToString());
+                likes.Add(record["Like2"].ToString());
+                likes.Add(record["Like3"].ToString());
+                likes.Add(record["Like4"].ToString());
+                likes.Add(record["Like5"].ToString());
+                profile.likes = likes;
+
+                List<string> dislikes = new List<string>();
+                dislikes.Add(record["Dislike1"].ToString());
+                dislikes.Add(record["Dislike2"].ToString());
+                dislikes.Add(record["Dislike3"].ToString());
+                dislikes.Add(record["Dislike4"].ToString());
+                dislikes.Add(record["Dislike5"].ToString());
+                profile.dislikes = dislikes;
+                
 
 
                 profile.profileImage = record["ProfileImage"].ToString();
@@ -51,10 +78,12 @@ namespace TermProjectAPI.Controllers
                 profile.catOrDog = record["CatOrDog"].ToString();
 
 
-                profiles.Add(profile);
+                info = profile;
             }
 
-            return profiles;
-        }*/
+            System.Diagnostics.Debug.WriteLine(info.userAccount.firstName);
+
+            return info;
+        }
     }
 }
