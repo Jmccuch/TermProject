@@ -49,6 +49,8 @@ namespace TermProject
             string route = $"{urlAPI}TermProjectAPI/Profile/GetUserInfo/{username}";
 
 
+            System.Diagnostics.Debug.WriteLine(route);
+
             WebRequest request = WebRequest.Create(route);
             request.Method = "GET";
 

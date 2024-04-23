@@ -4,11 +4,13 @@
 }
 
 .center-div {
+    margin-top:5rem;
     display: flex;
     justify-content: center;
     align-items: center;
     height: 100vh;
     flex-direction: column;
+    margin-bottom:3rem;
 }
 
 
