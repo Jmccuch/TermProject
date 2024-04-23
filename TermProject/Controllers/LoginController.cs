@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.IdentityModel.Tokens;
 using System.Data;
 using TermProject.Models;
 using TermProjectAPI;
@@ -9,14 +10,20 @@ namespace TermProject.Controllers
     {
         API api = new API();
 
+        string cookieUserNname;
+
         public IActionResult Index()
         {
-            System.Diagnostics.Debug.WriteLine("INDEX:" + Request.Cookies.ContainsKey("Username"));
+           
+              
+            
 
             // check if cookie is null
             if (Request.Cookies.ContainsKey("Username"))
             {
                 string? UserName = Request.Cookies["Username"];
+
+                cookieUserNname = UserName;
 
 
                 // get users password with cookie username
@@ -49,18 +56,58 @@ namespace TermProject.Controllers
 
             else
             {
-
+             
+     
                 return View("~/Views/Login/Index.cshtml");
             }
 
         }
 
 
-        public IActionResult Login()
+
+        public IActionResult Login(string username, string password)
         {
+            bool goodAccount = CheckLoginInfoMAtches(username, password);
 
-
-            return RedirectToAction("Index", "Dashboard");
+            if (goodAccount)
+            {
+                return RedirectToAction("Index", "Dashboard");
+            }
+            else
+            {
+                ViewBag.Invalid = "The entered Username and Password do not match!";
+                return View("Index"); 
+            }
         }
+
+
+        private Boolean CheckLoginInfoMAtches(string username, string password)
+        {
+            List<UserAccount> accounts = api.GetUserAccount();
+
+
+            bool accountValid = false;
+
+            foreach (UserAccount account in accounts)
+            {
+
+                System.Diagnostics.Debug.WriteLine("comparing account info:" + account.userName + "with" + username);
+                System.Diagnostics.Debug.WriteLine("comparing account info:" + account.password + "with" + password);
+
+                if (account.userName == username && account.password == password) {
+
+                    System.Diagnostics.Debug.WriteLine("found account match");
+
+                    accountValid = true;
+                
+                }
+
+            }
+
+            return accountValid;
+
+ 
+        }
+
     }
 }

@@ -7,9 +7,19 @@
 }
 
 
+
+
 <div class="center-div">
     <div class="centered-content">
         <h2 style="color:darkred;">Welcome!</h2>
+
+        <!-- view bag if username and password is invalid-->
+        @if (ViewBag.Invalid != null)
+        {
+            <div style="color:red">
+                @ViewBag.Invalid
+            </div>
+        }
 
         <!-- LOGIN FORM-->
         <form asp-controller="Login" asp-action="Login" method="post">
@@ -20,7 +30,7 @@
             <label for="password"> Password: </label>
             <input type="password" id="txtPassword" name="password" value="" />
             <br />
-            <input type="checkbox" id="chkRememberMe" name="rememberMe" checked="on"/>
+            <input type="checkbox" id="chkRememberMe" name="rememberMe" checked="on" />
             <label for="chkRememberMe"> Remember Me </label>
             <br />
             <br />
@@ -44,6 +54,8 @@
         <br />
     </div>
 </div>
+
+
 <footer class="bg-dark">
     <div class="container text-light text-center">
         <h5 class="p-3 mb-3">Copyright © 2024 Love Lounge. All rights reserved.</h5>
