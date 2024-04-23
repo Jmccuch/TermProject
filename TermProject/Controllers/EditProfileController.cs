@@ -2,7 +2,7 @@
 
 namespace TermProject.Controllers
 {
-    public class SignUp : Controller
+    public class EditProfileController : Controller
     {
         public IActionResult Index()
         {

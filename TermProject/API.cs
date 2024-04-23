@@ -46,7 +46,7 @@ namespace TermProject
         public User GetUserInfo(string username)
         {
 
-            string route = $"{urlAPI}TermProjectAPI/Login/GetUserInfo/{username}";
+            string route = $"{urlAPI}TermProjectAPI/Profile/GetUserInfo/{username}";
 
 
             WebRequest request = WebRequest.Create(route);
@@ -70,5 +70,58 @@ namespace TermProject
 
 
         }
+
+        public void AddNewUserAccount(UserAccount userAccount)
+        {
+            // Serialize UserAccount 
+            string jsonData = JsonSerializer.Serialize(userAccount);
+
+            string route = $"{urlAPI}TermProjectAPI/AddAccount/AddNewUserAccount";
+            WebRequest request = WebRequest.Create(route);
+            request.Method = "PUT";
+            request.ContentType = "application/json";
+
+            // Write data to body
+            using (var streamWriter = new StreamWriter(request.GetRequestStream()))
+            {
+                streamWriter.Write(jsonData);
+                streamWriter.Flush();
+                streamWriter.Close();
+            }
+
+            WebResponse response = request.GetResponse();
+            response.Close();
+        }
+
+
+
+        public List<UserAccount> GetUserAccount()
+        {
+
+            string route = $"{urlAPI}TermProjectAPI/AddAccount/GetUseraccount";
+
+
+            WebRequest request = WebRequest.Create(route);
+            request.Method = "GET";
+
+            WebResponse response = request.GetResponse();
+            Stream dataStream = response.GetResponseStream();
+            StreamReader reader = new StreamReader(dataStream);
+            string jsonData = reader.ReadToEnd();
+
+            reader.Close();
+            response.Close();
+
+            // Deserialize JSON string into a list of User objects
+            List<UserAccount> accounts = JsonSerializer.Deserialize<List<UserAccount>>(jsonData);
+
+
+            return accounts;
+
+
+
+
+        }
+
     }
 }

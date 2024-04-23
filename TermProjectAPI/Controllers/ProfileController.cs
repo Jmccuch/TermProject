@@ -7,8 +7,8 @@ using Utilities;
 
 namespace TermProjectAPI.Controllers
 {
-    [Route("TermProjectAPI/Login")]
-    public class LoginController : Controller
+    [Route("TermProjectAPI/Profile")]
+    public class ProfileController : Controller
     {
         DBConnect objDB = new DBConnect();
         SqlCommand objCommand = new SqlCommand();
