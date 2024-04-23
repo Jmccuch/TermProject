@@ -20,7 +20,7 @@ namespace TermProject.Controllers
             string username = "Jmccuch";
 
 
-            return RedirectToAction("Index", "Main");
+            return RedirectToAction("Index", "Dashboard");
         }
     }
 }
