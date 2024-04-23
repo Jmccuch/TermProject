@@ -71,7 +71,7 @@ namespace TermProject.Controllers
                 }
 
             }
-          
+            
             return View("~/Views/Main/Index.cshtml", potentialMatches);
         }
 
@@ -190,6 +190,9 @@ namespace TermProject.Controllers
             }
         }
 
-
+        public IActionResult RedirectLogOut()
+        {
+            return View("~/Views/Home/Index.cshtml");
+        }
     }
 }

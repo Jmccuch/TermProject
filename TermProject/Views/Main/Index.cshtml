@@ -97,9 +97,9 @@
 
 
 
-<div class="text-center" style="margin: 0 auto">
-    <div class="card-deck">
-        <hr />
+<div class="text-center" style="margin: 3rem;">
+    <div>
+        
 
         @for (int i = 0; i < Model.Count; i++)
         {
@@ -112,7 +112,7 @@
             }
             
             <div class="col-sm-4 mb-4">
-                <div class="card">
+                <div id="crdCard" class="card" style="width:400; border-color:black;">
                     <div class="card-body">
                         @if (!string.IsNullOrEmpty(profile.profileImage))
                         {
@@ -122,13 +122,13 @@
                         {
                             <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/ac/No_image_available.svg/2048px-No_image_available.svg.png" alt="Stock Image" width="200" height="200">
                         }
-                        <h2><p class="card-text">@profile.userAccount.firstName</p></h2>
+                        <h2 style="color:darkred">@profile.userAccount.firstName</h2>
 
-                        <h4><p class="card-text">@profile.age</p></h4>
+                        <h4>@profile.age</h4>
                     
-                        <h4><p class="card-text">@profile.city, @profile.state</p></h4>
+                        <h4>@profile.city, @profile.state</h4>
 
-                        <p class="card-text">@profile.description</p>
+                        <p>"@profile.description"</p>
 
 
                        
@@ -136,6 +136,7 @@
 
                        <form asp-controller="Main" asp-action="ViewProfile" method="post">
                             <input type="hidden" name="username" value="@profile.userAccount.userName" />
+                            <button type="submit" class="btn btn-success">Like</button>
                             <button type="submit" class="btn btn-danger">View Profile</button>
                     </form>
 

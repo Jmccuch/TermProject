@@ -18,5 +18,9 @@ namespace TermProject.Controllers
 
             return View(user);
         }
+        public IActionResult RedirectLogOut()
+        {
+            return View("~/Views/Home/Index.cshtml");
+        }
     }
 }

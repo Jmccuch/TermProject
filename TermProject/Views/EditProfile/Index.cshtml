@@ -1,6 +1,6 @@
 ﻿@model ProfileModel
 @{
-    Layout = "LoggedInLayout";
+    Layout = "MainLayout";
 }
 
 
@@ -11,36 +11,34 @@
 <head>
 
 </head>
-<body style="padding-top: 10%">
+<body>
 
 
     <form asp-controller="EditProfile" asp-action="Update" method="post">
-        <div>
+        <div class="centdiv">
+            <div class="centcontent">
+                <h1 style="color:darkred">Manage Profile</h1>
 
-            <h1>Manage Profile</h1>
-
-            <br />
-            <br />
-            <div class="centered-content">
-                <br />
-                Profile Image:
-                <input asp-for="ProfileImage" class="form-control" />
                 <br />
                 <br />
-                Phone Number:
-                <input asp-for="PhoneNumber" class="form-control" />
+                <p>Profile Image:</p>
+                <input asp-for="ProfileImage" />
                 <br />
                 <br />
-                Address:
-                <input asp-for="Address" class="form-control" />
+                <p>Phone Number:</p>
+                <input asp-for="PhoneNumber" />
                 <br />
                 <br />
-                City:
-                <input asp-for="City" class="form-control" />
+                <p>Address:</p>
+                <input asp-for="Address" />
                 <br />
                 <br />
-                State:
-                <select asp-for="State" class="form-control">
+                <p>City</p>
+                <input asp-for="City" />
+                <br />
+                <br />
+                <p>State</p>
+                <select asp-for="State">
                     <option> No Selection</option>
                     <option>Alabama</option>
                     <option>Alaska</option>
@@ -96,114 +94,28 @@
                 </select>
                 <br />
                 <br />
-                Occupation:
-                <input asp-for="Occupation" class="form-control" />
+                <p>Occupation:</p>
+                <input asp-for="Occupation" />
                 <br />
                 <br />
-                Description:
-                <input asp-for="Description" class="form-control" />
+                <p>Description:</p>
+                <input asp-for="Description" />
                 <br />
                 <br />
-                Age:
-                <input asp-for="Age" class="form-control" />
+                <p>Age:</p>
+                <input asp-for="Age" />
                 <br />
                 <br />
-                Weight:
-                <input asp-for="Weight" class="form-control" />
+                <p>Weight:</p>
+                <input asp-for="Weight" />
                 <br />
                 <br />
-                Height (ex: 5.5):
-                <input asp-for="Height" class="form-control" />
+                <p>Height (ex: 5.5):</p>
+                <input asp-for="Height" />
                 <br />
                 <br />
-            </div>
-            <br />
-            <br />
-            <br />
-            <br />
-            <br />
-            <br />
-            <h2>LIKES (add up to 5)</h2>:<br />
-            <br />
-            <div class="centered-content">
-                <br />
-                1:
-                <input asp-for="Likes" class="form-control" />
-                <br />
-                <br />
-                2:
-                <input asp-for="Likes" class="form-control" />
-                <br />
-                <br />
-                3:
-                <input asp-for="Likes" class="form-control" />
-                <br />
-                <br />
-                4:
-                <input asp-for="Likes" class="form-control" />
-                <br />
-                <br />
-                5:
-                <input asp-for="Likes" class="form-control" />
-                <br />
-                <br />
-            </div>
-            <br />
-            <br />
-            <br />
-            <br />
-            <h2>DISLIKES (add up to 5):</h2><br />
-            <br />
-            <div class="centered-content">
-                <br />
-                1:
-                <input asp-for="Dislikes" class="form-control" />
-                <br />
-                <br />
-                2:
-                <input asp-for="Dislikes" class="form-control" />
-                <br />
-                <br />
-                3:
-                <input asp-for="Dislikes" class="form-control" />
-                <br />
-                <br />
-                4:
-                <input asp-for="Dislikes" class="form-control" />
-                <br />
-                <br />
-                5:
-                <input asp-for="Dislikes" class="form-control" />
-                <br />
-                <br />
-            </div>
-            <br />
-            <br />
-            <br />
-            <br />
-            <h2>FAVORITES:</h2><br />
-            <br />
-            <div class="centered-content">
-                <br />
-                Movie:
-                <input asp-for="Movie" class="form-control" />
-                <br />
-                <br />
-                Book:
-                <input asp-for="Book" class="form-control" />
-                <br />
-                <br />
-                Restaurant:
-                <input asp-for="Restaurant" class="form-control" />
-                <br />
-                <br />
-                Quote:
-                <input asp-for="Quote" class="form-control" />
-                <br />
-                <br />
-                <br />
-                Cat or Dog?:
-                <select asp-for="CatOrDog" class="form-control">
+                <p>Cat or Dog?:</p>
+                <select asp-for="CatOrDog">
                     <option>No Selection</option>
                     <option>Neither</option>
                     <option>Cat</option>
@@ -211,52 +123,60 @@
                 </select>
                 <br />
                 <br />
-            </div>
-            <br />
-            <br />
-            <div class="centered-content">
-                What kind of commitment type do you want?:
-                <select asp-for="CommitmentType" class="form-control">
-                    <option>No</option>
-                    <option>Yes</option>
-                </select>
-                <br />
-            </div>
-            <br />
-            <br />
-            <div class="centered-content">
-                <br />
-                Make My Profile visible to other members?:
-                <select asp-for="AccountVisible" class="form-control">
+
+                <p>What kind of commitment type do you want?:</p>
+                <select asp-for="AccountVisible">
                     <option>No Selection</option>
                     <option>Friends</option>
                     <option>Relationship</option>
                     <option>Marriage</option>
                     <option>Not Sure</option>
                 </select>
+                <br/>
+                <br/>
                 <br />
+                <h4 style="color:forestgreen">Likes (Add up to 5):</h4>
                 <br />
+                <p>1: <input asp-for="Likes" /></p>
+                <p>2: <input asp-for="Likes" /></p>
+                <p>3: <input asp-for="Likes" /></p>
+                <p>4: <input asp-for="Likes" /></p>
+                <p>5: <input asp-for="Likes" /></p>
+                <br />
+                <h4 style="color:red">Dislikes (Add up to 5):</h4>
+                <br />
+                <p>1: <input asp-for="Dislikes" /></p>
+                <p>2: <input asp-for="Dislikes" /></p>
+                <p>3: <input asp-for="Dislikes" /></p>
+                <p>4: <input asp-for="Dislikes" /></p>
+                <p>5: <input asp-for="Dislikes" /></p>
+                <br/>
+                <h4 style="color:darkslateblue">Favorites:</h4>
+                <br />
+                <p>Movie: <input asp-for="Movie" /></p>
+                <p>Book: <input asp-for="Book" /></p>
+                <p>Restaurant: <input asp-for="Restaurant" /></p>
+                <p>Quote: <input asp-for="Quote" /></p>
+                <br/>
+                <p>Make My Profile visible to other members?:</p>
+                <select asp-for="CommitmentType">
+                    <option>No</option>
+                    <option>Yes</option>
+                </select>
+                <br />
+                <br/>
+                <button type="submit" class="btn btn-danger">Update Profile</button>
+              
+                <button type="button" class="btn btn-danger">Back</button>
+                
             </div>
-            <br />
-            <br />
-            <br />
-            <button type="submit" class="btn">Update Profile</button>
-            <button type="button" class="btn">Back</button>
-            <br />
-            <br />
-            <br />
-            <label asp-validation-for="InvalidNumber" class="text-warning font-weight-bold font-italic font-underline">!! You must enter a valid number for height, age, and weight!!</label>
-            <br />
-            <br />
-            <label asp-validation-for="AccountUpdated" class="text-success font-weight-bold font-italic font-underline">Your Account Has Been Updated!</label>
-            <br />
-            <br />
-            <br />
-            <br />
-            <br />
-            <br />
-            <br />
         </div>
+        <footer class="bg-dark">
+            <div class="container text-light text-center">
+                <h5 class="p-5 mb-3">Copyright © 2024 Love Lounge. All rights reserved.</h5>
+            </div>
+        </footer>
+
     </form>
 </body>
 </html>

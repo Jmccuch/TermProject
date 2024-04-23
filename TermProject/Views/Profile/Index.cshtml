@@ -5,121 +5,88 @@
 }
 
 @{
-    Layout = "LoggedInLayout";
+    Layout = "MainLayout";
 }
-<div class="col-sm-4 mb-4" style="padding-top: 10%; margin: 0 auto">
-    <div class="card">
-        <div class="card-body">
 
-            photos
-
-        </div>
-    </div>
-</div>
-
-
-<div class="col-sm-4 mb-4" style="padding-top: 10%; margin: 0 auto">
-    <div class="card">
-        <div class="card-body">
-            <h2> <p class="card-text">@Model.userAccount.firstName</p></h2>
-            <br />
-            <h4> <p class="card-text">@Model.age</p></h4>
-            <br />
-            <h4><p class="card-text">@Model.city, @Model.state</p></h4>
-            <br />
-            <p class="card-text">@Model.description</p>
-
-        </div>
-    </div>
-</div>
-
-<div class="row" style="padding-top: 2%; margin: 0 auto" ">
-
-
-    <div class="col-sm-6 mb-4">
-        <div class="card">
-            <div class="card-body">
-                <h2><p class="card-text">About:</p></h2>
-                <h4>Commitment Type: </h4><p class="card-text">@Model.commitmentType</p>
-                <h4>Occupation: </h4><p class="card-text">@Model.occupation</p>
-                <h4>Cat or Dog: </h4><p class="card-text">@Model.catOrDog</p>
-
-
-
-
+<div id="jboPhotoGallery" class="jumbotron jumbotron-fluid" style="margin-top:5rem;">
+    <div class="container">
+        <div class="row">
+            <div class="col">
+                <a target="_blank" href="~/css/sunset.jpg">
+                    <img src="~/css/sunset.jpg" alt="Cinque Terre" width="325" height="200">
+                </a>
+            </div>
+            <div class="col">
+                <a target="_blank" href="~/css/sunset.jpg">
+                    <img src="~/css/sunset.jpg" alt="Cinque Terre" width="325" height="200">
+                </a>
+            </div>
+            <div class="col">
+                <a target="_blank" href="~/css/sunset.jpg">
+                    <img src="~/css/sunset.jpg" alt="Cinque Terre" width="325" height="200">
+                </a>
             </div>
         </div>
     </div>
-
-
-
-    <div class="col-sm-6 mb-4">
-        <div class="card">
-            <div class="card-body">
-                <h2><p class="card-text">Height and Weight:</p></h2>
-                <h4>Height: </h4> @Model.height Feet
-                <br>
-                <h4>Weight:  </h4> @Model.weight Pounds
-
-            </div>
-        </div>
-    </div>
-
-
-
-
-
 </div>
-
-<div class="row" style="padding-top: 2%">
-
-    <div class="col-sm-6 mb-4">
-        <div class="card">
-            <div class="card-body">
-
-                <h2>Likes: </h2>
-
-@foreach (string like in Model.likes)
-{
-                    <p class="card-text"> @like</p>
-
-}
-            </div>
-        </div>
+<div class="jumbotron jumbotron-fluid" style="background-color:blanchedalmond">
+    <div class="container" style="text-align:center;">
+        <h1 style="color:darkred">@Model.userAccount.firstName</h1>
+        <br />
+        <h4>Age: @Model.age</h4>
+        <br />
+        <h4>@Model.city, @Model.state</h4>
+        <br />
+        <h4>"@Model.description"</h4>
+        <br />
     </div>
+    <div class="container" style="text-align:center;">
+        <h3 style="color:darkmagenta">About:</h3>
+        <br />
+        <h4>Height: @Model.height Feet</h4>
+        <br />
+        <h4>Weight: @Model.weight Pounds</h4>
+        <br />
+        <h4>Commitment Type: @Model.commitmentType</h4>
+        <br />
+        <h4>Occupation: @Model.occupation</h4>
+        <br />
+        <h4>Cat or Dog: @Model.catOrDog</h4>
+        <br />
+        <h4 style="color:forestgreen">Likes:</h4>
+        @foreach (string like in Model.likes)
+        {
+            <h5> @like</h5>
 
+        }
+        <br />
+        <h4 style="color:red">Dislikes:</h4>
+        @foreach (string dislike in Model.dislikes)
+        {
+            <h5>@dislike</h5>
 
-    <div class="col-sm-6 mb-4">
-        <div class="card">
-            <div class="card-body">
-                <br />
-
-                <h2>Dislikes:</h2>
-@foreach (string dislike in Model.dislikes)
-{
-                    <p class="card-text"> @dislike</p>
-
-}
-            </div>
-        </div>
+        }
+        <br />
+        <h3 style="color:darkslateblue">Favorites: </h3>
+        <br />
+        <h4>Restaurant: @Model.restaurant</h4>
+        <br />
+        <h4>Quote: @Model.quote</h4>
+        <br />
+        <h4>Book: @Model.book</h4>
+        <br />
+        <h4>Movie: @Model.movie</h4>
     </div>
-
-
-</div>
-
-
-
-<div class="col-sm-4 mb-4" style="padding-top: 2%; margin: 0 auto">
-    <div class="card">
-        <div class="card-body">
-
-            <h2>Favorites: </h2>
-            <h3>Restaurant: </h3> <p class="card-text"> @Model.restaurant</p>
-            <h3>Quote: </h3> <p class="card-text"> @Model.quote</p>
-            <h3>Book: </h3> <p class="card-text"> @Model.book</p>
-            <h3>Movie: </h3> <p class="card-text"> @Model.movie</p>
-
-        </div>
+    <div class="container" style="text-align:center;">
+        <br />
+        <br />
+    <button type="submit" class="btn btn-success" style="width:30%">Like</button>
+        <button type="button" class="btn btn-danger" style="width:30%">Back</button>
     </div>
 </div>
+<footer class="bg-dark">
+    <div class="container text-light text-center">
+        <h5 class="p-5 mb-3">Copyright © 2024 Love Lounge. All rights reserved.</h5>
+    </div>
+</footer>
 

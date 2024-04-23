@@ -8,5 +8,9 @@ namespace TermProject.Controllers
         {
             return View();
         }
+        public IActionResult RedirectLogOut()
+        {
+            return View("~/Views/Home/Index.cshtml");
+        }
     }
 }
