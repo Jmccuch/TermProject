@@ -6,103 +6,108 @@
 }
 
 @{
-    Layout = "LoggedOutLayout";
+    Layout = "LoginLayout";
 }
 
-<form asp-controller="SignUp" asp-action="CreateAccount" method="POST">
-    <br />
-    <br />
+    <form asp-controller="SignUp" asp-action="CreateAccount" method="POST">
+        <br />
+        <br />
 
-    <div class="center-div">
+        <div class="container" style="margin-top:5rem;margin-bottom:3rem;">
 
-        <div class="centered-content">
+            <div class="centered-content">
+                <br />
+                <h2 style="color:darkred;">Create an Account!</h2>
 
-            <h2>Create an Account!</h2>
+                <br />
+                <label asp-for="UserName">Username: </label>
+                <input asp-for="UserName" />
+                <br />
+                <span asp-validation-for="UserName" class="error-message"></span>
 
-
-            <label asp-for="UserName">Username: </label>
-            <input asp-for="UserName" />
-            <br />
-            <span asp-validation-for="UserName" class="error-message"></span>
-
-            <br />
-
-
-            <label asp-for="Password">Password: </label>
-            <input asp-for="Password" />
-            <br />
-            <span asp-validation-for="Password" class="error-message"></span>
+                <br />
 
 
-            <br />
+                <label asp-for="Password">Password: </label>
+                <input asp-for="Password" />
+                <br />
+                <span asp-validation-for="Password" class="error-message"></span>
 
 
-            <label asp-for="FirstName">First Name: </label>
-            <input asp-for="FirstName" />
-            <br />
-            <span asp-validation-for="FirstName" class="error-message"></span>
-
-            <br />
-
-            <label asp-for="LastName"> Last Name: </label>
-            <input asp-for="LastName" />
-            <br />
-            <span asp-validation-for="LastName" class="error-message"></span>
-
-            <br />
-
-            <label asp-for="Email"> Email: </label>
-            <input asp-for="Email" />
-            <br />
-            <span asp-validation-for="Email" class="error-message"></span>
-
-            <br />
-            <br />
+                <br />
 
 
-            <label asp-for="Answer1"> Security Question 1:  What is your mother's maiden name? </label>
-            <br />
-            <input asp-for="Answer1" />
-            <br />
-            <span asp-validation-for="Answer1" class="error-message"></span>
-            <br />
+                <label asp-for="FirstName">First Name: </label>
+                <input asp-for="FirstName" />
+                <br />
+                <span asp-validation-for="FirstName" class="error-message"></span>
+
+                <br />
+
+                <label asp-for="LastName"> Last Name: </label>
+                <input asp-for="LastName" />
+                <br />
+                <span asp-validation-for="LastName" class="error-message"></span>
+
+                <br />
+
+                <label asp-for="Email"> Email: </label>
+                <input asp-for="Email" />
+                <br />
+                <span asp-validation-for="Email" class="error-message"></span>
+
+                <br />
+                <br />
 
 
-            <label asp-for="Answer2">  Security Question 2:  What city were you born in? </label>
-            <br />
-            <input asp-for="Answer2" />
-            <br />
-            <span asp-validation-for="Answer2" class="error-message"></span>
-            <br />
-
-            <label asp-for="Answer3"> Question 3:  What was your favorite childhood toy?</label>
-            <br />
-            <input asp-for="Answer3" />
-            <br />
-            <span asp-validation-for="Answer3" class="error-message"></span>
-            <br />
-            <br />
+                <label asp-for="Answer1"> Security Question 1:  What is your mother's maiden name? </label>
+                <br />
+                <input asp-for="Answer1" />
+                <br />
+                <span asp-validation-for="Answer1" class="error-message"></span>
+                <br />
 
 
-            <input type="checkbox" id="chkBoxAddToCookie" name="addToCookie" />
-            <label for="chkBoxAddToCookie"> Remember Me </label>
+                <label asp-for="Answer2">  Security Question 2:  What city were you born in? </label>
+                <br />
+                <input asp-for="Answer2" />
+                <br />
+                <span asp-validation-for="Answer2" class="error-message"></span>
+                <br />
 
-            <br />
-            <br />
+                <label asp-for="Answer3"> Question 3:  What was your favorite childhood toy?</label>
+                <br />
+                <input asp-for="Answer3" />
+                <br />
+                <span asp-validation-for="Answer3" class="error-message"></span>
+                <br />
+                <br />
 
 
-            <button class="btn btn-danger" id="btnCreatAccount" type="submit" name="submitType" value="create">Create Account</button>
-            <button class="btn btn-danger" id="btnBack" type="submit" name="submitType" value="back">Back</button>
+                <input type="checkbox" id="chkBoxAddToCookie" name="addToCookie" />
+                <label for="chkBoxAddToCookie"> Remember Me </label>
 
+                <br />
+                <br />
+
+
+                <button class="btn btn-danger" id="btnCreatAccount" type="submit" name="submitType" value="create">Create Account</button>
+                <button class="btn btn-danger" id="btnBack" type="submit" name="submitType" value="back">Back</button>
+
+                <br />
+            </div>
 
         </div>
+    <footer class="bg-dark">
+        <div class="container text-light text-center">
+            <h5 class="p-5 mb-3">Copyright © 2024 Love Lounge. All rights reserved.</h5>
+        </div>
+    </footer>
 
+    </form>
+
+    <div>
+        @ViewBag.UsernameErrorMessage
+        @ViewBag.AccountAdded
     </div>
 
-
-</form>
-
-<div>
-    @ViewBag.UsernameErrorMessage
-    @ViewBag.AccountAdded
-</div>
