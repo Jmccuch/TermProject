@@ -7,45 +7,46 @@
 }
 
 
-        <div class="center-div">
-            <div class="centered-content">
-                <h2 style="color:darkred;">Welcome!</h2>
+<div class="center-div">
+    <div class="centered-content">
+        <h2 style="color:darkred;">Welcome!</h2>
 
-                <!-- LOGIN FORM-->
-                <form asp-controller="Login" asp-action="Login" method="post">
-                    <br />
-                    <label for="username"> Username: </label>
-                    <input type="text" id="txtUsername" name="username" value="" />
-                    <br />
-                    <label for="password"> Password: </label>
-                    <input type="password" id="txtPassword" name="password" value="" />
-                    <br />
-                    <input type="checkbox" id="chkRememberMe" name="rememberMe" />
-                    <label for="chkRememberMe"> Remember Me </label>
-                    <br />
-                    <br />
-                    <button type="submit" id="btnLogin" class="btn btn-danger">Login</button>
-                    <br />
-                </form>
-                <br />
-                <!-- FORGOT USERNAME/PASSWORD -->
-                <form id="frmRetrieveUsernameOrPassword" method="post" action="/Login/RetrieveAccountInfo">
-                    <div>
-                        <p>Forgot your <a href="/Login/RetrieveAccountInfo?action=forgotUsername" id="lnkForgotUsername">Username</a> or <a href="/Login/RetrieveAccountInfo?action=forgotPassword" id="lnkForgotPassword">Password</a>?</p>
-                    </div>
-                </form>
-                <br />
-                <!-- CREATE ACCOUNT FORM -->
-                Dont have an account?
-                <form asp-controller="Home" asp-action="RedirectSignUp" method="post">
-                    <button type="submit" id="btnSignUp" class="btn btn-danger">Sign Up</button>
-                </form>
-                <br />
+        <!-- LOGIN FORM-->
+        <form asp-controller="Login" asp-action="Login" method="post">
+            <br />
+            <label for="username"> Username: </label>
+            <input type="text" id="txtUsername" name="username" value="@(Model != null ? Model.UserName : "")" />
+            <br />
+            <label for="password"> Password: </label>
+            <input type="password" id="txtPassword" name="password" value="" />
+            <br />
+            <input type="checkbox" id="chkRememberMe" name="rememberMe" checked="on"/>
+            <label for="chkRememberMe"> Remember Me </label>
+            <br />
+            <br />
+            <button type="submit" id="btnLogin" class="btn btn-danger">Login</button>
+            <br />
+        </form>
+        <br />
+        <!-- FORGOT USERNAME/PASSWORD -->
+        <form id="frmRetrieveUsernameOrPassword" method="post" action="/Login/RetrieveAccountInfo">
+            <div>
+                <p>Forgot your <a href="/Login/RetrieveAccountInfo?action=forgotUsername" id="lnkForgotUsername">Username</a> or <a href="/Login/RetrieveAccountInfo?action=forgotPassword" id="lnkForgotPassword">Password</a>?</p>
             </div>
-        </div>
-        <footer class="bg-dark fixed-bottom">
-            <div class="container text-light text-center">
-                <h5 class="p-3 mb-3">Copyright © 2024 Love Lounge. All rights reserved.</h5>
-            </div>
-        </footer>
+
+        </form>
+        <br />
+        <!-- CREATE ACCOUNT FORM -->
+        Dont have an account?
+        <form asp-controller="Home" asp-action="RedirectSignUp" method="post">
+            <button type="submit" id="btnSignUp" class="btn btn-danger">Sign Up</button>
+        </form>
+        <br />
+    </div>
+</div>
+<footer class="bg-dark fixed-bottom">
+    <div class="container text-light text-center">
+        <h5 class="p-3 mb-3">Copyright © 2024 Love Lounge. All rights reserved.</h5>
+    </div>
+</footer>
 
