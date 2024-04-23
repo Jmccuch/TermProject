@@ -60,7 +60,7 @@ namespace TermProject.Controllers
         {
 
 
-            return RedirectToAction("Index", "Main");
+            return RedirectToAction("Index", "Dashboard");
         }
     }
 }

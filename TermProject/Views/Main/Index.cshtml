@@ -5,17 +5,18 @@
 }
 
 @{
-    Layout = "LoggedInLayout";
+    Layout = "MainLayout";
 }
 
  <form asp-controller="Main" asp-action="ApplyFilters" method="post">
     <!-- Filters -->
-    <div class="repeater-search" style ="padding-top: 10%">
-        <h2>SEARCH FOR MATCHES</h2>
+    <div class="jumbotron jumbotron-fluid" style="background-color: lightpink; margin-top:5rem;">
+        <div class="container">
+        <h1 style="color: darkred">SEARCH FOR MATCHES</h1>
         <br />
-        <h3>Filters:</h3>
+        <p class="h2">Filters:</p>
         <p style="margin-left: 40px">
-            Dog or Cat Lover:
+            <p class="lead font-weight-bold">Cat or Dogs:
             <select id="DropDownListCatOrDog" name="CatOrDog">
                 <option value="No Selection">No Selection</option>
                 <option value="Neither">Neither</option>
@@ -23,7 +24,7 @@
                 <option value="Dog">Dog</option>
                    asp-for="UserSearchFilterModel.CatOrDog">
             </select>
-            &nbsp;&nbsp;&nbsp;State:
+            &nbsp|&nbsp;State:
             <select id="DropDownListStates" name="State">
                 <option value="No Selection">No Selection</option>
                 <option value="Alabama">Alabama</option>
@@ -77,10 +78,7 @@
                     <option value="Wisconsin">Wisconsin</option>
                     <option value="Wyoming">Wyoming</option>
                 </select>
-   
-        </p>
-        <p style="margin-left: 40px">
-            Desired Relationship:
+            &nbsp|&nbsp;Desired Relationship:
             <select id="DropDownListCommitmentType" name="CommitmentType">
                 <option value="No Selection">No Selection</option>
                 <option value="Friends">Friends</option>
@@ -88,13 +86,12 @@
                 <option value="Marriage">Marriage</option>
                 <option value="Not Sure">Not Sure</option>
             </select>
-      
-     
-            Same Occupation:
-            <input id="CheckBoxOccupation" type="checkbox" name="Occupation" />
+            &nbsp|&nbsp;Same Occupation:
+                <input id="CheckBoxOccupation" type="checkbox" name="Occupation" />
         </p>
         <br />
-        <button type="submit" class="btn">Search</button>
+        <button type="submit" class="btn btn-danger">Search</button>
+    </div>
     </div>
 </form>
 
@@ -139,7 +136,7 @@
 
                        <form asp-controller="Main" asp-action="ViewProfile" method="post">
                             <input type="hidden" name="username" value="@profile.userAccount.userName" />
-                            <button type="submit" class="btn">View Profile</button>
+                            <button type="submit" class="btn btn-danger">View Profile</button>
                     </form>
 
                          <br />
