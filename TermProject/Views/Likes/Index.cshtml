@@ -1,7 +1,68 @@
-﻿@{
+﻿@model List<TermProjectAPI.User>
+@{
     ViewData["Title"] = "Likes";
 }
 
 @{
-    Layout = "LoggedInLayout";
+    Layout = "MainLayout";
 }
+
+<div class="jumbotron jumbotron-fluid" style="background-color:lightpink">   
+        <h1 style=" margin-top:5rem;text-align:center; color:darkred">Likes</h1>
+</div>
+<div class="jumbotron jumbotron-fluid" style="background-color:indianred">
+    <div class="container">
+        
+        @for (int i = 0; i < Model.Count; i++)
+        {
+           
+            var profile = Model[i];
+            <div class="jumbotron jumbotron-fluid" style="background-color:lightpink; padding:5rem;">
+            @if (i % 2 == 0)
+            {
+                // Start a new row
+                @:<div class="row">
+            }
+            
+            
+                <div id="crdCard" class="card text-center" style=" margin:1rem;border-color:black;">
+                    <div class="card-body">
+                        @if (!string.IsNullOrEmpty(profile.profileImage))
+                        {
+                            <img src="@profile.profileImage" alt="Profile Image" width="200" height="200">
+                        }
+                        else
+                        {
+                            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/ac/No_image_available.svg/2048px-No_image_available.svg.png" alt="Stock Image" width="200" height="200">
+                        }
+                        <h2 style="color:darkred">@profile.userAccount.firstName</h2>
+
+                        <h4>@profile.age</h4>
+                    
+                        <h4>@profile.city, @profile.state</h4>
+
+                        <p>"@profile.description"</p>
+
+
+                       
+
+                    <form asp-controller="Main" asp-action="ViewProfile" method="post">
+                            <input type="hidden" name="username" value="@profile.userAccount.userName" />
+                            <button type="submit" class="btn btn-danger">Delete</button>
+                            <button type="submit" class="btn btn-info" style="color:white">View Profile</button>
+                            <button type="submit" class="btn btn-dark">Home</button>
+                    </form>
+
+                    <br />
+                </div>
+            </div>
+
+            @if (i % 2 == 0 || i == Model.Count - 1)
+            {
+                // End the current row
+                @:</div>
+            }
+            </div>
+        }
+    </div>
+</div>
