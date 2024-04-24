@@ -8,5 +8,6 @@
         public int HighAge { get; set; }
 
         public int LowAge { get; set; }
+        public List<TermProjectAPI.User> users { get; set; }
     }
 }

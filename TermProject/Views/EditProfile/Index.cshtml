@@ -17,28 +17,46 @@
     <form asp-controller="EditProfile" asp-action="Update" method="post">
         <div class="centdiv">
             <div class="centcontent">
+
+
+
                 <h1 style="color:darkred">Manage Profile</h1>
+
+                @if (ViewBag.AccountUpdated != null)
+                {
+                    <div style="color:lawngreen">
+                        @ViewBag.AccountUpdated
+                    </div>
+                }
+
+                @if (ViewBag.InvalidNumber != null)
+                {
+                    <div style="color:red">
+                        @ViewBag.AccountUpdated
+                    </div>
+                }
+
 
                 <br />
                 <br />
                 <p>Profile Image:</p>
-                <input asp-for="profileImage" value="@Model.profileImage" />
+                <input asp-for="profileImage" />
                 <br />
                 <br />
                 <p>Phone Number:</p>
-                <input asp-for="phoneNumber" value="@Model.phoneNumber" />
+                <input asp-for="phoneNumber" />
                 <br />
                 <br />
                 <p>Address:</p>
-                <input asp-for="address" value="@Model.address" />
+                <input asp-for="address" />
                 <br />
                 <br />
                 <p>City</p>
-                <input asp-for="city" value="@Model.city" />
+                <input asp-for="city" />
                 <br />
                 <br />
                 <p>State</p>
-                <select asp-for="state" value="@Model.state">
+                <select asp-for="state">
                     <option> No Selection</option>
                     <option>Alabama</option>
                     <option>Alaska</option>
@@ -95,27 +113,27 @@
                 <br />
                 <br />
                 <p>Occupation:</p>
-                <input asp-for="occupation" value="@Model.occupation" />
+                <input asp-for="occupation" />
                 <br />
                 <br />
                 <p>Description:</p>
-                <input asp-for="description" value="@Model.description" />
+                <input asp-for="description" />
                 <br />
                 <br />
                 <p>Age:</p>
-                <input asp-for="age" value="@Model.age" />
+                <input asp-for="age" />
                 <br />
                 <br />
                 <p>Weight:</p>
-                <input asp-for="weight" value="@Model.weight" />
+                <input asp-for="weight" />
                 <br />
                 <br />
                 <p>Height (ex: 5.5):</p>
-                <input asp-for="height" value="@Model.height" />
+                <input asp-for="height" />
                 <br />
                 <br />
                 <p>Cat or Dog?:</p>
-                <select asp-for="catOrDog" value="@Model.catOrDog">
+                <select asp-for="catOrDog">
                     <option>No Selection</option>
                     <option>Neither</option>
                     <option>Cat</option>
@@ -125,7 +143,7 @@
                 <br />
 
                 <p>What kind of commitment type do you want?:</p>
-                <select asp-for="commitmentType" value="@Model.commitmentType">
+                <select asp-for="commitmentType">
                     <option>No Selection</option>
                     <option>Friends</option>
                     <option>Relationship</option>
@@ -140,9 +158,12 @@
 
                 @for (int i = 0; i < Model.likes.Count; i++)
                 {
-                    <p> <input asp-for="likes" value=@Model.likes[i] /></p>
+                    <p> <input asp-for="likes[i]" /></p>
 
                 }
+
+
+
 
 
                 <br />
@@ -150,33 +171,41 @@
                 <br />
                 @for (int i = 0; i < Model.dislikes.Count; i++)
                 {
-                    <p> <input asp-for="dislikes" value=@Model.dislikes[i] /></p>
+                    <p> <input asp-for="dislikes[i]" /></p>
 
                 }
                 <br />
                 <h4 style="color:darkslateblue">Favorites:</h4>
                 <br />
-                <p>Movie: <input asp-for="movie" value="@Model.movie" /></p>
-                <p>Book: <input asp-for="book" value="@Model.book" /></p>
-                <p>Restaurant: <input asp-for="restaurant" value="@Model.restaurant" /></p>
-                <p>Quote: <input asp-for="quote" value="@Model.quote" /></p>
+                <p>Movie: <input asp-for="movie" /></p>
+                <p>Book: <input asp-for="book" /></p>
+                <p>Restaurant: <input asp-for="restaurant" /></p>
+                <p>Quote: <input asp-for="quote" /></p>
                 <br />
                 <p>Make My Profile visible to other members?:</p>
-                <select asp-for="accountVisible" value="@Model.accountVisible">
+                <select asp-for="accountVisible">
                     <option>No</option>
                     <option>Yes</option>
                 </select>
                 <br />
                 <br />
-
-
                 <button type="submit" class="btn btn-danger">Update Profile</button>
+
+
+    </form>
+    <br />
+    <form asp-controller="EditProfile" asp-action="RedirectDashboard" method="post">
+
+        <button type="submit" class="btn btn-danger">Back</button>
     </form>
 
-    <button type="button" class="btn btn-danger">Back</button>
+    </div>
+    </div>
 
-    </div>
-    </div>
+
+
+
+
     <footer class="bg-dark">
         <div class="container text-light text-center">
             <h5 class="p-5 mb-3">Copyright © 2024 Love Lounge. All rights reserved.</h5>

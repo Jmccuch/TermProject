@@ -14,8 +14,6 @@ namespace TermProject.Controllers
 
             User user = api.GetUserInfo(username);
 
-           
-
             return View(user);
         }
         public IActionResult RedirectLogOut()
@@ -25,15 +23,45 @@ namespace TermProject.Controllers
 
         public IActionResult Update(User user)
         {
+            System.Diagnostics.Debug.WriteLine("AGE: " + user.age);
+            System.Diagnostics.Debug.WriteLine("W: " + user.weight);
+            System.Diagnostics.Debug.WriteLine("WH " + user.height);
+
+
+             if ((user.weight != 0 && user.height != 0))
+             {
             string username = HttpContext.Session.GetString("Username");
 
-           
+                api.UpdateUserInfo(user, username);
 
-            api.UpdateUserInfo(user, username);
+                System.Diagnostics.Debug.WriteLine("UPDATING");
+
+                ViewBag.AccountUpdated = "Your Account Has Been Updated!";
+
+                return View("~/Views/EditProfile/Index.cshtml", user);
+            }
+            
+            else {
+                System.Diagnostics.Debug.WriteLine("not UPDATING");
+
+                ViewBag.InvalidNumber = "You must enter a valid number for Height and Weight!";
+
+                return View("~/Views/EditProfile/Index.cshtml", user);
 
 
-            return View("~/Views/EditProfile/Index.cshtml");
+            }
+        
         }
+
+
+
+        public IActionResult RedirectDashboard()
+        {
+
+            return RedirectToAction("Index", "Dashboard");
+        }
+
+  
 
     }
 }

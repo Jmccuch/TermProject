@@ -61,7 +61,7 @@ namespace TermProjectAPI.Controllers
 
                 }
 
-                if (record["Age"].ToString() != "")
+                if (record["Weight"].ToString() != "")
                 {
                     profile.weight = float.Parse(record["Weight"].ToString());
                 }
@@ -71,12 +71,14 @@ namespace TermProjectAPI.Controllers
                 profile.quote = record["Quote"].ToString();
                 profile.book = record["Book"].ToString();
 
-                List<string> likes = new List<string>();
-                likes.Add(record["Like1"].ToString());
-                likes.Add(record["Like2"].ToString());
-                likes.Add(record["Like3"].ToString());
-                likes.Add(record["Like4"].ToString());
-                likes.Add(record["Like5"].ToString());
+                List<string> likes =
+                [
+                    record["Like1"].ToString(),
+                    record["Like2"].ToString(),
+                    record["Like3"].ToString(),
+                    record["Like4"].ToString(),
+                    record["Like5"].ToString(),
+                ];
                 profile.likes = likes;
 
                 List<string> dislikes = new List<string>();
@@ -133,8 +135,8 @@ namespace TermProjectAPI.Controllers
             System.Diagnostics.Debug.WriteLine("Occupation: " + user.occupation);
             System.Diagnostics.Debug.WriteLine("Description: " + user.description);
             System.Diagnostics.Debug.WriteLine("Age: " + user.age);
-            System.Diagnostics.Debug.WriteLine("Weight: " + user.weight.ToString("0"));
-            System.Diagnostics.Debug.WriteLine("Height: " + user.height.ToString("0.00"));
+            System.Diagnostics.Debug.WriteLine("Weight: " + user.weight);
+            System.Diagnostics.Debug.WriteLine("Height: " + user.height);
 
             System.Diagnostics.Debug.WriteLine("Like1: " + user.likes[0]);
             System.Diagnostics.Debug.WriteLine("Like2: " + user.likes[1]);
@@ -162,50 +164,133 @@ namespace TermProjectAPI.Controllers
             objCommand.CommandType = CommandType.StoredProcedure;
             objCommand.CommandText = "UpdateUserInfo";
 
-            // add param to obj command
+            // add params to obj command
             objCommand.Parameters.Clear();
-            
+
             objCommand.Parameters.AddWithValue("@userName", username);
 
-            objCommand.Parameters.AddWithValue("@profileImage", user.profileImage);
-            objCommand.Parameters.AddWithValue("@phoneNumber", user.phoneNumber);
-            objCommand.Parameters.AddWithValue("@address", user.address);
-            objCommand.Parameters.AddWithValue("@city", user.city);
-            objCommand.Parameters.AddWithValue("@state", user.state);
-            objCommand.Parameters.AddWithValue("@occupation", user.occupation);
-            objCommand.Parameters.AddWithValue("@description", user.description);
-            objCommand.Parameters.AddWithValue("@age", user.age);
-            objCommand.Parameters.AddWithValue("@weight", user.weight.ToString("0"));
-            objCommand.Parameters.AddWithValue("@height", user.height.ToString("0.00"));
+            // Check and add profileImage parameter
+            if (!string.IsNullOrEmpty(user.profileImage))
+                objCommand.Parameters.AddWithValue("@profileImage", user.profileImage);
+            else
+                objCommand.Parameters.AddWithValue("@profileImage", DBNull.Value);
 
-            objCommand.Parameters.AddWithValue("@like1", user.likes[0]);
-            objCommand.Parameters.AddWithValue("@like2", user.likes[1]);
-            objCommand.Parameters.AddWithValue("@like3", user.likes[2]);
-            objCommand.Parameters.AddWithValue("@like4", user.likes[3]);
-            objCommand.Parameters.AddWithValue("@like5", user.likes[4]);
+            // Check and add phoneNumber parameter
+            if (!string.IsNullOrEmpty(user.phoneNumber))
+                objCommand.Parameters.AddWithValue("@phoneNumber", user.phoneNumber);
+            else
+                objCommand.Parameters.AddWithValue("@phoneNumber", DBNull.Value);
 
-            objCommand.Parameters.AddWithValue("@disLike1", user.dislikes[0]);
-            objCommand.Parameters.AddWithValue("@disLike2", user.dislikes[1]);
-            objCommand.Parameters.AddWithValue("@disLike3", user.dislikes[2]);
-            objCommand.Parameters.AddWithValue("@disLike4", user.dislikes[3]);
-            objCommand.Parameters.AddWithValue("@disLike5", user.dislikes[4]);
+            // Check and add address parameter
+            if (!string.IsNullOrEmpty(user.address))
+                objCommand.Parameters.AddWithValue("@address", user.address);
+            else
+                objCommand.Parameters.AddWithValue("@address", DBNull.Value);
 
-            objCommand.Parameters.AddWithValue("@restaurant", user.restaurant);
-            objCommand.Parameters.AddWithValue("@book", user.book);
-            objCommand.Parameters.AddWithValue("@movie", user.movie);
-            objCommand.Parameters.AddWithValue("@quote", user.quote);
-            objCommand.Parameters.AddWithValue("@catOrDog", user.catOrDog);
+            // Check and add city parameter
+            if (!string.IsNullOrEmpty(user.city))
+                objCommand.Parameters.AddWithValue("@city", user.city);
+            else
+                objCommand.Parameters.AddWithValue("@city", DBNull.Value);
 
-            objCommand.Parameters.AddWithValue("@commitmentType", user.commitmentType);
+            // Check and add state parameter
+            if (!string.IsNullOrEmpty(user.state))
+                objCommand.Parameters.AddWithValue("@state", user.state);
+            else
+                objCommand.Parameters.AddWithValue("@state", DBNull.Value);
 
-            objCommand.Parameters.AddWithValue("@accountVisible", user.accountVisible);
+            // Check and add occupation parameter
+            if (!string.IsNullOrEmpty(user.occupation))
+                objCommand.Parameters.AddWithValue("@occupation", user.occupation);
+            else
+                objCommand.Parameters.AddWithValue("@occupation", DBNull.Value);
 
+            // Check and add description parameter
+            if (!string.IsNullOrEmpty(user.description))
+                objCommand.Parameters.AddWithValue("@description", user.description);
+            else
+                objCommand.Parameters.AddWithValue("@description", DBNull.Value);
 
-     
+            // Check and add age parameter
+            if (user.age != 0)
+                objCommand.Parameters.AddWithValue("@age", user.age);
+            else
+                objCommand.Parameters.AddWithValue("@age", DBNull.Value);
+
+            // Check and add weight parameter
+            if (user.weight != 0)
+                objCommand.Parameters.AddWithValue("@weight", user.weight.ToString("0"));
+            else
+                objCommand.Parameters.AddWithValue("@weight", DBNull.Value);
+
+            // Check and add height parameter
+            if (user.height != 0)
+                objCommand.Parameters.AddWithValue("@height", user.height.ToString("0.00"));
+            else
+                objCommand.Parameters.AddWithValue("@height", DBNull.Value);
+
+            // Check and add likes parameters
+            for (int i = 0; i < 5; i++)
+            {
+                if (!string.IsNullOrEmpty(user.likes[i]))
+                    objCommand.Parameters.AddWithValue($"@like{i + 1}", user.likes[i]);
+                else
+                    objCommand.Parameters.AddWithValue($"@like{i + 1}", DBNull.Value);
+            }
+
+            // Check and add dislikes parameters
+            for (int i = 0; i < 5; i++)
+            {
+                if (!string.IsNullOrEmpty(user.dislikes[i]))
+                    objCommand.Parameters.AddWithValue($"@dislike{i + 1}", user.dislikes[i]);
+                else
+                    objCommand.Parameters.AddWithValue($"@dislike{i + 1}", DBNull.Value);
+            }
+
+            // Check and add restaurant parameter
+            if (!string.IsNullOrEmpty(user.restaurant))
+                objCommand.Parameters.AddWithValue("@restaurant", user.restaurant);
+            else
+                objCommand.Parameters.AddWithValue("@restaurant", DBNull.Value);
+
+            // Check and add book parameter
+            if (!string.IsNullOrEmpty(user.book))
+                objCommand.Parameters.AddWithValue("@book", user.book);
+            else
+                objCommand.Parameters.AddWithValue("@book", DBNull.Value);
+
+            // Check and add movie parameter
+            if (!string.IsNullOrEmpty(user.movie))
+                objCommand.Parameters.AddWithValue("@movie", user.movie);
+            else
+                objCommand.Parameters.AddWithValue("@movie", DBNull.Value);
+
+            // Check and add quote parameter
+            if (!string.IsNullOrEmpty(user.quote))
+                objCommand.Parameters.AddWithValue("@quote", user.quote);
+            else
+                objCommand.Parameters.AddWithValue("@quote", DBNull.Value);
+
+            // Check and add catOrDog parameter
+            if (!string.IsNullOrEmpty(user.catOrDog))
+                objCommand.Parameters.AddWithValue("@catOrDog", user.catOrDog);
+            else
+                objCommand.Parameters.AddWithValue("@catOrDog", DBNull.Value);
+
+            // Check and add commitmentType parameter
+            if (!string.IsNullOrEmpty(user.commitmentType))
+                objCommand.Parameters.AddWithValue("@commitmentType", user.commitmentType);
+            else
+                objCommand.Parameters.AddWithValue("@commitmentType", DBNull.Value);
+
+            // Check and add accountVisible parameter
+            if (!string.IsNullOrEmpty(user.accountVisible))
+                objCommand.Parameters.AddWithValue("@accountVisible", user.accountVisible);
+            else
+                objCommand.Parameters.AddWithValue("@accountVisible", DBNull.Value);
 
             // update DB
             objDB.DoUpdateUsingCmdObj(objCommand);
-
 
 
 
