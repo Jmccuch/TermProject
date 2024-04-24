@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.ApplicationModels;
 using System.Data;
 using TermProject.Models;
 using TermProjectAPI;
@@ -20,10 +21,14 @@ namespace TermProject.Controllers
         public IActionResult Index()
         {
          
-          
+            UserSearchFilterModel filterModel = new UserSearchFilterModel();    
+
+           
             potentialMatches = api.GetUserPotentialMatches(username);
 
-            return View(potentialMatches);
+            filterModel.users = potentialMatches;
+
+            return View(filterModel);
         }
 
 
@@ -68,12 +73,16 @@ namespace TermProject.Controllers
             {
                 if (potentialMatches.Contains(user)) { 
                     potentialMatches.Remove(user);
-                
                 }
 
             }
-            
-            return View("~/Views/Main/Index.cshtml", potentialMatches);
+
+            UserSearchFilterModel filterModel = new UserSearchFilterModel();
+
+            filterModel.users = potentialMatches;
+
+
+            return View("~/Views/Main/Index.cshtml", filterModel);
         }
 
 

@@ -1,4 +1,4 @@
-﻿@model List<TermProjectAPI.User>
+﻿@model UserSearchFilterModel
 
 @{
     ViewData["Title"] = "Main";
@@ -17,7 +17,7 @@
         <p class="h2">Filters:</p>
         <p style="margin-left: 40px">
             <p class="lead font-weight-bold">Cat or Dogs:
-            <select id="DropDownListCatOrDog" name="CatOrDog">
+            <select id="DropDownListCatOrDog" asp-for="CatOrDog" name="CatOrDog">
                 <option value="No Selection">No Selection</option>
                 <option value="Neither">Neither</option>
                 <option value="Cat">Cat</option>
@@ -25,7 +25,7 @@
                    asp-for="UserSearchFilterModel.CatOrDog">
             </select>
             &nbsp|&nbsp;State:
-            <select id="DropDownListStates" name="State">
+            <select id="DropDownListStates" name="State" asp-for="State">
                 <option value="No Selection">No Selection</option>
                 <option value="Alabama">Alabama</option>
                     <option value="Alaska">Alaska</option>
@@ -79,7 +79,7 @@
                     <option value="Wyoming">Wyoming</option>
                 </select>
             &nbsp|&nbsp;Desired Relationship:
-            <select id="DropDownListCommitmentType" name="CommitmentType">
+            <select id="DropDownListCommitmentType" asp-for="CommitmentType" name="CommitmentType">
                 <option value="No Selection">No Selection</option>
                 <option value="Friends">Friends</option>
                 <option value="Relationship">Relationship</option>
@@ -87,9 +87,10 @@
                 <option value="Not Sure">Not Sure</option>
             </select>
             &nbsp|&nbsp;Age Range:
-            <input type="text" id="txtLowAge" name="LowAge" style="width:3%" />
-            -
-            <input type="text" id="txtHighAge" name="HighAge" style="width:3%"/>
+            <input type="text" id="txtLowAge" asp-for="LowAge" name="LowAge" style="width:3%" />
+                -
+            <input type="text" id="txtHighAge" asp-for="HighAge" name="HighAge" style="width:3%" />
+
         </p>
         <br />
         <button type="submit" class="btn btn-danger">Search</button>
@@ -103,9 +104,9 @@
     <div>
         
 
-        @for (int i = 0; i < Model.Count; i++)
+        @for (int i = 0; i < Model.users.Count; i++)
         {
-            var profile = Model[i];
+            var profile = Model.users[i];
 
             if (i % 3 == 0)
             {
@@ -146,7 +147,7 @@
                 </div>
             </div>
 
-            if (i % 3 == 2 || i == Model.Count - 1)
+            if (i % 3 == 2 || i == Model.users.Count - 1)
             {
                 // End the current row
                 @:</div>

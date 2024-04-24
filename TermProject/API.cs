@@ -114,7 +114,7 @@ namespace TermProject
             reader.Close();
             response.Close();
 
-            // Deserialize JSON string into a list of User objects
+            // Deserialize 
             List<UserAccount> accounts = JsonSerializer.Deserialize<List<UserAccount>>(jsonData);
 
 
@@ -130,36 +130,35 @@ namespace TermProject
 
         public void UpdateUserInfo(User user, string username)
         {
-            // Create an anonymous object to hold both user and username
+            // obj to hold both
             var requestData = new
             {
                 User = user,
                 Username = username
             };
 
-            // Serialize the requestData object to JSON
+            // Serialize 
             string jsonData = JsonSerializer.Serialize(requestData);
 
-            // Construct the request URL
             string route = $"{urlAPI}TermProjectAPI/Profile/UpdateUserInfo";
 
-            // Create a web request
+  
             WebRequest request = WebRequest.Create(route);
-            request.Method = "PUT"; // Specify the HTTP method
-            request.ContentType = "application/json"; // Specify the content type
+            request.Method = "PUT"; 
+            request.ContentType = "application/json"; 
 
-            // Write data to the request body
+            
             using (var streamWriter = new StreamWriter(request.GetRequestStream()))
             {
-                streamWriter.Write(jsonData); // Write JSON data to the stream
-                streamWriter.Flush(); // Flush the stream to ensure all data is sent
-                streamWriter.Close(); // Close the stream
+                streamWriter.Write(jsonData); 
+                streamWriter.Flush(); 
+                streamWriter.Close(); 
             }
 
-            // Get the response from the server
+           
             using (WebResponse response = request.GetResponse())
             {
-                // Close the response
+                
                 response.Close();
             }
         }
