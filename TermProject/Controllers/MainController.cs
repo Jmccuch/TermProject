@@ -48,7 +48,8 @@ namespace TermProject.Controllers
             System.Diagnostics.Debug.WriteLine("Filters:");
             System.Diagnostics.Debug.WriteLine(userSearchFilterModel.State);
             System.Diagnostics.Debug.WriteLine(userSearchFilterModel.CommitmentType);
-            System.Diagnostics.Debug.WriteLine(userSearchFilterModel.Occupation);
+            System.Diagnostics.Debug.WriteLine(userSearchFilterModel.LowAge);
+            System.Diagnostics.Debug.WriteLine(userSearchFilterModel.HighAge);
             System.Diagnostics.Debug.WriteLine(userSearchFilterModel.CatOrDog);
 
             // go through filters
@@ -57,7 +58,7 @@ namespace TermProject.Controllers
 
             RelationshipFilter(userSearchFilterModel);
 
-            SameOccupationFilter(userSearchFilterModel);
+            AgeRangeFilter(userSearchFilterModel);
 
             CatDogFilter(userSearchFilterModel);
 
@@ -130,39 +131,34 @@ namespace TermProject.Controllers
 
 
 
-        private void SameOccupationFilter(UserSearchFilterModel userSearchFilterModel)
+        private void AgeRangeFilter(UserSearchFilterModel userSearchFilterModel)
         {
-            // same occupation is checked
-            if (userSearchFilterModel.Occupation == true)
+            // Age
+            if ((userSearchFilterModel.HighAge != 0 && userSearchFilterModel.LowAge != 0) || (userSearchFilterModel.LowAge == 0 && userSearchFilterModel.HighAge != 0) )
             {
-
-                // retrieve account info
-                
+                System.Diagnostics.Debug.WriteLine("not 0s");
 
 
-                // first (and only row)
-
-                // set occupation
-                string occupation = "Super Hero";
-
-
-                // remove rows with differnt occupations
                 foreach (User user in potentialMatches)
                 {
-                    System.Diagnostics.Debug.WriteLine("if" + user.occupation + "!=" + occupation);
-                    if (!user.occupation.Equals(occupation))
+                  
+                    if (!((userSearchFilterModel.LowAge <= user.age) && (user.age <= userSearchFilterModel.HighAge)))
                     {
-                        // check if already in list
+                        System.Diagnostics.Debug.WriteLine("age doesnt match");
+
+                        // check if already in list to remove
                         if (!filteredUsers.Contains(user))
                         {
+
+
                             // add
                             filteredUsers.Add(user);
                         }
                     }
                 }
-
             }
         }
+        
 
 
         private void CatDogFilter(UserSearchFilterModel userSearchFilterModel)

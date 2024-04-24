@@ -86,8 +86,10 @@
                 <option value="Marriage">Marriage</option>
                 <option value="Not Sure">Not Sure</option>
             </select>
-            &nbsp|&nbsp;Same Occupation:
-                <input id="CheckBoxOccupation" type="checkbox" name="Occupation" />
+            &nbsp|&nbsp;Age Range:
+            <input type="text" id="txtLowAge" name="LowAge" style="width:3%" />
+            -
+            <input type="text" id="txtHighAge" name="HighAge" style="width:3%"/>
         </p>
         <br />
         <button type="submit" class="btn btn-danger">Search</button>
@@ -137,7 +139,7 @@
                        <form asp-controller="Main" asp-action="ViewProfile" method="post">
                             <input type="hidden" name="username" value="@profile.userAccount.userName" />
                             <button type="submit" class="btn btn-success">Like</button>
-                            <button type="submit" class="btn btn-danger">View Profile</button>
+                            <button type="submit" class="btn btn-info" style="color:white">View Profile</button>
                     </form>
 
                          <br />

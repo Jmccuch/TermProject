@@ -71,6 +71,43 @@ namespace TermProject.Controllers
 
             if (goodAccount)
             {
+
+
+                // check if remember me is selected
+
+                bool addToCookie = Request.Form["rememberMe"] == "on";
+                if (addToCookie == true)
+                {
+
+                    // add cookie
+                    System.Diagnostics.Debug.WriteLine("COOKIE!");
+
+                    CookieOptions options = new CookieOptions();
+                    options.Expires = DateTime.Now.AddDays(7);
+
+                    if (username != null)
+                    {
+
+                        Response.Cookies.Append("Username", username, options);
+
+
+                    }
+
+                }
+
+                else
+                {
+                    // Remove cookie
+                    if (Request.Cookies["Username"] == username)
+                    {
+                        // Delete the "Username" cookie
+                        Response.Cookies.Delete("Username");
+                    }
+                }
+
+                // save username before redirecting
+                HttpContext.Session.SetString("Username", username);
+
                 return RedirectToAction("Index", "Dashboard");
             }
             else

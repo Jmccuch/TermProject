@@ -125,5 +125,44 @@ namespace TermProject
 
         }
 
+
+
+
+        public void UpdateUserInfo(User user, string username)
+        {
+            // Create an anonymous object to hold both user and username
+            var requestData = new
+            {
+                User = user,
+                Username = username
+            };
+
+            // Serialize the requestData object to JSON
+            string jsonData = JsonSerializer.Serialize(requestData);
+
+            // Construct the request URL
+            string route = $"{urlAPI}TermProjectAPI/Profile/UpdateUserInfo";
+
+            // Create a web request
+            WebRequest request = WebRequest.Create(route);
+            request.Method = "PUT"; // Specify the HTTP method
+            request.ContentType = "application/json"; // Specify the content type
+
+            // Write data to the request body
+            using (var streamWriter = new StreamWriter(request.GetRequestStream()))
+            {
+                streamWriter.Write(jsonData); // Write JSON data to the stream
+                streamWriter.Flush(); // Flush the stream to ensure all data is sent
+                streamWriter.Close(); // Close the stream
+            }
+
+            // Get the response from the server
+            using (WebResponse response = request.GetResponse())
+            {
+                // Close the response
+                response.Close();
+            }
+        }
+
     }
 }

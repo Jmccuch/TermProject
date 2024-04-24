@@ -5,7 +5,8 @@
         public string CatOrDog { get; set; }
         public string State { get; set; }
         public string CommitmentType { get; set; }
-        public bool Occupation { get; set; }
+        public int HighAge { get; set; }
 
+        public int LowAge { get; set; }
     }
 }
