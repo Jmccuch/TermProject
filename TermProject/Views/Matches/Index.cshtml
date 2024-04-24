@@ -1,6 +1,6 @@
 ﻿@model List<TermProjectAPI.User>
 @{
-    ViewData["Title"] = "Likes";
+    ViewData["Title"] = "Matches";
 }
 
 @{
@@ -8,16 +8,16 @@
 }
 
 <div class="jumbotron jumbotron-fluid" style="background-color:lightpink">   
-        <h1 style=" margin-top:5rem;text-align:center; color:darkred">Likes</h1>
+        <h1 style=" margin-top:5rem;text-align:center; color:darkred">Matches</h1>
 </div>
-<div class="jumbotron jumbotron-fluid" style="background-color:indianred">
+<div class="jumbotron jumbotron-fluid" style="background-color:lightsalmon">
     <div class="container">
         
         @for (int i = 0; i < Model.Count; i++)
         {
            
             var profile = Model[i];
-            <div class="jumbotron jumbotron-fluid" style="background-color:lightpink; padding:5rem;">
+            <div class="jumbotron jumbotron-fluid" style="background-color:lightgoldenrodyellow; padding:5rem;">
             @if (i % 2 == 0)
             {
                 // Start a new row
@@ -44,8 +44,10 @@
                         <p>"@profile.description"</p>
 
 
-                       
-
+                       <form asp-controller="Matches" asp-action="DateRequest" method="post">
+                            <button type="submit" class="btn btn-warning" style="color:white; width:40%">Send Date Request</button>
+                       </form>   
+                            <br />
                     <form asp-controller="Main" asp-action="ViewProfile" method="post">
                             <input type="hidden" name="username" value="@profile.userAccount.userName" />
                             <button type="submit" class="btn btn-danger">Delete</button>
