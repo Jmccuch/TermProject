@@ -54,6 +54,7 @@ namespace TermProjectAPI.Controllers
 
                 }
 
+
                 if (record["Height"].ToString() != "")
                 {
 
