@@ -22,3 +22,10 @@
     height: calc(100vh - 100px);
     overflow-y: auto;
 }
+
+likecent {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
