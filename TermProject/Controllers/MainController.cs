@@ -8,7 +8,9 @@ namespace TermProject.Controllers
 {
     public class MainController : Controller
     {
-        string username = "Jmccuch";
+
+
+
 
         API api = new API();
 
@@ -21,9 +23,10 @@ namespace TermProject.Controllers
         public IActionResult Index()
         {
          
-            UserSearchFilterModel filterModel = new UserSearchFilterModel();    
+            UserSearchFilterModel filterModel = new UserSearchFilterModel();
 
-           
+            string username = HttpContext.Session.GetString("Username");
+
             potentialMatches = api.GetUserPotentialMatches(username);
 
             filterModel.users = potentialMatches;
@@ -43,6 +46,10 @@ namespace TermProject.Controllers
         [HttpPost]
         public IActionResult ApplyFilters(UserSearchFilterModel userSearchFilterModel)
         {
+
+
+
+            string username = HttpContext.Session.GetString("Username");
 
             // rest all potential matches intially 
             List<User> profiles = api.GetUserPotentialMatches(username);

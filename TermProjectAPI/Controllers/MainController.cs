@@ -18,6 +18,9 @@ namespace TermProjectAPI.Controllers
         {
             objCommand.CommandType = CommandType.StoredProcedure;
             objCommand.CommandText = "GetUserPotentialMatches";
+
+            System.Diagnostics.Debug.WriteLine("USERNAME TO REMOVE:" + username);
+
             objCommand.Parameters.Clear();
             objCommand.Parameters.AddWithValue("@userName", username);
             objCommand.Parameters.AddWithValue("@accountVisible", "Yes");
@@ -34,7 +37,20 @@ namespace TermProjectAPI.Controllers
                 account.firstName = record["FirstName"].ToString();
                 account.userName = record["UserName"].ToString();
                 profile.userAccount = account;
-                profile.age = int.Parse(record["Age"].ToString());
+
+                try
+                {
+                    if (record["Age"] != null)
+                    {
+                        profile.age = int.Parse(record["Age"].ToString());
+                    }
+                }
+                catch (FormatException)
+                {
+                    // null
+                    profile.age = 0;
+                }
+
                 profile.profileImage = record["ProfileImage"].ToString();
                 profile.city = record["City"].ToString();
                 profile.state = record["State"].ToString();

@@ -127,7 +127,19 @@
                         }
                         <h2 style="color:darkred">@profile.userAccount.firstName</h2>
 
-                        <h4>@profile.age</h4>
+                        @if (profile.age != 0)
+                        {
+                             <h4>@profile.age</h4>
+
+                        }
+
+                        else
+                        {
+                            <h4>No Age Selected</h4>      
+                        
+                        }
+
+                   
                     
                         <h4>@profile.city, @profile.state</h4>
 

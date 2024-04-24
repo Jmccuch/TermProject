@@ -99,7 +99,7 @@ namespace TermProjectAPI.Controllers
                 profile.occupation = record["Occupation"].ToString();
                 profile.catOrDog = record["CatOrDog"].ToString();
 
-
+                profile.accountVisible = record["AccountVisible"].ToString();
                 info = profile;
             }
 
@@ -107,6 +107,9 @@ namespace TermProjectAPI.Controllers
 
             return info;
         }
+
+
+
 
 
         public class UserInfoDto
@@ -284,6 +287,9 @@ namespace TermProjectAPI.Controllers
                 objCommand.Parameters.AddWithValue("@commitmentType", DBNull.Value);
 
             // Check and add accountVisible parameter
+
+            System.Diagnostics.Debug.WriteLine("AV  " + user.accountVisible);
+
             if (!string.IsNullOrEmpty(user.accountVisible))
                 objCommand.Parameters.AddWithValue("@accountVisible", user.accountVisible);
             else
