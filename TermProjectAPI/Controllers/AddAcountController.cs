@@ -88,10 +88,50 @@ namespace TermProjectAPI.Controllers
                 account.password = record["Password"].ToString();
 
 
+                objCommand.CommandType = CommandType.StoredProcedure;
+                objCommand.CommandText = "GetSecurityAnswersViaUsername";
+                objCommand.Parameters.Clear();
+                objCommand.Parameters.AddWithValue("@Username", account.userName);
+
+                DataSet questions = objDB.GetDataSetUsingCmdObj(objCommand);
+
+                foreach (DataRow row in questions.Tables[0].Rows)
+                {
+
+                    account.answer1 = row["SecurityAnswer1"].ToString();
+
+                    account.answer2 = row["SecurityAnswer2"].ToString();
+
+                    account.answer3 = row["SecurityAnswer3"].ToString();
+                }
+
                 accounts.Add(account);
             }
 
             return accounts;
+        }
+
+        public class PasswordUpdateDto
+        {
+            public string username { get; set; }
+            public string newPassword { get; set; }
+        }
+
+        [HttpPut("UpdateUserPassword")]
+        public void UpdateUserPassword([FromBody] PasswordUpdateDto info)
+        {
+            System.Diagnostics.Debug.WriteLine("USERNAME" + info.username);
+            System.Diagnostics.Debug.WriteLine("PASSWORD" + info.newPassword);
+            objCommand.CommandType = CommandType.StoredProcedure;
+            objCommand.CommandText = "UpdateUserPassword";
+
+            objCommand.Parameters.Clear();
+
+            objCommand.Parameters.AddWithValue("@Username", info.username);
+            objCommand.Parameters.AddWithValue("@Password", info.newPassword);
+
+            objDB.DoUpdate(objCommand);
+
         }
     }
 }

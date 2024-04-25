@@ -1,0 +1,66 @@
+﻿@model TermProject.Models.AccountModel
+@{
+    ViewData["Title"] = "Forgot Password";
+}
+
+@{
+    Layout = "LoginLayout";
+}
+
+<div class="center-div">
+    <div class="centered-content">
+        <h2 style="color:darkred;">Reset Password</h2>
+        <form asp-controller="ForgotPassword" asp-action="ResetPassword" method="post">
+
+            @if (ViewBag.Invalid != null)
+            {
+                <br />
+                <div style="color:red">
+                    <p>@ViewBag.Invalid</p>
+                </div>
+            }
+
+            <br />
+            <label asp-for="UserName">Username: </label>
+            <input asp-for="UserName" />
+            <br />
+            <label asp-for="Password">New Password: </label>
+            <input asp-for="Password" />
+            <br />
+            <br />
+
+            <h5>Security Questions:</h5>
+
+            <label asp-for="Answer1">What is Your Mother's Maiden Name?</label>
+            <br />
+            <input asp-for="Answer1" />
+            <br />
+            <span for="Answer1" class="error-message"></span>
+            <br />
+
+            <label asp-for="Answer2">What City Were You Born in? </label>
+            <br />
+            <input asp-for="Answer2" />
+            <br />
+            <span for="Answer2" class="error-message"></span>
+            <br />
+
+
+            <label asp-for="Answer3">What Was Your Favorite Childhood Toy? </label>
+            <br />
+            <input asp-for="Answer3" />
+            <br />
+            <span for="Answer3" class="error-message"></span>
+            <br />
+
+            <button type="submit" id="btnResetPassword" class="btn btn-danger">Reset Password</button>
+        </form>
+    </div>
+</div>
+
+
+<footer class="bg-dark">
+    <div class="container text-light text-center">
+        <h5 class="p-5 mb-3">Copyright © 2024 Love Lounge. All rights reserved.</h5>
+    </div>
+</footer>

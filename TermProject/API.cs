@@ -164,6 +164,42 @@ namespace TermProject
             }
         }
 
+        public void UpdateUserPassword(string username, string newPassword)
+        {
+            // obj to hold both
+            var requestData = new
+            {
+           
+                Username = username,
+                NewPassword = newPassword
+            };
+
+            // Serialize 
+            string jsonData = JsonSerializer.Serialize(requestData);
+
+            string route = $"{urlAPI}TermProjectAPI/AddAccount/UpdateUserPassword";
+
+
+            WebRequest request = WebRequest.Create(route);
+            request.Method = "PUT";
+            request.ContentType = "application/json";
+
+
+            using (var streamWriter = new StreamWriter(request.GetRequestStream()))
+            {
+                streamWriter.Write(jsonData);
+                streamWriter.Flush();
+                streamWriter.Close();
+            }
+
+
+            using (WebResponse response = request.GetResponse())
+            {
+
+                response.Close();
+            }
+        }
+
 
         public List<string> GetLikers(string username)
         {

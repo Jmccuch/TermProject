@@ -33,6 +33,13 @@ namespace TermProjectAPI.Controllers
 
             DataSet imageGallery = objDB.GetDataSetUsingCmdObj(objCommand);
 
+            objCommand.CommandType = CommandType.StoredProcedure;
+            objCommand.CommandText = "Get2048";
+            objCommand.Parameters.Clear();
+            objCommand.Parameters.AddWithValue("@Username", username);
+
+            DataSet scores = objDB.GetDataSetUsingCmdObj(objCommand);
+
             foreach (DataRow record in userAccount.Tables[0].Rows)
             {
 
@@ -112,7 +119,13 @@ namespace TermProjectAPI.Controllers
                     profile.picture2 = row["Picture2"].ToString();
                     profile.picture3 = row["Picture3"].ToString();
                 }
-                    info = profile;
+
+                foreach (DataRow row in scores.Tables[0].Rows)
+                {
+                    profile.finalScore = int.Parse(row["Score"].ToString());
+                }
+
+                info = profile;
             }
 
 
@@ -278,6 +291,7 @@ namespace TermProjectAPI.Controllers
 
 
             UpdateGallery(username, user);
+            UpdateScore(username, user);
           
 
         }
@@ -335,6 +349,33 @@ namespace TermProjectAPI.Controllers
                 System.Diagnostics.Debug.WriteLine("Here33");
             }
 
+
+            objDB.DoUpdateUsingCmdObj(objCommand);
+        }
+
+        private void UpdateScore(string username, User user)
+        {
+            objCommand.CommandType = CommandType.StoredProcedure;
+            objCommand.CommandText = "AddOrUpdateScore";
+
+            // add params to obj command
+            objCommand.Parameters.Clear();
+
+            objCommand.Parameters.AddWithValue("@Username", username);
+            System.Diagnostics.Debug.WriteLine("Here2 " + user.finalScore);
+
+
+            if (!string.IsNullOrEmpty(user.finalScore.ToString()))
+            {
+                objCommand.Parameters.AddWithValue("@Score", user.finalScore);
+                System.Diagnostics.Debug.WriteLine("Here1");
+            }
+            else
+            {
+
+                objCommand.Parameters.AddWithValue("@Score", DBNull.Value);
+                System.Diagnostics.Debug.WriteLine("Here11");
+            }
 
             objDB.DoUpdateUsingCmdObj(objCommand);
         }
