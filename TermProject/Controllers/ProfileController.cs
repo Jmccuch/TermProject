@@ -16,6 +16,8 @@ namespace TermProject.Controllers
 
             User user = api.GetUserInfo(username);
 
+            System.Diagnostics.Debug.WriteLine("PICTURE URL " + user.picture1);
+
             return View(user);
         }
         public IActionResult RedirectLogOut()

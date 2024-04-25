@@ -12,18 +12,18 @@
     <div class="container">
         <div class="row">
             <div class="col">
-                <a target="_blank" href="~/css/sunset.jpg">
-                    <img src="~/css/sunset.jpg" alt="Cinque Terre" width="325" height="200">
+                <a target="_blank" href="@Model.picture1">
+                    <img src="@Model.picture1" alt="Image Unavailable" width="325" height="200">
                 </a>
             </div>
             <div class="col">
-                <a target="_blank" href="~/css/sunset.jpg">
-                    <img src="~/css/sunset.jpg" alt="Cinque Terre" width="325" height="200">
+                <a target="_blank" href="@Model.picture2">
+                    <img src="@Model.picture2" alt="Image Unavailable" width="325" height="200">
                 </a>
             </div>
             <div class="col">
-                <a target="_blank" href="~/css/sunset.jpg">
-                    <img src="~/css/sunset.jpg" alt="Cinque Terre" width="325" height="200">
+                <a target="_blank" href="@Model.picture3">
+                    <img src="@Model.picture3" alt="Image Unavailable" width="325" height="200">
                 </a>
             </div>
         </div>
@@ -31,6 +31,12 @@
 </div>
 <div class="jumbotron jumbotron-fluid" style="background-color:blanchedalmond">
     <div class="container" style="text-align:center;">
+        @if (!string.IsNullOrEmpty(Model.profileImage))
+        {
+            <img src="@Model.profileImage" alt="Profile Image" width="300" height="300">
+        }
+        <br />
+        <br />
         <h1 style="color:darkred">@Model.userAccount.firstName</h1>
         <br />
         <h4>Age: @Model.age</h4>

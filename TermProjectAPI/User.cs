@@ -34,11 +34,14 @@
      
         public List<string> likes { get; set; }
         public List<string> dislikes { get; set; }
-        
+
+        public string picture1 { get; set; }
+        public string picture2 { get; set; }
+        public string picture3 { get; set; }
 
 
 
-            public User(UserAccount userAccount, string profileImage, string phoneNumber, string address, string city, string state, string occupation, string catOrDog, string description
+        public User(UserAccount userAccount, string profileImage, string phoneNumber, string address, string city, string state, string occupation, string catOrDog, string description
                 , int age, float height, float weight, string restaurant, string book, string movie, string quote, string commitmentType, List<string> likes, List<string> dislikes, string accountVisible)
             {
 
@@ -75,7 +78,8 @@
 
 
         }
-    }
+
+}
 
 
 

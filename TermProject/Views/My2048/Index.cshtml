@@ -1,0 +1,46 @@
+﻿@{
+    ViewData["Title"] = "2048";
+}
+
+@{
+    Layout = "My2048Layout";
+}
+
+
+
+<body>
+    <div class="jumbotron jumbotron fluid" style=" background-color:lightpink;">
+        <div class="container text-center" style="margin-top:3rem;">
+            <h1 style="color:darkred;">2048</h1>
+            <div style="color:darkblue">
+            <h5>Use Arrows on Keyboard to Play</h5>
+            <h5>Objective: Get Score as High as Possible Without Filling Every Block</h5>
+            <h5>Once You Can no Longer Move Press Finish</h5>
+            </div>
+            <br/>
+            <h2 style="color: forestgreen">Score: <span id="score">0</span></h2>
+            <div id="board">
+            </div>
+            <br />
+            <form asp-controller="My2048" asp-action="FinalScore" method="post" id="scoreForm">
+                <input type="hidden" name="score" id="scoreInput" />
+                <button type="submit" id="btnFinish" class="btn btn-danger m-3" style="width: 50%">Finish</button>
+            </form>
+        </div>
+    </div>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            document.getElementById('btnFinish').addEventListener('click', function (event) {
+                event.preventDefault();
+                var score = document.getElementById('score').textContent;
+                document.getElementById('scoreInput').value = score;
+                document.getElementById('scoreForm').submit();
+            });
+        });
+    </script>
+    <footer class="bg-dark">
+        <div class="container text-light text-center">
+            <h5 class="p-5 mb-3">Copyright © 2024 Love Lounge. All rights reserved.</h5>
+        </div>
+    </footer>
+</body>
