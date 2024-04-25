@@ -26,7 +26,12 @@ namespace TermProjectAPI.Controllers
 
             User info = new User();
 
-            
+            objCommand.CommandType = CommandType.StoredProcedure;
+            objCommand.CommandText = "GetImageGallery";
+            objCommand.Parameters.Clear();
+            objCommand.Parameters.AddWithValue("@Username", username);
+
+            DataSet imageGallery = objDB.GetDataSetUsingCmdObj(objCommand);
 
             foreach (DataRow record in userAccount.Tables[0].Rows)
             {
@@ -101,7 +106,14 @@ namespace TermProjectAPI.Controllers
                 profile.catOrDog = record["CatOrDog"].ToString();
 
                 profile.accountVisible = record["AccountVisible"].ToString();
-                info = profile;
+
+                foreach (DataRow row in imageGallery.Tables[0].Rows)
+                {
+                    profile.picture1 = row["Picture1"].ToString();
+                    profile.picture2 = row["Picture2"].ToString();
+                    profile.picture3 = row["Picture3"].ToString();
+                }
+                    info = profile;
             }
 
             System.Diagnostics.Debug.WriteLine(info.userAccount.firstName);
@@ -299,7 +311,18 @@ namespace TermProjectAPI.Controllers
             // update DB
             objDB.DoUpdateUsingCmdObj(objCommand);
 
+            objCommand.CommandType = CommandType.StoredProcedure;
+            objCommand.CommandText = "AddImageGallery";
 
+            // add params to obj command
+            objCommand.Parameters.Clear();
+
+            objCommand.Parameters.AddWithValue("@Username", username);
+            objCommand.Parameters.AddWithValue("@Picture1", user.picture1);
+            objCommand.Parameters.AddWithValue("@Picture2", user.picture2);
+            objCommand.Parameters.AddWithValue("@Picture3", user.picture3);
+
+            objDB.DoUpdateUsingCmdObj(objCommand);
 
         }
 

@@ -182,14 +182,20 @@
                 <p>Restaurant: <input asp-for="restaurant" /></p>
                 <p>Quote: <input asp-for="quote" /></p>
                 <br />
-                <p>Make My Profile visible to other members?:</p>
+                <h4 style="color:seagreen">Image Gallery:</h4>
+                <br />
+                <p>1: <input asp-for="picture1" /></p>
+                <p>2: <input asp-for="picture2" /></p>
+                <p>3: <input asp-for="picture3" /></p>
+                <br />
+                <h5>Make Profile Visible to Others?:</h5>
                 <select asp-for="accountVisible">
                     <option>No</option>
                     <option>Yes</option>
                 </select>
                 <br />
                 <br />
-                <button type="submit" class="btn btn-danger">Update Profile</button>
+                <button type="submit" class="btn btn-info" style="color:white">Update Profile</button>
 
 
     </form>
