@@ -163,5 +163,139 @@ namespace TermProject
             }
         }
 
+
+        public List<string> GetLikers(string username)
+        {
+            string route = $"{urlAPI}TermProjectAPI/Like/GetLikers/{username}";
+
+            WebRequest request = WebRequest.Create(route);
+            request.Method = "GET";
+
+            WebResponse response = request.GetResponse();
+            Stream dataStream = response.GetResponseStream();
+            StreamReader reader = new StreamReader(dataStream);
+            string jsonData = reader.ReadToEnd();
+
+            reader.Close();
+            response.Close();
+
+            // Deserialize 
+            List<string> likers = JsonSerializer.Deserialize<List<string>>(jsonData);
+
+            return likers;
+        }
+
+
+
+        public List<int> GetLikeIDs()
+        {
+            string route = $"{urlAPI}TermProjectAPI/Like/GetLikeIDs";
+
+            WebRequest request = WebRequest.Create(route);
+            request.Method = "GET";
+
+            WebResponse response = request.GetResponse();
+            Stream dataStream = response.GetResponseStream();
+            StreamReader reader = new StreamReader(dataStream);
+            string jsonData = reader.ReadToEnd();
+
+            reader.Close();
+            response.Close();
+
+            // Deserialize 
+            List<int> likeIDs = JsonSerializer.Deserialize<List<int>>(jsonData);
+
+            return likeIDs;
+        }
+
+
+        public void AddNewLike(int likeID, string liker, string likedUser)
+        {
+            System.Diagnostics.Debug.WriteLine("BA: " + likeID);
+
+
+            // obj to hold data
+            var requestData = new
+            {
+                LikeID = likeID,
+                Liker = liker,
+                LikedUser = likedUser
+            };
+
+            System.Diagnostics.Debug.WriteLine("BA: " + likeID);
+
+            // Serialize all 3 
+            string jsonData = JsonSerializer.Serialize(requestData);
+
+            string route = $"{urlAPI}TermProjectAPI/Like/AddNewLike";
+
+
+            WebRequest request = WebRequest.Create(route);
+            request.Method = "PUT";
+            request.ContentType = "application/json";
+
+
+            using (var streamWriter = new StreamWriter(request.GetRequestStream()))
+            {
+                streamWriter.Write(jsonData);
+                streamWriter.Flush();
+                streamWriter.Close();
+            }
+
+            using (WebResponse response = request.GetResponse())
+            {
+
+                response.Close();
+            }
+
+
+        }
+
+
+
+        // remove like
+        public class LikeData
+        {
+            public string LoggedInUserName { get; set; }
+            public string RemoveUserName { get; set; }
+        }
+
+        public void RemoveLike(string loggedInUserName, string removeUserName)
+        {
+
+
+            // obj to hold data
+            var requestData = new
+            {
+                LoggedInUserName = loggedInUserName,
+                RemoveUserName = removeUserName
+            };
+
+
+            // Serializ 
+            string jsonData = JsonSerializer.Serialize(requestData);
+
+            string route = $"{urlAPI}TermProjectAPI/Like/RemoveLike";
+
+
+            WebRequest request = WebRequest.Create(route);
+            request.Method = "DElETE";
+            request.ContentType = "application/json";
+
+
+            using (var streamWriter = new StreamWriter(request.GetRequestStream()))
+            {
+                streamWriter.Write(jsonData);
+                streamWriter.Flush();
+                streamWriter.Close();
+            }
+
+            using (WebResponse response = request.GetResponse())
+            {
+
+                response.Close();
+            }
+        }
+
     }
 }

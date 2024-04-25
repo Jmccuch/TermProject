@@ -94,11 +94,24 @@
         </p>
         <br />
         <button type="submit" class="btn btn-danger">Search</button>
+
+
+
+      
+
+
     </div>
     </div>
 </form>
 
-
+                 <!-- Message if profile was liked-->
+                @if (ViewBag.YouLiked != null)
+                {
+                    <div style="color:lawngreen; padding-top: 1%; margin:0 auto">
+                       <h3>Message: @ViewBag.YouLiked</h3> 
+                    </div>
+                }
+          
 
 <div class="text-center" style="margin: 3rem;">
     <div>
@@ -151,9 +164,18 @@
 
                        <form asp-controller="Main" asp-action="ViewProfile" method="post">
                             <input type="hidden" name="username" value="@profile.userAccount.userName" />
-                            <button type="submit" class="btn btn-success">Like</button>
+                           
                             <button type="submit" class="btn btn-info" style="color:white">View Profile</button>
-                    </form>
+                        </form>
+
+                        <form asp-controller="Main" asp-action="AddLike" method="post" >
+                              <input type="hidden" name="username" value="@profile.userAccount.userName" />
+                              <input type="hidden" name="name" value="@profile.userAccount.firstName" />
+
+                             <button type="submit" class="btn btn-success">Like</button>
+
+                         </form>
+
 
                          <br />
                 </div>

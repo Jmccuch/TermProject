@@ -38,7 +38,6 @@ namespace TermProjectAPI.Controllers
                 profile.phoneNumber = record["PhoneNumber"].ToString();
                 profile.address = record["Address"].ToString();
 
-
                 account.firstName = record["FirstName"].ToString();
                 account.lastName = record["LastName"].ToString();
                 account.email = record["Email"].ToString();
@@ -46,7 +45,7 @@ namespace TermProjectAPI.Controllers
 
                 profile.userAccount = account;
 
-                System.Diagnostics.Debug.WriteLine("AGE VALUE: " + record["Age"].ToString());    
+                System.Diagnostics.Debug.WriteLine("ACCOUNT FN: " + profile.userAccount.firstName);    
 
                 if (record["Age"].ToString() != "") {
 
@@ -101,10 +100,16 @@ namespace TermProjectAPI.Controllers
                 profile.catOrDog = record["CatOrDog"].ToString();
 
                 profile.accountVisible = record["AccountVisible"].ToString();
-                info = profile;
+                info = profile; 
+                
+                System.Diagnostics.Debug.WriteLine("yeah" + info.userAccount.firstName);
+
+
             }
 
-            System.Diagnostics.Debug.WriteLine(info.userAccount.firstName);
+            System.Diagnostics.Debug.WriteLine("Here2 " + info.quote);
+
+            System.Diagnostics.Debug.WriteLine("HERRRRRRRE" + info.userAccount.firstName);
 
             return info;
         }
@@ -127,41 +132,6 @@ namespace TermProjectAPI.Controllers
         {
             User user = userInfo.User;
             string username = userInfo.Username;
-
-
-            System.Diagnostics.Debug.WriteLine("ADDING: ");
-            System.Diagnostics.Debug.WriteLine("Username: " + username);
-            System.Diagnostics.Debug.WriteLine("ProfileImage: " + user.profileImage);
-            System.Diagnostics.Debug.WriteLine("PhoneNumber: " + user.phoneNumber);
-            System.Diagnostics.Debug.WriteLine("Address: " + user.address);
-            System.Diagnostics.Debug.WriteLine("City: " + user.city);
-            System.Diagnostics.Debug.WriteLine("State: " + user.state);
-            System.Diagnostics.Debug.WriteLine("Occupation: " + user.occupation);
-            System.Diagnostics.Debug.WriteLine("Description: " + user.description);
-            System.Diagnostics.Debug.WriteLine("Age: " + user.age);
-            System.Diagnostics.Debug.WriteLine("Weight: " + user.weight);
-            System.Diagnostics.Debug.WriteLine("Height: " + user.height);
-
-            System.Diagnostics.Debug.WriteLine("Like1: " + user.likes[0]);
-            System.Diagnostics.Debug.WriteLine("Like2: " + user.likes[1]);
-            System.Diagnostics.Debug.WriteLine("Like3: " + user.likes[2]);
-            System.Diagnostics.Debug.WriteLine("Like4: " + user.likes[3]);
-            System.Diagnostics.Debug.WriteLine("Like5: " + user.likes[4]);
-
-            System.Diagnostics.Debug.WriteLine("Dislike1: " + user.dislikes[0]);
-            System.Diagnostics.Debug.WriteLine("Dislike2: " + user.dislikes[1]);
-            System.Diagnostics.Debug.WriteLine("Dislike3: " + user.dislikes[2]);
-            System.Diagnostics.Debug.WriteLine("Dislike4: " + user.dislikes[3]);
-            System.Diagnostics.Debug.WriteLine("Dislike5: " + user.dislikes[4]);
-
-            System.Diagnostics.Debug.WriteLine("Restaurant: " + user.restaurant);
-            System.Diagnostics.Debug.WriteLine("Book: " + user.book);
-            System.Diagnostics.Debug.WriteLine("Movie: " + user.movie);
-            System.Diagnostics.Debug.WriteLine("Quote: " + user.quote);
-            System.Diagnostics.Debug.WriteLine("CatOrDog: " + user.catOrDog);
-
-            System.Diagnostics.Debug.WriteLine("CommitmentType: " + user.commitmentType);
-            System.Diagnostics.Debug.WriteLine("AccountVisible: " + user.accountVisible);
 
 
 

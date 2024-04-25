@@ -22,7 +22,20 @@ namespace TermProject.Controllers
 
         public IActionResult Index()
         {
-         
+
+            if (HttpContext.Session.GetString("LikedUser") != null)
+            {
+                System.Diagnostics.Debug.WriteLine("PICKLE");
+
+                string name = HttpContext.Session.GetString("LikedUser");
+
+                ViewBag.YouLiked = "You Liked " + name + "!";
+
+                HttpContext.Session.Remove("LikedUser");
+
+            }
+
+
             UserSearchFilterModel filterModel = new UserSearchFilterModel();
 
             string username = HttpContext.Session.GetString("Username");
@@ -179,7 +192,7 @@ namespace TermProject.Controllers
 
         private void CatDogFilter(UserSearchFilterModel userSearchFilterModel)
         {
-            System.Diagnostics.Debug.WriteLine("enter");
+        
             //cat, dog, or neither
             if (userSearchFilterModel.CatOrDog != "No Selection")
             {
@@ -206,5 +219,92 @@ namespace TermProject.Controllers
         {
             return View("~/Views/Home/Index.cshtml");
         }
+
+
+
+        public IActionResult AddLike(string username, string name)
+        {
+
+
+            // set profile being liked
+            string likedUser = username;
+
+            // set logged in user
+            string liker = HttpContext.Session.GetString("Username");
+
+            // set like ID
+            int likeID = GetNextLikeID();
+
+            System.Diagnostics.Debug.WriteLine("api getting id :" + likeID);
+
+            // add like to db 
+            api.AddNewLike(likeID, liker, likedUser);
+
+
+            HttpContext.Session.SetString("LikedUser", name);
+
+         
+
+
+
+            // check if like created a match
+            // CheckForMatches(liker, likedUser);
+
+
+
+            return RedirectToAction("Index", "Main");
+
+
+        }
+
+
+
+        private int GetNextLikeID()
+        {
+            // keep track of likeID
+            int likeID = 0;
+
+            // get next highest like id
+
+            List<int> allLikeIDs = api.GetLikeIDs();
+
+            foreach (int id in allLikeIDs) {
+                
+            }
+
+            // Check if list contains any entries
+            if (allLikeIDs != null && allLikeIDs.Count > 0)
+            {
+                // go through each row in like list
+                foreach (int id in allLikeIDs)
+                {
+                    System.Diagnostics.Debug.WriteLine("LIKE ID: " + id);
+
+                    if (id > likeID)
+                    {
+
+                        System.Diagnostics.Debug.WriteLine(id  + ">" + likeID);
+
+                        // Update the maximum LikeID
+                        likeID = id;
+                    }
+
+                }
+
+                // increase the max LikeID 
+                likeID++;
+            }
+            else
+            {
+                //if no likes are found return 1 
+                return 1;
+            }
+
+            // Return the next LikeID
+
+            System.Diagnostics.Debug.WriteLine("returning: " + likeID);
+            return likeID;
+        }
+
     }
 }
