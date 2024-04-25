@@ -14,18 +14,47 @@ namespace TermProject.Controllers
 
         public IActionResult Index()
         {
-            UserAccount account = new UserAccount();
+           
 
-            account.userName = HttpContext.Session.GetString("Username");
+            string userName = HttpContext.Session.GetString("Username");
 
-            List<Match> matches  = api.GetUserMatches(account);
+            List<Match> matches  = new List<Match>();
+
+
+            //build matches
+
+            int index = 0;
+
+            List<string> username2list = api.GetMatchUsername2();
+
+            foreach (string username in api.GetMatchUsername1()) {
+
+                Match match = new Match();
+
+                match.userName1 = username;
+
+           
+                match.userName2 = username2list[index] ;
+
+                index++;
+
+                matches.Add(match);
+            
+            }
+
+
                 
             foreach (Match match in matches) {
 
+                if (match.userName1 == userName) {
 
-                User user = api.GetUserInfo(match.userName2);
+                    System.Diagnostics.Debug.WriteLine("GET PROFILE :" + match.userName2);
 
-                potentialMatches.Add(user);
+                    User user = api.GetUserInfo(match.userName2);
+
+                    potentialMatches.Add(user);
+
+                }
 
             }
 
@@ -35,12 +64,31 @@ namespace TermProject.Controllers
             return View(potentialMatches);
         }
 
+
+
         public IActionResult ViewProfile(string username)
         {
-            System.Diagnostics.Debug.WriteLine("main un: " + username);
+            // save where view profile is being redirected from
+            HttpContext.Session.SetString("ViewProfileRedirectedFrom", "Matches");
+
+            string name = HttpContext.Session.GetString("ViewProfileRedirectedFrom");
 
             return RedirectToAction("Index", "Profile", new { username = username });
         }
+
+
+        public IActionResult DeleteMatch(string username)
+        {
+
+            string loggedInUsername = HttpContext.Session.GetString("Username");
+
+
+            api.RemoveMatches(loggedInUsername, username);
+
+            return RedirectToAction("Index", "Matches");
+        }
+
+
 
         public IActionResult DateRequest(string username)
         {

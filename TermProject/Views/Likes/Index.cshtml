@@ -56,14 +56,19 @@
                         <p>"@profile.description"</p>
 
 
-                       
+                               
+                    <form asp-controller="Main" asp-action="AddLike" method="post" >
+                              <input type="hidden" name="username" value="@profile.userAccount.userName" />
+                              <input type="hidden" name="name" value="@profile.userAccount.firstName" />
+                             <button type="submit" class="btn btn-success">Like</button>
+                    </form>
+                    <br />    
 
                     <form asp-controller="Likes" asp-action="ViewProfile" method="post">
                             <input type="hidden" name="username" value="@profile.userAccount.userName" />
                             <button type="submit" class="btn btn-info" style="color:white">View Profile</button>
                         
                     </form>
-
 
                     <br />
 

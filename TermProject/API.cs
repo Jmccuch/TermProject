@@ -414,16 +414,14 @@ namespace TermProject
             // Deserialize 
             List<Match> matches = JsonSerializer.Deserialize<List<Match>>(jsonData);
 
-
-
             return matches;
         }
 
 
 
-        public List<Match> GetUserMatches(UserAccount account)
+        public List<string> GetMatchUsername1()
         {
-            string route = $"{urlAPI}TermProjectAPI/Match/GetUserMatches";
+            string route = $"{urlAPI}TermProjectAPI/Match/GetMatchUsername1";
 
             WebRequest request = WebRequest.Create(route);
             request.Method = "GET";
@@ -437,9 +435,81 @@ namespace TermProject
             response.Close();
 
             // Deserialize 
-            List<Match> matches = JsonSerializer.Deserialize<List<Match>>(jsonData);
+            List<string> usernames = JsonSerializer.Deserialize<List<string>>(jsonData);
 
-            return matches;
+            System.Diagnostics.Debug.WriteLine("cccc: " + usernames[0]);
+            System.Diagnostics.Debug.WriteLine("ssss: " + usernames[1]);
+            System.Diagnostics.Debug.WriteLine("count: " + usernames.Count);
+            return usernames;
+
+
+        }
+
+
+
+
+        public List<string> GetMatchUsername2()
+        {
+            string route = $"{urlAPI}TermProjectAPI/Match/GetMatchUsername2";
+
+            WebRequest request = WebRequest.Create(route);
+            request.Method = "GET";
+
+            WebResponse response = request.GetResponse();
+            Stream dataStream = response.GetResponseStream();
+            StreamReader reader = new StreamReader(dataStream);
+            string jsonData = reader.ReadToEnd();
+
+            reader.Close();
+            response.Close();
+
+            // Deserialize 
+            List<string> usernames = JsonSerializer.Deserialize<List<string>>(jsonData);
+
+            System.Diagnostics.Debug.WriteLine("cccc: " + usernames[0]);
+            System.Diagnostics.Debug.WriteLine("ssss: " + usernames[1]);
+            System.Diagnostics.Debug.WriteLine("count: " + usernames.Count);
+            return usernames;
+
+
+        }
+
+
+
+
+        public void RemoveMatches(string loggedInUserName, string removeUserName)
+        {
+            // obj to hold data
+            var requestData = new
+            {
+                LoggedInUserName = loggedInUserName,
+                RemoveUserName = removeUserName
+            };
+
+
+            // Serializ 
+            string jsonData = JsonSerializer.Serialize(requestData);
+
+            string route = $"{urlAPI}TermProjectAPI/Match/RemoveMatch";
+
+
+            WebRequest request = WebRequest.Create(route);
+            request.Method = "DElETE";
+            request.ContentType = "application/json";
+
+
+            using (var streamWriter = new StreamWriter(request.GetRequestStream()))
+            {
+                streamWriter.Write(jsonData);
+                streamWriter.Flush();
+                streamWriter.Close();
+            }
+
+            using (WebResponse response = request.GetResponse())
+            {
+
+                response.Close();
+            }
         }
 
 

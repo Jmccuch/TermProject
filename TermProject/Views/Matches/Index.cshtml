@@ -48,13 +48,23 @@
                             <button type="submit" class="btn btn-warning" style="color:white; width:40%">Send Date Request</button>
                        </form>   
                             <br />
-                    <form asp-controller="Main" asp-action="ViewProfile" method="post">
+                    <form asp-controller="Matches" asp-action="ViewProfile" method="post">
                             <input type="hidden" name="username" value="@profile.userAccount.userName" />
-                            <button type="submit" class="btn btn-danger">Delete</button>
+                         
                             <button type="submit" class="btn btn-info" style="color:white">View Profile</button>
-                            <button type="submit" class="btn btn-dark">Home</button>
+                 
                     </form>
+                            <br />
+                      <form asp-controller="Matches" asp-action="DeleteMatch" method="post">
+                          <input type="hidden" name="username" value="@profile.userAccount.userName" />
+                           <button type="submit" class="btn btn-danger">Delete</button>
 
+
+                      </form>
+                         <br />
+                        <form asp-controller="Dashboard" asp-action="Index" method="post">
+                                     <button type="submit" class="btn btn-dark">Home</button>
+                            </form>
                     <br />
                 </div>
             </div>
