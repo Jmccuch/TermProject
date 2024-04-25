@@ -86,8 +86,19 @@
     <div class="container" style="text-align:center;">
         <br />
         <br />
-    <button type="submit" class="btn btn-success" style="width:30%">Like</button>
-        <button type="button" class="btn btn-danger" style="width:30%">Back</button>
+
+
+        <form asp-controller="Main" asp-action="AddLike" method="post" >
+            <input type="hidden" name="username" value="@Model.userAccount.userName" />
+            <input type="hidden" name="name" value="@Model.userAccount.firstName" />
+            <button type="submit" class="btn btn-success" style="width:30%">Like</button>
+        </form>
+        <br />
+        <form asp-controller="Profile" asp-action="Back" method="post">
+            <button type="submit" class="btn btn-danger" style="width:30%">Back</button>
+        </form>
+
+
     </div>
 </div>
 <footer class="bg-dark">

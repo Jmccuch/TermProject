@@ -38,6 +38,31 @@ namespace TermProjectAPI.Controllers
             // isnert into DB
             objDB.DoUpdate(objCommand);
 
+
+
+            // make a gallery for new account
+            MakeNewGallery(userAccount.userName);
+
+
+
+
+        }
+
+        private void MakeNewGallery(string userName)
+        {
+            objCommand.CommandType = CommandType.StoredProcedure;
+            objCommand.CommandText = "AddImageGallery";
+
+            // add params to obj command
+            objCommand.Parameters.Clear();
+
+
+            System.Diagnostics.Debug.WriteLine("GALLERY " + userName);
+
+            objCommand.Parameters.AddWithValue("@Username", userName);
+
+
+            objDB.DoUpdateUsingCmdObj(objCommand);
         }
 
 

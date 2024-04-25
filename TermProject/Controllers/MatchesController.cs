@@ -6,15 +6,31 @@ namespace TermProject.Controllers
     public class MatchesController : Controller
     {
 
-        string username = "Jmccuch";
 
         API api = new API();
 
         //global list of pontential matches
         List<User> potentialMatches = new List<User>();
+
         public IActionResult Index()
         {
-            potentialMatches = api.GetUserPotentialMatches(username);
+            UserAccount account = new UserAccount();
+
+            account.userName = HttpContext.Session.GetString("Username");
+
+            List<Match> matches  = api.GetUserMatches(account);
+                
+            foreach (Match match in matches) {
+
+
+                User user = api.GetUserInfo(match.userName2);
+
+                potentialMatches.Add(user);
+
+            }
+
+
+           
 
             return View(potentialMatches);
         }

@@ -50,7 +50,7 @@ namespace TermProjectAPI.Controllers
 
                 profile.userAccount = account;
 
-                System.Diagnostics.Debug.WriteLine("ACCOUNT FN: " + profile.userAccount.firstName);    
+        
 
                 if (record["Age"].ToString() != "") {
 
@@ -115,9 +115,6 @@ namespace TermProjectAPI.Controllers
                     info = profile;
             }
 
-            System.Diagnostics.Debug.WriteLine("Here2 " + info.quote);
-
-            System.Diagnostics.Debug.WriteLine("HERRRRRRRE" + info.userAccount.firstName);
 
             return info;
         }
@@ -277,20 +274,69 @@ namespace TermProjectAPI.Controllers
             // update DB
             objDB.DoUpdateUsingCmdObj(objCommand);
 
+
+
+
+            UpdateGallery(username, user);
+          
+
+        }
+
+        private void UpdateGallery(string username, User user)
+        {
             objCommand.CommandType = CommandType.StoredProcedure;
-            objCommand.CommandText = "AddImageGallery";
+            objCommand.CommandText = "UpdateImageGallery";
 
             // add params to obj command
             objCommand.Parameters.Clear();
 
             objCommand.Parameters.AddWithValue("@Username", username);
-            objCommand.Parameters.AddWithValue("@Picture1", user.picture1);
-            objCommand.Parameters.AddWithValue("@Picture2", user.picture2);
-            objCommand.Parameters.AddWithValue("@Picture3", user.picture3);
+            System.Diagnostics.Debug.WriteLine("Here2 " + username);
+            System.Diagnostics.Debug.WriteLine("Here2 " + user.picture1);
+            System.Diagnostics.Debug.WriteLine("Here2 " + user.picture2);
+            System.Diagnostics.Debug.WriteLine("Here2 " + user.picture3);
+
+
+            if (!string.IsNullOrEmpty(user.picture1))
+            {
+                objCommand.Parameters.AddWithValue("@Picture1", user.picture1);
+                System.Diagnostics.Debug.WriteLine("Here1");
+            }
+            else
+            {
+
+                objCommand.Parameters.AddWithValue("@Picture1", DBNull.Value);
+                System.Diagnostics.Debug.WriteLine("Here11");
+            }
+
+
+            if (!string.IsNullOrEmpty(user.picture2))
+            {
+                objCommand.Parameters.AddWithValue("@Picture2", user.picture2);
+                System.Diagnostics.Debug.WriteLine("Here2");
+            }
+
+            else
+            {
+                objCommand.Parameters.AddWithValue("@Picture2", DBNull.Value);
+                System.Diagnostics.Debug.WriteLine("Here22");
+            }
+
+
+            if (!string.IsNullOrEmpty(user.picture3))
+            {
+                objCommand.Parameters.AddWithValue("@Picture3", user.picture3);
+                System.Diagnostics.Debug.WriteLine("Here3");
+            }
+
+            else
+            {
+                objCommand.Parameters.AddWithValue("@Picture3", DBNull.Value);
+                System.Diagnostics.Debug.WriteLine("Here33");
+            }
+
 
             objDB.DoUpdateUsingCmdObj(objCommand);
-
         }
-
     }
 }

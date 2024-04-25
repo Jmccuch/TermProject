@@ -24,5 +24,43 @@ namespace TermProject.Controllers
         {
             return View("~/Views/Home/Index.cshtml");
         }
+
+
+        public IActionResult Back()
+        {
+            string name = HttpContext.Session.GetString("ViewProfileRedirectedFrom");
+
+            System.Diagnostics.Debug.WriteLine(name);
+
+            // came from main
+            if (HttpContext.Session.GetString("ViewProfileRedirectedFrom") == "Main") {
+                return RedirectToAction("Index","Main");
+            }
+
+
+            // came from likes
+            if (HttpContext.Session.GetString("ViewProfileRedirectedFrom") == "Likes")
+            {
+                return RedirectToAction("Index", "Likes");
+            }
+
+
+            // came from matches
+            if (HttpContext.Session.GetString("ViewProfileRedirectedFrom") == "Matches")
+            {
+                return View("~/Views/Matches/Index.cshtml");
+            }
+
+            // came from DR
+            if (HttpContext.Session.GetString("ViewProfileRedirectedFrom") == "DateRequest")
+            {
+                return View("~/Views/DateRequest/Index.cshtml");
+            }
+
+            else
+            {
+                return View("~/Views/Home/Index.cshtml");
+            }
+        }
     }
 }

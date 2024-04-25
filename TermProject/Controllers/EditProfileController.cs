@@ -23,10 +23,7 @@ namespace TermProject.Controllers
 
         public IActionResult Update(User user)
         {
-            System.Diagnostics.Debug.WriteLine("AGE: " + user.age);
-            System.Diagnostics.Debug.WriteLine("W: " + user.weight);
-            System.Diagnostics.Debug.WriteLine("WH " + user.height);
-
+        
 
              if ((user.weight != 0 && user.height != 0))
              {

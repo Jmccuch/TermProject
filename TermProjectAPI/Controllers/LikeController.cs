@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using System.Data;
 using System.Data.SqlClient;
+using System.IO;
 using Utilities;
 
 namespace TermProjectAPI.Controllers
@@ -49,8 +50,10 @@ namespace TermProjectAPI.Controllers
 
         // return like ds 
         [HttpGet("GetLikeIDs")]
-        public List<int> GetLikes()
+        public List<int> GetLikeIDs()
         {
+
+
 
             // get likes
             objCommand.CommandType = CommandType.StoredProcedure;
@@ -137,6 +140,81 @@ namespace TermProjectAPI.Controllers
 
 
         }
+
+
+      
+
+        // return like ds 
+        [HttpGet("GetLikerUsernames")]
+        public List<string> GetLikerUsernames()
+        {
+            System.Diagnostics.Debug.WriteLine("Getting LIKES");
+
+
+            // get likes
+            objCommand.CommandType = CommandType.StoredProcedure;
+            objCommand.CommandText = "GetLikes";
+
+            objCommand.Parameters.Clear();
+
+
+            DataSet allLikesUsernamesDS = objDB.GetDataSetUsingCmdObj(objCommand);
+
+
+            List<string> usernames = new List<string>();
+
+            foreach (DataRow record in allLikesUsernamesDS.Tables[0].Rows)
+            {
+                string username;
+
+                username = record["UserName"].ToString();
+                
+                usernames.Add(username);
+
+            }
+
+
+            return usernames;
+
+        }
+
+
+
+        // return like ds 
+        [HttpGet("GetLikedUsernames")]
+        public List<string> GetLikedUsernames()
+        {
+            System.Diagnostics.Debug.WriteLine("Getting LIKES");
+
+
+            // get likes
+            objCommand.CommandType = CommandType.StoredProcedure;
+            objCommand.CommandText = "GetLikes";
+
+            objCommand.Parameters.Clear();
+
+
+            DataSet allLikesUsernamesDS = objDB.GetDataSetUsingCmdObj(objCommand);
+
+
+            List<string> usernames = new List<string>();
+
+            foreach (DataRow record in allLikesUsernamesDS.Tables[0].Rows)
+            {
+                string username;
+
+                username = record["LikedUserName"].ToString();
+
+                usernames.Add(username);
+
+            }
+
+
+            return usernames;
+
+        }
+
+
 
 
     }

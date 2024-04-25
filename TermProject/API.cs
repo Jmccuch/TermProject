@@ -2,7 +2,8 @@
 using System.Collections.Generic; 
 using System.IO;
 using System.Net;
-using System.Text.Json; 
+using System.Text.Json;
+using System.Xml.Serialization;
 using TermProjectAPI; 
 
 namespace TermProject
@@ -296,6 +297,153 @@ namespace TermProject
                 response.Close();
             }
         }
+
+
+        public List<string> GetLikerUsernames()
+        {
+            string route = $"{urlAPI}TermProjectAPI/Like/GetLikerUsernames";
+
+            WebRequest request = WebRequest.Create(route);
+            request.Method = "GET";
+
+            WebResponse response = request.GetResponse();
+            Stream dataStream = response.GetResponseStream();
+            StreamReader reader = new StreamReader(dataStream);
+            string jsonData = reader.ReadToEnd();
+
+            reader.Close();
+            response.Close();
+
+            // Deserialize 
+            List<string> usernames = JsonSerializer.Deserialize<List<string>>(jsonData);
+
+            System.Diagnostics.Debug.WriteLine("AAAA: " + usernames[0]);
+            System.Diagnostics.Debug.WriteLine("BBBB: " + usernames[1]);
+            System.Diagnostics.Debug.WriteLine("count: " + usernames.Count);
+            return usernames;
+
+
+        }
+
+
+        public List<string> GetLikedUsernames()
+        {
+            string route = $"{urlAPI}TermProjectAPI/Like/GetLikedUsernames";
+
+            WebRequest request = WebRequest.Create(route);
+            request.Method = "GET";
+
+            WebResponse response = request.GetResponse();
+            Stream dataStream = response.GetResponseStream();
+            StreamReader reader = new StreamReader(dataStream);
+            string jsonData = reader.ReadToEnd();
+
+            reader.Close();
+            response.Close();
+
+            // Deserialize 
+            List<string> usernames = JsonSerializer.Deserialize<List<string>>(jsonData);
+
+            System.Diagnostics.Debug.WriteLine("cccc: " + usernames[0]);
+            System.Diagnostics.Debug.WriteLine("ssss: " + usernames[1]);
+            System.Diagnostics.Debug.WriteLine("count: " + usernames.Count);
+            return usernames;
+
+
+        }
+
+
+
+
+        public void AddNewMatch(int matchID, string liker, string likedUser)
+        {
+          
+            // obj to hold data
+            var requestData = new
+            {
+                MatchID = matchID,
+                Liker = liker,
+                LikedUser = likedUser
+            };
+
+       
+
+            // Serialize all 3 
+            string jsonData = JsonSerializer.Serialize(requestData);
+
+            string route = $"{urlAPI}TermProjectAPI/Match/AddNewMatch";
+
+
+            WebRequest request = WebRequest.Create(route);
+            request.Method = "POST";
+            request.ContentType = "application/json";
+
+
+            using (var streamWriter = new StreamWriter(request.GetRequestStream()))
+            {
+                streamWriter.Write(jsonData);
+                streamWriter.Flush();
+                streamWriter.Close();
+            }
+
+            using (WebResponse response = request.GetResponse())
+            {
+
+                response.Close();
+            }
+
+
+        }
+
+
+        public List<Match> GetMatches()
+        {
+            string route = $"{urlAPI}TermProjectAPI/Match/GetMatches";
+
+            WebRequest request = WebRequest.Create(route);
+            request.Method = "GET";
+
+            WebResponse response = request.GetResponse();
+            Stream dataStream = response.GetResponseStream();
+            StreamReader reader = new StreamReader(dataStream);
+            string jsonData = reader.ReadToEnd();
+
+            reader.Close();
+            response.Close();
+
+            // Deserialize 
+            List<Match> matches = JsonSerializer.Deserialize<List<Match>>(jsonData);
+
+
+
+            return matches;
+        }
+
+
+
+        public List<Match> GetUserMatches(UserAccount account)
+        {
+            string route = $"{urlAPI}TermProjectAPI/Match/GetUserMatches";
+
+            WebRequest request = WebRequest.Create(route);
+            request.Method = "GET";
+
+            WebResponse response = request.GetResponse();
+            Stream dataStream = response.GetResponseStream();
+            StreamReader reader = new StreamReader(dataStream);
+            string jsonData = reader.ReadToEnd();
+
+            reader.Close();
+            response.Close();
+
+            // Deserialize 
+            List<Match> matches = JsonSerializer.Deserialize<List<Match>>(jsonData);
+
+            return matches;
+        }
+
+
+
 
     }
 }

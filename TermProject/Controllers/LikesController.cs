@@ -38,7 +38,12 @@ namespace TermProject.Controllers
 
         public IActionResult ViewProfile(string username)
         {
-            System.Diagnostics.Debug.WriteLine("main un: " + username);
+            // save where view profile is being redirected from
+            HttpContext.Session.SetString("ViewProfileRedirectedFrom", "Likes");
+
+            string name = HttpContext.Session.GetString("ViewProfileRedirectedFrom");
+
+            System.Diagnostics.Debug.WriteLine("LIKE" + name);
 
             return RedirectToAction("Index", "Profile", new { username = username });
         }
