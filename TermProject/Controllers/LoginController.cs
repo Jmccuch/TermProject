@@ -14,9 +14,9 @@ namespace TermProject.Controllers
 
         public IActionResult Index()
         {
-           
-              
-            
+
+
+
 
             // check if cookie is null
             if (Request.Cookies.ContainsKey("Username"))
@@ -27,25 +27,25 @@ namespace TermProject.Controllers
 
 
                 // get users password with cookie username
-               // DataSet passwordDS = account.GetUserPassword(UserName);
+                // DataSet passwordDS = account.GetUserPassword(UserName);
 
-               // string? password = "";
+                // string? password = "";
 
-               // foreach (DataRow row in passwordDS.Tables[0].Rows)
-               // {
-
-
-                 //   System.Diagnostics.Debug.WriteLine(row["Password"].ToString());
-                  //  password = row["Password"].ToString();
+                // foreach (DataRow row in passwordDS.Tables[0].Rows)
+                // {
 
 
+                //   System.Diagnostics.Debug.WriteLine(row["Password"].ToString());
+                //  password = row["Password"].ToString();
 
-              //  }
+
+
+                //  }
 
 
 
                 LoginModel login = new LoginModel();
-               // login.Password = password;
+                // login.Password = password;
                 login.UserName = UserName;
 
 
@@ -56,8 +56,8 @@ namespace TermProject.Controllers
 
             else
             {
-             
-     
+
+
                 return View("~/Views/Login/Index.cshtml");
             }
 
@@ -113,7 +113,7 @@ namespace TermProject.Controllers
             else
             {
                 ViewBag.Invalid = "The entered Username and Password do not match!";
-                return View("Index"); 
+                return View("Index");
             }
         }
 
@@ -131,20 +131,25 @@ namespace TermProject.Controllers
                 System.Diagnostics.Debug.WriteLine("comparing account info:" + account.userName + "with" + username);
                 System.Diagnostics.Debug.WriteLine("comparing account info:" + account.password + "with" + password);
 
-                if (account.userName == username && account.password == password) {
+                if (account.userName == username && account.password == password)
+                {
 
                     System.Diagnostics.Debug.WriteLine("found account match");
 
                     accountValid = true;
-                
+
                 }
 
             }
 
             return accountValid;
 
- 
+
         }
 
+        public IActionResult RedirectForgotPassword()
+        {
+            return RedirectToAction("Index", "ForgotPassword");
+        }
     }
 }

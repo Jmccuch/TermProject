@@ -39,17 +39,18 @@
         </form>
         <br />
         <!-- FORGOT USERNAME/PASSWORD -->
-        <form id="frmRetrieveUsernameOrPassword" method="post" action="/Login/RetrieveAccountInfo">
+        <form asp-controller="Login" method="post" asp-action="RedirectForgotPassword">
             <div>
-                <p>Forgot your <a href="/Login/RetrieveAccountInfo?action=forgotUsername" id="lnkForgotUsername">Username</a> or <a href="/Login/RetrieveAccountInfo?action=forgotPassword" id="lnkForgotPassword">Password</a>?</p>
+                <p>Forgot your Password?</p>
+                <button type="submit" id="btnForgotPassword" class="btn btn-dark">Click Here</button>
             </div>
 
         </form>
         <br />
         <!-- CREATE ACCOUNT FORM -->
-        Dont have an account?
+        <p>Dont have an account?</p>
         <form asp-controller="Home" asp-action="RedirectSignUp" method="post">
-            <button type="submit" id="btnSignUp" class="btn btn-danger">Sign Up</button>
+            <button type="submit" id="btnSignUp" class="btn btn-info" style="color:white">Sign Up</button>
         </form>
         <br />
     </div>
