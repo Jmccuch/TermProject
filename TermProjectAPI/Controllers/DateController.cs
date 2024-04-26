@@ -77,7 +77,20 @@ namespace TermProjectAPI.Controllers
                 date.userName1 = record["UserName1"].ToString();
                 date.userName2 = record["UserName2"].ToString();
 
-                date.dateAndTime0 = DateTime.Parse(record["Date"].ToString());
+                if (record != null && record["Date"] != null)
+                {
+                    try
+                    {
+                        date.dateAndTime0 = DateTime.Parse(record["Date"].ToString());
+                    }
+                    
+                    catch (Exception ex)
+                    {
+                       // null
+                    }
+                }
+
+
                 date.description = record["Description"].ToString();
 
 
