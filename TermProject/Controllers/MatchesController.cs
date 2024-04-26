@@ -134,6 +134,7 @@ namespace TermProject.Controllers
             HttpContext.Session.SetString("DRusername", username);
             HttpContext.Session.SetString("DRname", name);
 
+            HttpContext.Session.SetString("DateWithUsername", username);
 
             // save where dr form is being redirected from
             HttpContext.Session.SetString("DateRequestRedirectedFrom", "Matches");

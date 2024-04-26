@@ -7,7 +7,7 @@
     Layout = "MainLayout";
 }
 
-<form asp-controller="DateRequest" asp-action="Update" method="post">
+
     <div class="centdiv">
         <div class="centcontent">
             @if (string.IsNullOrEmpty(Model.userName1))
@@ -32,32 +32,31 @@
             <br />
             <br />
 
-             <form asp-controller="DateRequest" asp-action="Submit" method="post" >
+<form asp-controller="DateRequest" asp-action="Update" method="post">
 
-                    <button type="submit" class="btn btn-success">Submit</button>
+    <button type="submit" class="btn btn-success">Submit</button>
 
-            </form>
-            <br />
+</form>
+<br />
 
 
 
-            <br />
-            <form asp-controller="DateRequest"  asp-action="Back" method="post">
+<br />
+<form asp-controller="DateRequest" asp-action="Back" method="post">
 
-                    <button type="submit" class="btn btn-danger">Back</button>
-            </form>
-            <br />
-            <form asp-controller="DateRequest" asp-action="GetRestaurants" method="post">
+    <button type="submit" class="btn btn-danger">Back</button>
+</form>
+<br />
+<form asp-controller="DateRequest" asp-action="GetRestaurants" method="post">
 
-                <button type="submit" class="btn btn-light">Restaurants in area</button>
-            </form>
+    <button type="submit" class="btn btn-light">Restaurants in area</button>
+</form>
 
         </div>
     </div>
-    <footer class="bg-dark">
-        <div class="container text-light text-center">
-            <h5 class="p-5 mb-3">Copyright © 2024 Love Lounge. All rights reserved.</h5>
-        </div>
-    </footer>
+<footer class="bg-dark">
+    <div class="container text-light text-center">
+        <h5 class="p-5 mb-3">Copyright © 2024 Love Lounge. All rights reserved.</h5>
+    </div>
+</footer>
 
-</form>

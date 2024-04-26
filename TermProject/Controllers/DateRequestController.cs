@@ -104,9 +104,12 @@ namespace TermProject.Controllers
         public IActionResult Update(DateTime dateAndTime0, string description)
         {
 
+            System.Diagnostics.Debug.WriteLine("YYYYYYYYYYYYYYYYYYYY");
+
+
             System.Diagnostics.Debug.WriteLine("Y " +dateAndTime0);
             System.Diagnostics.Debug.WriteLine("Y " + description);
-
+           
             string redirect = HttpContext.Session.GetString("DateRequestRedirectedFrom");
             string accountUserName = HttpContext.Session.GetString("DateWithUsername");
             string name = HttpContext.Session.GetString("DRname");
@@ -125,6 +128,15 @@ namespace TermProject.Controllers
 
                 // get next avaible request Id
                 int requestID = GetRequestID();
+
+
+                System.Diagnostics.Debug.WriteLine("GG " + requestID );
+
+                System.Diagnostics.Debug.WriteLine("GG " + loggedInUsername);
+
+
+                System.Diagnostics.Debug.WriteLine("GG " + requestee);
+
 
                 api.AddNewDateRequest(requestID, loggedInUsername, requestee);
 
