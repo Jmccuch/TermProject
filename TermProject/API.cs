@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Azure.Core;
+using Microsoft.VisualBasic;
+using System;
 using System.Collections.Generic; 
 using System.IO;
 using System.Net;
@@ -607,7 +609,7 @@ namespace TermProject
         }
 
 
-        public List<Date> GetUserDates(string username)
+        public List<DateInfo> GetUserDates(string username)
         {
             string route = $"{urlAPI}TermProjectAPI/Date/GetUserDates/{username}";
 
@@ -623,9 +625,293 @@ namespace TermProject
             response.Close();
 
             // Deserialize 
-            List<Date> dates = JsonSerializer.Deserialize<List<Date>>(jsonData);
+            List<DateInfo> dates = JsonSerializer.Deserialize<List<DateInfo>>(jsonData);
 
             return dates;
+        }
+
+
+
+
+        public DateInfo GetDateBetweenUsers(string loggedInUserName, string accountUserName)
+        {
+
+            string route = $"{urlAPI}TermProjectAPI/Date/GetDateBetweenUsers/{loggedInUserName}/{accountUserName}";
+
+
+            System.Diagnostics.Debug.WriteLine(route);
+
+            WebRequest request = WebRequest.Create(route);
+            request.Method = "GET";
+
+            WebResponse response = request.GetResponse();
+            Stream dataStream = response.GetResponseStream();
+            StreamReader reader = new StreamReader(dataStream);
+            string jsonData = reader.ReadToEnd();
+
+            reader.Close();
+            response.Close();
+
+            // Deserialize
+            DateInfo date = JsonSerializer.Deserialize<DateInfo>(jsonData);
+            return date;
+        }
+
+
+        public void UpdateDate(DateInfo dateInfo)
+        {
+            System.Diagnostics.Debug.WriteLine("z " + dateInfo.dateAndTime0);
+            System.Diagnostics.Debug.WriteLine("z " + dateInfo.description);
+
+            // obj to hold both
+            var requestData = new
+            {
+                DateInformation = dateInfo,
+            };
+
+            // Serialize 
+            string jsonData = JsonSerializer.Serialize(requestData);
+
+            string route = $"{urlAPI}TermProjectAPI/Date/UpdateDate";
+
+            try
+            {
+                WebRequest request = WebRequest.Create(route);
+                request.Method = "PUT";
+                request.ContentType = "application/json";
+
+                using (var streamWriter = new StreamWriter(request.GetRequestStream()))
+                {
+                    streamWriter.Write(jsonData);
+                    streamWriter.Flush();
+                }
+
+                // Get the response
+                using (WebResponse response = request.GetResponse())
+                {
+                    HttpStatusCode statusCode = ((HttpWebResponse)response).StatusCode;
+                    if (statusCode == HttpStatusCode.OK)
+                    {
+                        System.Diagnostics.Debug.WriteLine("Request was successful.");
+                    }
+                    else
+                    {
+                        System.Diagnostics.Debug.WriteLine($"Request failed with status code: {statusCode}");
+                    }
+                }
+            }
+            catch (WebException ex)
+            {
+                // Exception occurred during the request
+                System.Diagnostics.Debug.WriteLine($"Request failed with exception: {ex.Message}");
+            }
+        }
+
+        public List<DateRequest> GetDateRequests(string username)
+        {
+            string route = $"{urlAPI}TermProjectAPI/DateRequest/GetDateRequests/{username}";
+
+            WebRequest request = WebRequest.Create(route);
+            request.Method = "GET";
+
+            WebResponse response = request.GetResponse();
+            Stream dataStream = response.GetResponseStream();
+            StreamReader reader = new StreamReader(dataStream);
+            string jsonData = reader.ReadToEnd();
+
+            reader.Close();
+            response.Close();
+
+            // Deserialize 
+            List<DateRequest> dates = JsonSerializer.Deserialize<List<DateRequest>>(jsonData);
+
+            return dates;
+        }
+
+
+        public List<DateInfo> GetDates()
+        {
+            string route = $"{urlAPI}TermProjectAPI/Date/GetDates";
+
+            WebRequest request = WebRequest.Create(route);
+            request.Method = "GET";
+
+            WebResponse response = request.GetResponse();
+            Stream dataStream = response.GetResponseStream();
+            StreamReader reader = new StreamReader(dataStream);
+            string jsonData = reader.ReadToEnd();
+
+            reader.Close();
+            response.Close();
+
+            // Deserialize 
+            List<DateInfo> dates = JsonSerializer.Deserialize<List<DateInfo>>(jsonData);
+
+          //  System.Diagnostics.Debug.WriteLine("cccc: " + usernames[0]);
+          //  System.Diagnostics.Debug.WriteLine("ssss: " + usernames[1]);
+           // System.Diagnostics.Debug.WriteLine("count: " + usernames.Count);
+            return dates;
+
+
+        }
+
+
+
+        public void AddNewDate(int dateID, string accepterUserName, string requesteeUserName)
+        {
+
+            // obj to hold data
+            var requestData = new
+            {
+                DateID = dateID,
+                AccepterUserName = accepterUserName,
+                RequesteeUserName = requesteeUserName
+            };
+
+
+
+            // Serialize all 3 
+            string jsonData = JsonSerializer.Serialize(requestData);
+
+            string route = $"{urlAPI}TermProjectAPI/Date/AddNewDate";
+
+
+            WebRequest request = WebRequest.Create(route);
+            request.Method = "POST";
+            request.ContentType = "application/json";
+
+
+            using (var streamWriter = new StreamWriter(request.GetRequestStream()))
+            {
+                streamWriter.Write(jsonData);
+                streamWriter.Flush();
+                streamWriter.Close();
+            }
+
+            using (WebResponse response = request.GetResponse())
+            {
+
+                response.Close();
+            }
+
+
+        }
+
+
+
+        public void RemoveDateRequest(string accepterUserName, string requesteeUserName)
+        {
+
+
+            // obj to hold data
+            var requestData = new
+            {
+                AccepterUserName = accepterUserName,
+                RequesteeUserName = requesteeUserName
+            };
+
+
+            // Serializ 
+            string jsonData = JsonSerializer.Serialize(requestData);
+
+            string route = $"{urlAPI}TermProjectAPI/DateRequest/RemoveDateRequest";
+
+
+            WebRequest request = WebRequest.Create(route);
+            request.Method = "DElETE";
+            request.ContentType = "application/json";
+
+
+            using (var streamWriter = new StreamWriter(request.GetRequestStream()))
+            {
+                streamWriter.Write(jsonData);
+                streamWriter.Flush();
+                streamWriter.Close();
+            }
+
+            using (WebResponse response = request.GetResponse())
+            {
+
+                response.Close();
+            }
+        }
+
+        public void UpdateUserDateRequestView(string loggedInUserName)
+        {
+
+            System.Diagnostics.Debug.WriteLine("YOYOOYOY " + loggedInUserName);
+
+            // obj to hold data
+            var requestData = new
+            {
+                LoggedInUserName = loggedInUserName
+            };
+
+        
+            // Serialize 
+            string jsonData = JsonSerializer.Serialize(requestData);
+
+            string route = $"{urlAPI}TermProjectAPI/DateRequest/UpdateUserDateRequestView";
+
+
+            WebRequest request = WebRequest.Create(route);
+            request.Method = "PUT";
+            request.ContentType = "application/json";
+
+
+            using (var streamWriter = new StreamWriter(request.GetRequestStream()))
+            {
+                streamWriter.Write(jsonData);
+                streamWriter.Flush();
+                streamWriter.Close();
+            }
+
+            using (WebResponse response = request.GetResponse())
+            {
+
+                response.Close();
+            }
+
+
+        }
+
+
+
+        public void UpdateUserMatchesView(string loggedInUserName)
+        {
+
+            // obj to hold data
+            var requestData = new
+            {
+                LoggedInUserName = loggedInUserName
+            };
+
+
+            // Serialize 
+            string jsonData = JsonSerializer.Serialize(requestData);
+
+            string route = $"{urlAPI}TermProjectAPI/Match/UpdateUserMatchesView";
+
+
+            WebRequest request = WebRequest.Create(route);
+            request.Method = "PUT";
+            request.ContentType = "application/json";
+
+
+            using (var streamWriter = new StreamWriter(request.GetRequestStream()))
+            {
+                streamWriter.Write(jsonData);
+                streamWriter.Flush();
+                streamWriter.Close();
+            }
+
+            using (WebResponse response = request.GetResponse())
+            {
+
+                response.Close();
+            }
+
+
         }
 
     }

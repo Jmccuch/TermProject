@@ -3,6 +3,8 @@ using System.Data.Common;
 using System.Data;
 using Utilities;
 using System.Data.SqlClient;
+using Azure.Core;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace TermProjectAPI.Controllers
 {
@@ -73,6 +75,103 @@ namespace TermProjectAPI.Controllers
 
 
             // add to db 
+            objDB.DoUpdateUsingCmdObj(objCommand);
+
+        }
+
+
+        // get passed username's date requests from db
+        [HttpGet("GetDateRequests/{username}")]
+        public List<DateRequest> GetDateRequests(string username)
+        {
+
+            objCommand.CommandType = CommandType.StoredProcedure;
+            objCommand.CommandText = "GetUserDateRequests";
+            objCommand.Parameters.Clear();
+
+
+            objCommand.Parameters.AddWithValue("@receiver", username);
+
+
+            
+            DataSet allRequests = objDB.GetDataSetUsingCmdObj(objCommand);
+
+            List<DateRequest> requests = new List<DateRequest>();
+
+            foreach (DataRow record in allRequests.Tables[0].Rows)
+            {
+                DateRequest request = new DateRequest();
+
+                request.requestID = int.Parse(record["RequestID"].ToString());
+
+                request.sender = record["Sender"].ToString();
+
+                request.receiver = record["Receiver"].ToString();
+
+                request.viewed = record["Viewed"].ToString();
+
+                requests.Add(request);
+
+            }
+
+            return requests;
+
+
+        }
+
+
+        public class RemoveRequestDto
+        {
+            public string AccepterUserName { get; set; }
+            public string RequesteeUserName { get; set; }
+        }
+
+
+
+        // remove like from
+        [HttpDelete("RemoveDateRequest")]
+        public void RemoveDateRequest([FromBody] RemoveRequestDto removeRequest)
+        {
+
+            objCommand.CommandType = CommandType.StoredProcedure;
+            objCommand.CommandText = "RemoveDateRequest";
+            objCommand.Parameters.Clear();
+
+
+            // set remove parameters
+            objCommand.Parameters.AddWithValue("@receiver", removeRequest.AccepterUserName);
+            objCommand.Parameters.AddWithValue("@sender", removeRequest.RequesteeUserName);
+
+
+            //remove
+            objDB.DoUpdateUsingCmdObj(objCommand);
+
+        }
+
+
+        public class UpdateUserDateRequestViewDto
+        {
+
+
+            public string LoggedInUserName { get; set; }
+      
+
+        }
+
+
+        [HttpPut("UpdateUserDateRequestView")]
+        public void UpdateUserDateRequestView([FromBody] UpdateUserDateRequestViewDto info)
+        {
+            objCommand.CommandType = CommandType.StoredProcedure;
+            objCommand.CommandText = "UpdateUserDateRequestView";
+
+            // add param to obj command
+            objCommand.Parameters.Clear();
+
+            objCommand.Parameters.AddWithValue("@receiver", info.LoggedInUserName);
+            objCommand.Parameters.AddWithValue("viewed", "Yes");
+
+            // update
             objDB.DoUpdateUsingCmdObj(objCommand);
 
         }

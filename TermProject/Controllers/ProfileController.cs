@@ -10,9 +10,16 @@ namespace TermProject.Controllers
 
         public IActionResult Index(string username)
         {
-            
+            // came from Dates
+            if (HttpContext.Session.GetString("ViewProfileRedirectedFrom") == "Dates")
+            {
+                ViewBag.ShowSensitiveInfo = true;
 
-           System.Diagnostics.Debug.WriteLine("CLICKED ON PROFILE: " + username);
+            }
+
+
+
+            System.Diagnostics.Debug.WriteLine("CLICKED ON PROFILE: " + username);
 
             User user = api.GetUserInfo(username);
 
@@ -50,11 +57,23 @@ namespace TermProject.Controllers
                 return RedirectToAction("Index", "Matches");
             }
 
+            // came from Dates
+            if (HttpContext.Session.GetString("ViewProfileRedirectedFrom") == "Dates")
+            {
+
+
+                return RedirectToAction("Index", "Dates");
+            }
+
             // came from DR
             if (HttpContext.Session.GetString("ViewProfileRedirectedFrom") == "DateRequest")
             {
-                return View("~/Views/DateRequest/Index.cshtml");
+
+                System.Diagnostics.Debug.WriteLine("YEAH!!!!");
+
+                return RedirectToAction("Index", "UserDateRequests");
             }
+
 
             else
             {

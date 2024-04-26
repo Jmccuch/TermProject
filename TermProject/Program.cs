@@ -1,5 +1,8 @@
 var builder = WebApplication.CreateBuilder(args);
 
+// Add HttpClientFactory
+builder.Services.AddHttpClient();
+
 // Add services to the container.
 builder.Services.AddControllersWithViews();
 
@@ -28,4 +31,12 @@ app.MapControllerRoute(
     pattern: "{controller=Home}/{action=Index}/{id?}");
 
 // Specify the port to listen on
-app.Run("http://localhost:5281");
+app.Run();
+
+// Configure HttpClient options
+var httpClientFactory = app.Services.GetRequiredService<IHttpClientFactory>();
+var httpClient = httpClientFactory.CreateClient();
+
+// Adjust buffer size here
+httpClient.MaxResponseContentBufferSize = 1024 * 1024; // Example buffer size (1 MB)
+

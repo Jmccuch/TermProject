@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json.Linq;
 using System.Net.Http;
 using System.Threading.Tasks;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 
 
 namespace TermProject.Controllers
@@ -48,7 +49,40 @@ namespace TermProject.Controllers
 
         public IActionResult Index()
         {
-            return View();
+            string redirect = HttpContext.Session.GetString("DateRequestRedirectedFrom");
+          
+
+
+            // new
+            if (redirect == "Matches")
+            {
+                System.Diagnostics.Debug.WriteLine("passing empty date");
+
+                DateInfo date = new DateInfo();
+
+                return View(date);
+            }
+
+            // populate
+            else {
+
+
+             
+                string loggedInUserName = HttpContext.Session.GetString("Username");
+                string accountUserName = HttpContext.Session.GetString("DateWithUsername");
+
+                DateInfo date = api.GetDateBetweenUsers(loggedInUserName, accountUserName);
+
+                System.Diagnostics.Debug.WriteLine("DB 123 USERS");
+                System.Diagnostics.Debug.WriteLine(date.dateID + date.userName1 + date.userName2);
+                System.Diagnostics.Debug.WriteLine(date.dateAndTime0);
+     
+
+
+                return View(date);
+            }
+
+               
         }
 
 
@@ -67,20 +101,26 @@ namespace TermProject.Controllers
         }
 
 
-        public IActionResult Submit()
+        public IActionResult Update(DateTime dateAndTime0, string description)
         {
+
+            System.Diagnostics.Debug.WriteLine("Y " +dateAndTime0);
+            System.Diagnostics.Debug.WriteLine("Y " + description);
+
             string redirect = HttpContext.Session.GetString("DateRequestRedirectedFrom");
-            string username = HttpContext.Session.GetString("DRusername");
+            string accountUserName = HttpContext.Session.GetString("DateWithUsername");
             string name = HttpContext.Session.GetString("DRname");
+
+
+            // set profile being sent Date request
+            string requestee = accountUserName;
+
+            string loggedInUsername = HttpContext.Session.GetString("Username");
+
 
             // make new match and then update 
             if (redirect == "Matches")
             {
-
-                // set profile being sent Date request
-                string requestee = username;
-
-                string loggedInUsername = HttpContext.Session.GetString("Username");
 
 
                 // get next avaible request Id
@@ -90,20 +130,23 @@ namespace TermProject.Controllers
 
                 HttpContext.Session.SetString("DateRequestedUser", name);
 
-
-              // update 
-                
-
-
-
-
-
+          
                 return RedirectToAction("Index", "Matches");
             }
 
             //upda
             else
             {
+                // update 
+
+                DateInfo dateInfo = new DateInfo(loggedInUsername, requestee, description, dateAndTime0);
+
+                System.Diagnostics.Debug.WriteLine("UPADTAING DATE ");
+
+                api.UpdateDate(dateInfo);
+
+                HttpContext.Session.SetString("DateUpdated", "Yes");
+
                 return RedirectToAction("Index", "Dates");
             }
         }

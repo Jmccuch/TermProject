@@ -240,5 +240,35 @@ namespace TermProjectAPI.Controllers
 
 
 
+
+        public class UpdateUserMatchesViewDto
+        {
+
+
+            public string LoggedInUserName { get; set; }
+
+
+        }
+
+
+        [HttpPut("UpdateUserMatchesView")]
+        public void UpdateUserDateRequestView([FromBody] UpdateUserMatchesViewDto info)
+        {
+            objCommand.CommandType = CommandType.StoredProcedure;
+            objCommand.CommandText = "UpdateUserMatchesView";
+
+            // add param to obj command
+            objCommand.Parameters.Clear();
+
+            objCommand.Parameters.AddWithValue("@userName1", info.LoggedInUserName);
+            objCommand.Parameters.AddWithValue("viewed", "Yes");
+
+            // update
+            objDB.DoUpdateUsingCmdObj(objCommand);
+
+        }
+
+
+
     }
 }

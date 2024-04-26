@@ -12,17 +12,35 @@ namespace TermProject.Controllers
         public IActionResult Index()
         {
 
+            string dateUpdated = HttpContext.Session.GetString("DateUpdated");
+
+            // new
+            if (dateUpdated == "Yes")
+            {
+                System.Diagnostics.Debug.WriteLine("date updated adding name");
+
+                ViewBag.dateUpdated = "Your date has been updated!";
+
+                HttpContext.Session.Remove("DateUpdated");
+
+            }
+
+
+
+
+
+
             string username = HttpContext.Session.GetString("Username");
 
             // retrieve all dates of logged in user
-           List<Date> userDates = api.GetUserDates(username);
+           List<DateInfo> userDates = api.GetUserDates(username);
 
 
             //DS to hold user of datws
             List<User> userAccountsList = new List<User>();
 
             
-            foreach (Date date in userDates)
+            foreach (DateInfo date in userDates)
             {
                 
                 // get correct user name of date from ds
@@ -53,5 +71,29 @@ namespace TermProject.Controllers
 
             return View(userAccountsList);
         }
+
+
+        public IActionResult DateDetails(string username)
+        {
+
+            // save username before redirecting
+            HttpContext.Session.SetString("DateWithUsername", username);
+
+            HttpContext.Session.SetString("DateRequestRedirectedFrom", "Dates");
+
+            return RedirectToAction("Index", "DateRequest");
+        }
+
+        public IActionResult ViewProfile(string username)
+        {
+            // save where view profile is being redirected from
+            HttpContext.Session.SetString("ViewProfileRedirectedFrom", "Dates");
+
+            return RedirectToAction("Index", "Profile", new { username = username });
+        }
+
+
+
+
     }
 }

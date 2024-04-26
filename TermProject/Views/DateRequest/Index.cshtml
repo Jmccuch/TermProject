@@ -1,4 +1,4 @@
-﻿@model DateRequestModel
+﻿@model TermProjectAPI.DateInfo
 @{
     ViewData["Title"] = "Date Request";
 }
@@ -7,48 +7,28 @@
     Layout = "MainLayout";
 }
 
-<form asp-controller="EditProfile" asp-action="Update" method="post">
+<form asp-controller="DateRequest" asp-action="Update" method="post">
     <div class="centdiv">
         <div class="centcontent">
-            <h1 style="color:darkred">Date Request</h1>
+            @if (string.IsNullOrEmpty(Model.userName1))
+            {
+
+                <h1 style="color:darkred">Date Request</h1>
+            }
+            else
+            {
+
+                <h1 style="color:darkred">Update Date Details</h1>
+            }
+
             <br />
             <br />
-            <h4>Date:</h4>
-            <input asp-for="Date" />
-            <br />
-            <br />
-            <h4>Time:</h4>
-            <select asp-for="Time">
-                <option>No Selection</option>
-                <option>12AM</option>
-                <option>1AM</option>
-                <option>2AM</option>
-                <option>3AM</option>
-                <option>4AM</option>
-                <option>5AM</option>
-                <option>6AM</option>
-                <option>7AM</option>
-                <option>8AM</option>
-                <option>9AM</option>
-                <option>10AM</option>
-                <option>11AM</option>
-                <option>12PM</option>
-                <option>1PM</option>
-                <option>2PM</option>
-                <option>3PM</option>
-                <option>4PM</option>
-                <option>5PM</option>
-                <option>6PM</option>
-                <option>7PM</option>
-                <option>8PM</option>
-                <option>9PM</option>
-                <option>10PM</option>
-                <option>11PM</option>
-            </select>
+            <h4>Date and Time:</h4>
+            <input asp-for="dateAndTime0" />
             <br />
             <br />
             <h4>Description:</h4>
-            @Html.TextAreaFor(m => m.Description)
+            @Html.TextAreaFor(m => m.description)
             <br />
             <br />
 
@@ -57,6 +37,7 @@
                     <button type="submit" class="btn btn-success">Submit</button>
 
             </form>
+            <br />
             <br />
             <form asp-controller="DateRequest"  asp-action="Back" method="post">
 

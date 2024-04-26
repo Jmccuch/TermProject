@@ -20,7 +20,7 @@ namespace ThirdPartyAPI.Controllers
             [HttpGet]
             public async Task<ActionResult<JObject>> GetRestaurantsAsync(string location)
             {
-                string apiKey = "sBLboG11-enmeSRzmeoaQWBFV6471jyGvYwesrnEIEve6XZDtL5YJND-m4ipwnAytfCMXGKc14y0jBCnvqeCo93gqqukWknjy2240gKwChr8TecknC_91ncHjf9W3Yx";
+                string apiKey = "yXCUfjmclgFJh9JZEaboPbPHph_IwO2gfNzKn99Yj6DyapMGmrgVEI4YLR411n8AwHwRW1A1n8bordHFWhXqxNkb8UGmdtOUKFfbpTtRP5saOYFOb9SwsJeRKI8rZnYx";
                 string apiUrl = $"https://api.yelp.com/v3/businesses/search?term=restaurants&location={location}&limit=3";
 
                 _httpClient.DefaultRequestHeaders.Add("Authorization", $"Bearer {apiKey}");
