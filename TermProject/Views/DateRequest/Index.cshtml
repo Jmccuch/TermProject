@@ -51,9 +51,22 @@
             @Html.TextAreaFor(m => m.Description)
             <br />
             <br />
-            <button type="submit" class="btn btn-success">Submit</button>
 
-            <button type="button" class="btn btn-danger">Back</button>
+             <form asp-controller="DateRequest" asp-action="Submit" method="post" >
+
+                    <button type="submit" class="btn btn-success">Submit</button>
+
+            </form>
+            <br />
+            <form asp-controller="DateRequest"  asp-action="Back" method="post">
+
+                    <button type="submit" class="btn btn-danger">Back</button>
+            </form>
+            <br />
+            <form asp-controller="DateRequest" asp-action="GetRestaurants" method="post">
+
+                <button type="submit" class="btn btn-light">Restaurants in area</button>
+            </form>
 
         </div>
     </div>

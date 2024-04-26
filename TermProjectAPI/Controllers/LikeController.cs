@@ -90,9 +90,7 @@ namespace TermProjectAPI.Controllers
         [HttpPut("AddNewLike")]
         public void AddNewLike([FromBody] LikeInfoDto likeInfo)
         {
-            System.Diagnostics.Debug.WriteLine("Liker" +  likeInfo.Liker);
-            System.Diagnostics.Debug.WriteLine("Liked" + likeInfo.LikedUser);
-            System.Diagnostics.Debug.WriteLine("LikeID" + likeInfo.LikeID);
+          
 
             // add like to db 
             objCommand.CommandType = CommandType.StoredProcedure;

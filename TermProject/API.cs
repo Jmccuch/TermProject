@@ -548,8 +548,85 @@ namespace TermProject
             }
         }
 
+        public List<DateRequest> GetDateRequestIDs()
+        {
+            string route = $"{urlAPI}TermProjectAPI/DateRequest/GetDateRequestIDs";
+
+            WebRequest request = WebRequest.Create(route);
+            request.Method = "GET";
+
+            WebResponse response = request.GetResponse();
+            Stream dataStream = response.GetResponseStream();
+            StreamReader reader = new StreamReader(dataStream);
+            string jsonData = reader.ReadToEnd();
+
+            reader.Close();
+            response.Close();
+
+            // Deserialize 
+            List<DateRequest> requests = JsonSerializer.Deserialize<List<DateRequest>>(jsonData);
+
+            return requests;
+        }
+
+        public void AddNewDateRequest(int requestID, string loggedInUsername, string requestee)
+        {
+            
+            // obj to hold data
+            var requestData = new
+            {
+                RequestID = requestID,
+                LoggedInUsername = loggedInUsername,
+                Requestee = requestee
+            };
 
 
+            // Serialize all 3 
+            string jsonData = JsonSerializer.Serialize(requestData);
+
+            string route = $"{urlAPI}TermProjectAPI/DateRequest/AddNewDateRequest";
+
+
+            WebRequest request = WebRequest.Create(route);
+            request.Method = "PUT";
+            request.ContentType = "application/json";
+
+
+            using (var streamWriter = new StreamWriter(request.GetRequestStream()))
+            {
+                streamWriter.Write(jsonData);
+                streamWriter.Flush();
+                streamWriter.Close();
+            }
+
+            using (WebResponse response = request.GetResponse())
+            {
+
+                response.Close();
+            }
+        }
+
+
+        public List<Date> GetUserDates(string username)
+        {
+            string route = $"{urlAPI}TermProjectAPI/Date/GetUserDates/{username}";
+
+            WebRequest request = WebRequest.Create(route);
+            request.Method = "GET";
+
+            WebResponse response = request.GetResponse();
+            Stream dataStream = response.GetResponseStream();
+            StreamReader reader = new StreamReader(dataStream);
+            string jsonData = reader.ReadToEnd();
+
+            reader.Close();
+            response.Close();
+
+            // Deserialize 
+            List<Date> dates = JsonSerializer.Deserialize<List<Date>>(jsonData);
+
+            return dates;
+        }
 
     }
 }

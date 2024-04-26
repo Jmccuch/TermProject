@@ -12,6 +12,30 @@
 </div>
 <div class="jumbotron jumbotron-fluid" style="background-color:lightsalmon">
     <div class="container">
+
+           <!-- Message if profile was DRed-->
+                @if (ViewBag.DateRequestedUser != null)
+                {
+                    <div style="color:lawngreen; padding-top: 1%; margin:0 auto">
+                       <h3>Message: @ViewBag.DateRequestedUser</h3> 
+                    </div>
+                }
+
+
+                    @if (Model.Count == 0)
+        {
+            
+                     <h2 style="color:white">You Currently Have No Matches, Check Back Soon!</h2>
+                      <br />
+                       <form asp-controller="Dashboard" asp-action="Index" method="post">
+
+                       <button type="submit" class="btn btn-dark">Return Home</button>
+                      </form>
+        
+        }
+
+
+
         
         @for (int i = 0; i < Model.Count; i++)
         {
@@ -45,12 +69,13 @@
 
 
                        <form asp-controller="Matches" asp-action="DateRequest" method="post">
+                           <input type="hidden" name="name" value="@profile.userAccount.firstName" />
+                             <input type="hidden" name="username" value="@profile.userAccount.userName" />
                             <button type="submit" class="btn btn-warning" style="color:white; width:40%">Send Date Request</button>
                        </form>   
                             <br />
                     <form asp-controller="Matches" asp-action="ViewProfile" method="post">
                             <input type="hidden" name="username" value="@profile.userAccount.userName" />
-                         
                             <button type="submit" class="btn btn-info" style="color:white">View Profile</button>
                  
                     </form>

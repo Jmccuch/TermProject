@@ -30,8 +30,6 @@ namespace TermProject.Controllers
         {
             string name = HttpContext.Session.GetString("ViewProfileRedirectedFrom");
 
-            System.Diagnostics.Debug.WriteLine(name);
-
             // came from main
             if (HttpContext.Session.GetString("ViewProfileRedirectedFrom") == "Main") {
                 return RedirectToAction("Index","Main");
@@ -48,7 +46,8 @@ namespace TermProject.Controllers
             // came from matches
             if (HttpContext.Session.GetString("ViewProfileRedirectedFrom") == "Matches")
             {
-                return View("~/Views/Matches/Index.cshtml");
+
+                return RedirectToAction("Index", "Matches");
             }
 
             // came from DR

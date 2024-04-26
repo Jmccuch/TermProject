@@ -1,6 +1,7 @@
 ﻿@model List<TermProjectAPI.User>
+
 @{
-    ViewData["Title"] = "Likes";
+    ViewData["Title"] = "Dates";
 }
 
 @{
@@ -8,9 +9,9 @@
 }
 
 <div class="jumbotron jumbotron-fluid" style="background-color:lightpink">   
-        <h1 style=" margin-top:5rem;text-align:center; color:darkred">Likes</h1>
+        <h1 style=" margin-top:5rem;text-align:center; color:darkred ">Dates</h1>
 </div>
-<div class="jumbotron jumbotron-fluid" style="background-color:indianred">
+<div class="jumbotron jumbotron-fluid" style="background-color:aqua">
     <div class="container">
 
 
@@ -27,7 +28,7 @@
         @if (Model.Count == 0)
         {
             
-        <h2 style="color:white">You Currently Have No Likes, Check Back Soon!</h2>
+        <h2 style="color:white">You Currently Have No Dates, Check Back Soon!</h2>
         <br />
           <form asp-controller="Dashboard" asp-action="Index" method="post">
 
@@ -40,7 +41,7 @@
         {
            
             var profile = Model[i];
-            <div class="jumbotron jumbotron-fluid" style="background-color:lightpink; padding:5rem;">
+            <div class="jumbotron jumbotron-fluid" style="background-color:lightblue; padding:5rem;">
             @if (i % 2 == 0)
             {
                 // Start a new row
@@ -58,36 +59,29 @@
                         {
                             <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/ac/No_image_available.svg/2048px-No_image_available.svg.png" alt="Stock Image" width="200" height="200">
                         }
-                        <h2 style="color:darkred">@profile.userAccount.firstName</h2>
-
-                        <h4>@profile.age</h4>
+                        <h2 style="color:darkred">@profile.userAccount.firstName @profile.userAccount.lastName</h2>
                     
                         <h4>@profile.city, @profile.state</h4>
 
-                        <p>"@profile.description"</p>
+                           <p>Address: @profile.address</p>
 
+                         <p>Phone Number: @profile.phoneNumber</p>
+
+                       
 
                                
-                    <form asp-controller="Likes" asp-action="AddLike" method="post" >
+                    <form asp-controller="Dates" asp-action="Date details" method="post" >
                               <input type="hidden" name="username" value="@profile.userAccount.userName" />
                               <input type="hidden" name="name" value="@profile.userAccount.firstName" />
-                             <button type="submit" class="btn btn-success">Like</button>
+                             <button type="submit" class="btn btn-success">Date Details</button>
                     </form>
                     <br />    
 
-                    <form asp-controller="Likes" asp-action="ViewProfile" method="post">
+                    <form asp-controller="Date" asp-action="ViewProfile" method="post">
                             <input type="hidden" name="username" value="@profile.userAccount.userName" />
                             <button type="submit" class="btn btn-info" style="color:white">View Profile</button>
                         
                     </form>
-
-                    <br />
-
-                      <form asp-controller="Likes" asp-action="RemoveLike" method="post">
-                           <input type="hidden" name="username" value="@profile.userAccount.userName" />
-                             <button type="submit" class="btn btn-danger">Delete</button>
-                          
-                      </form>
                       <br />
                       <form asp-controller="Dashboard" asp-action="Index" method="post">
 
