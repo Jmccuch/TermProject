@@ -56,7 +56,7 @@
                                 <button type="submit" class="btn btn-success">Accept Date</button>
                             </form>
                             <br />
-                            <form asp-controller="UserDateRequests" asp-action="DeclineDate" method="post">
+                            <form asp-controller="UserDateRequests" asp-action="RemoveDate" method="post">
                                 <input type="hidden" name="username" value="@profile.userAccount.userName" />
                                 <button type="submit" class="btn btn-danger">Decline Date</button>
                             </form>

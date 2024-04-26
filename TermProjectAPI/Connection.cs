@@ -11,10 +11,10 @@ namespace Utilities
     public class DBConnect
     {
         // Main Connection String - used for the published web application and project submissions.
-        // String SqlConnectString = "server=cis-mssql1.temple.edu;Database=sp24_3342_tuk02734;User id=tuk02734;Password=caeWe3faeT";
+        String SqlConnectString = "server=cis-mssql1.temple.edu;Database=sp24_3342_tuk02734;User id=tuk02734;Password=caeWe3faeT";
 
         // Home Connection String - used for working from home using SSH Tunneling.
-        String SqlConnectString = "server=127.0.0.1,5555;Database=sp24_3342_tuk02734;User id=tuk02734;Password=caeWe3faeT";
+        //String SqlConnectString = "server=127.0.0.1,5555;Database=sp24_3342_tuk02734;User id=tuk02734;Password=caeWe3faeT";
 
         SqlConnection myConnectionSql;
         SqlCommand objCmd;

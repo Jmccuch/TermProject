@@ -86,7 +86,8 @@ namespace TermProjectAPI.Controllers
                     
                     catch (Exception ex)
                     {
-                       // null
+                        // null
+                        date.dateAndTime0 = DateTime.Now;
                     }
                 }
 

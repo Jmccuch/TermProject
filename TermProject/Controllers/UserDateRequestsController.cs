@@ -102,7 +102,24 @@ namespace TermProject.Controllers
         }
 
 
-        private int GetNextDateID()
+
+        public IActionResult RemoveDate(string username, string name)
+        {
+
+
+            string accepterUserName = HttpContext.Session.GetString("Username");
+
+
+            string requesteeUserName = username;
+
+            // remove date request
+            api.RemoveDateRequest(accepterUserName, requesteeUserName);
+
+            return RedirectToAction("Index");
+
+        }
+
+            private int GetNextDateID()
         {
             // keep track of date ID
             int dateID = 0;
