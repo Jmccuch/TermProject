@@ -11,7 +11,7 @@
 <div class="jumbotron jumbotron-fluid" style="background-color:lightpink">
     <h1 style="margin-top:5rem;text-align:center; color:darkred">Dates</h1>
 </div>
-<div class="jumbotron jumbotron-fluid" style="background-color:aqua">
+<div class="jumbotron jumbotron-fluid" style="background-color:lightsteelblue">
     <div class="container">
         <!-- Message if date was updated-->
         @if (ViewBag.DateUpdated != null)
@@ -44,7 +44,7 @@
                             {
                                 <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/ac/No_image_available.svg/2048px-No_image_available.svg.png" alt="Stock Image" width="100" height="100" class="float-left mr-3">
                             }
-                            <h4 class="card-title" style="margin: 0 auto;">@profile.userAccount.firstName @profile.userAccount.lastName</h4>
+                            <h4 class="card-title" style="margin: 0 auto; color:darkred;">@profile.userAccount.firstName @profile.userAccount.lastName</h4>
                             <br />
                             <p class="card-text">@profile.city, @profile.state</p>
                             <p class="card-text">Address: @profile.address</p>
