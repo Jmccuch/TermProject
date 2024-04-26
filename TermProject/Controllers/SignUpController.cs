@@ -2,6 +2,12 @@
 using System.Data;
 using TermProject.Models;
 using TermProjectAPI;
+using System.Security.Cryptography;
+using System.IO;
+using System.Text;
+using System.Net;
+using Microsoft.AspNetCore.DataProtection.KeyManagement;
+using System.Numerics;
 
 namespace TermProject.Controllers
 {
@@ -9,11 +15,15 @@ namespace TermProject.Controllers
     {
         API api = new API();
 
+        private Byte[] key = { 250, 101, 18, 76, 45, 135, 207, 118, 4, 171, 3, 168, 202, 241, 37, 199 };
+
+        private Byte[] vector = { 146, 64, 191, 111, 23, 3, 113, 119, 231, 121, 252, 112, 79, 32, 114, 156 };
+
         public IActionResult Index()
         {
             return View();
         }
-        
+
         [HttpPost]
         public IActionResult CreateAccount(AccountModel account)
         {
@@ -36,8 +46,18 @@ namespace TermProject.Controllers
                     {
 
 
-                        UserAccount accountToAdd = new UserAccount(account.UserName, account.Password, account.FirstName, 
+                        UserAccount accountToAdd = new UserAccount(account.UserName, account.Password, account.FirstName,
                             account.LastName, account.Email, account.Answer1, account.Answer2, account.Answer3);
+
+                        string encryptP = EncryptPassword(account.Password);
+                         accountToAdd.password = encryptP;
+
+                        string encryptA1 = EncryptPassword(account.Answer1);
+                        accountToAdd.answer1 = encryptA1;
+                        string encryptA2 = EncryptPassword(account.Answer2);
+                        accountToAdd.answer2 = encryptA2;
+                        string encryptA3 = EncryptPassword(account.Answer3);
+                        accountToAdd.answer3 = encryptA3;
 
 
                         api.AddNewUserAccount(accountToAdd);
@@ -126,7 +146,7 @@ namespace TermProject.Controllers
             foreach (UserAccount userAccount in accounts)
             {
 
-               
+
                 // not available
                 if (account.UserName == userAccount.userName)
                 {
@@ -143,6 +163,92 @@ namespace TermProject.Controllers
 
 
         }
-        
+
+        private string EncryptPassword(string password)
+
+        {
+
+            String encryptedPassword;
+
+            UTF8Encoding encoder = new UTF8Encoding();
+
+            Byte[] textBytes;
+
+            textBytes = encoder.GetBytes(password);
+
+            RijndaelManaged rmEncryption = new RijndaelManaged();
+            MemoryStream myMemoryStream = new MemoryStream();
+
+            CryptoStream myEncryptionStream = new CryptoStream(myMemoryStream, rmEncryption.CreateEncryptor(key, vector), CryptoStreamMode.Write);
+
+            myEncryptionStream.Write(textBytes, 0, textBytes.Length);
+
+            myEncryptionStream.FlushFinalBlock();
+
+            myMemoryStream.Position = 0;
+
+            Byte[] encryptedBytes = new Byte[myMemoryStream.Length];
+
+            myMemoryStream.Read(encryptedBytes, 0, encryptedBytes.Length);
+
+            myEncryptionStream.Close();
+
+            myMemoryStream.Close();
+
+            encryptedPassword = Convert.ToBase64String(encryptedBytes);
+
+            return encryptedPassword;
+
+
+        }
+
+        private string DecryptPassword(string password)
+
+        {
+
+            String encryptedPassword = password;
+
+            Byte[] encryptedPasswordBytes = Convert.FromBase64String(encryptedPassword);
+
+            Byte[] textBytes;
+
+            String plainTextPassword;
+
+            UTF8Encoding encoder = new UTF8Encoding();
+
+
+            RijndaelManaged rmEncryption = new RijndaelManaged();
+
+            MemoryStream myMemoryStream = new MemoryStream();
+
+            CryptoStream myDecryptionStream = new CryptoStream(myMemoryStream, rmEncryption.CreateDecryptor(key, vector), CryptoStreamMode.Write);
+
+
+            myDecryptionStream.Write(encryptedPasswordBytes, 0, encryptedPasswordBytes.Length);
+
+            myDecryptionStream.FlushFinalBlock();
+
+
+            myMemoryStream.Position = 0;
+
+            textBytes = new Byte[myMemoryStream.Length];
+
+            myMemoryStream.Read(textBytes, 0, textBytes.Length);
+
+            myDecryptionStream.Close();
+
+            myMemoryStream.Close();
+
+
+            plainTextPassword = encoder.GetString(textBytes);
+
+            return plainTextPassword;
+
+
+        }
+
+
+
     }
+
 }
