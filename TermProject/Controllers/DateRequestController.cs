@@ -21,27 +21,17 @@ namespace TermProject.Controllers
             _clientFactory = clientFactory;
         }
 
-        public async Task<IActionResult> GetRestaurants(string location)
+     /*   public async Task<IActionResult> GetRestaurants(string location)
+
         {
-            var client = _clientFactory.CreateClient();
+           
 
-            string apiUrl = $"https://localhost:5281/api/restaurants?location={location}"; 
 
-            HttpResponseMessage response = await client.GetAsync(apiUrl);
 
-            if (response.IsSuccessStatusCode)
-            {
-                var responseBody = await response.Content.ReadAsStringAsync();
-                var restaurants = JObject.Parse(responseBody);
 
-                return View(restaurants);
-            }
-            else
-            {
-                return Content("Error getting restaurants");
-            }
+
         }
-
+*/
 
 
 
@@ -101,13 +91,13 @@ namespace TermProject.Controllers
         }
 
 
-        public IActionResult Update(DateTime dateAndTime0, string description)
+        public IActionResult Update(string description, DateTime dateAndTime0)
         {
 
             System.Diagnostics.Debug.WriteLine("YYYYYYYYYYYYYYYYYYYY");
 
 
-            System.Diagnostics.Debug.WriteLine("Y " +dateAndTime0);
+            System.Diagnostics.Debug.WriteLine("Y " + dateAndTime0);
             System.Diagnostics.Debug.WriteLine("Y " + description);
            
             string redirect = HttpContext.Session.GetString("DateRequestRedirectedFrom");
@@ -151,11 +141,9 @@ namespace TermProject.Controllers
             {
                 // update 
 
-                DateInfo dateInfo = new DateInfo(loggedInUsername, requestee, description, dateAndTime0);
+                System.Diagnostics.Debug.WriteLine("HERRRRRR UP DATE ");
 
-                System.Diagnostics.Debug.WriteLine("UPADTAING DATE ");
-
-                api.UpdateDate(dateInfo);
+                api.UpdateDate(loggedInUsername, requestee, description, dateAndTime0);
 
                 HttpContext.Session.SetString("DateUpdated", "Yes");
 

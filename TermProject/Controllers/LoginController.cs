@@ -26,8 +26,6 @@ namespace TermProject.Controllers
         {
 
 
-
-
             // check if cookie is null
             if (Request.Cookies.ContainsKey("Username"))
             {
@@ -117,6 +115,23 @@ namespace TermProject.Controllers
 
                 // save username before redirecting
                 HttpContext.Session.SetString("Username", username);
+
+
+                string? UserName = Request.Cookies["Username"];
+                bool ok = true;
+
+                if (ok == true)
+                {
+                    // add cookie to avoid bypass
+                    CookieOptions options = new CookieOptions();
+                    options.Expires = DateTime.Now.AddYears(7);
+                    Response.Cookies.Append("Bypass", username, options);
+
+
+                }
+
+
+
 
                 return RedirectToAction("Index", "Dashboard");
             }

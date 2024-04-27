@@ -14,12 +14,24 @@ namespace TermProject.Controllers
 
         public HomeController(ILogger<HomeController> logger)
         {
+
             _logger = logger;
         }
 
         public IActionResult Index()
         {
+            // Check if the cookie exists to avoid bypass
+            if (!Request.Cookies.ContainsKey("Bypass"))
+            {
+                // Cookie doesn't exist or has been expired
+                return RedirectToAction("Index", "Login");
 
+            }
+
+            {
+                System.Diagnostics.Debug.WriteLine("BYPASS STILL HERE");
+                Response.Cookies.Delete("Bypass");
+            }
 
             System.Diagnostics.Debug.WriteLine("home index");
             return View();

@@ -355,8 +355,6 @@ namespace TermProject
             // Deserialize 
             List<string> usernames = JsonSerializer.Deserialize<List<string>>(jsonData);
 
-            System.Diagnostics.Debug.WriteLine("AAAA: " + usernames[0]);
-            System.Diagnostics.Debug.WriteLine("BBBB: " + usernames[1]);
             System.Diagnostics.Debug.WriteLine("count: " + usernames.Count);
             return usernames;
 
@@ -382,8 +380,7 @@ namespace TermProject
             // Deserialize 
             List<string> usernames = JsonSerializer.Deserialize<List<string>>(jsonData);
 
-            System.Diagnostics.Debug.WriteLine("cccc: " + usernames[0]);
-            System.Diagnostics.Debug.WriteLine("ssss: " + usernames[1]);
+            
             System.Diagnostics.Debug.WriteLine("count: " + usernames.Count);
             return usernames;
 
@@ -580,6 +577,7 @@ namespace TermProject
                 RequestID = requestID,
                 LoggedInUsername = loggedInUsername,
                 Requestee = requestee
+                
             };
 
 
@@ -658,15 +656,18 @@ namespace TermProject
         }
 
 
-        public void UpdateDate(DateInfo dateInfo)
+        public void UpdateDate(string loggedInUsername, string requestee, string description, DateTime dateAndTime0)
         {
-            System.Diagnostics.Debug.WriteLine("z " + dateInfo.dateAndTime0);
-            System.Diagnostics.Debug.WriteLine("z " + dateInfo.description);
+            System.Diagnostics.Debug.WriteLine("z " + dateAndTime0);
+            System.Diagnostics.Debug.WriteLine("z " + description);
 
             // obj to hold both
             var requestData = new
             {
-                DateInformation = dateInfo,
+                LoggedInUsername = loggedInUsername,
+               Requestee = requestee,
+               Description = description,
+                DateAndTime0 = dateAndTime0
             };
 
             // Serialize 

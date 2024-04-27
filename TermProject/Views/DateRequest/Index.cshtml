@@ -8,19 +8,19 @@
 }
 
 
-    <div class="centdiv">
-        <div class="centcontent">
-            @if (string.IsNullOrEmpty(Model.userName1))
-            {
+<div class="centdiv">
+    <div class="centcontent">
+        @if (string.IsNullOrEmpty(Model.userName1))
+        {
 
-                <h1 style="color:darkred">Date Request</h1>
-            }
-            else
-            {
+            <h1 style="color:darkred">Date Request</h1>
+        }
+        else
+        {
 
-                <h1 style="color:darkred">Update Date Details</h1>
-            }
-
+            <h1 style="color:darkred">Update Date Details</h1>
+        }
+        <form asp-controller="DateRequest" asp-action="Update" method="post">
             <br />
             <br />
             <h4>Date and Time:</h4>
@@ -32,28 +32,28 @@
             <br />
             <br />
 
-<form asp-controller="DateRequest" asp-action="Update" method="post">
-
-    <button type="submit" class="btn btn-success">Submit</button>
-
-</form>
-<br />
 
 
+            <button type="submit" class="btn btn-success">Submit</button>
 
-<br />
-<form asp-controller="DateRequest" asp-action="Back" method="post">
+        </form>
+        <br />
 
-    <button type="submit" class="btn btn-danger">Back</button>
-</form>
-<br />
-<form asp-controller="DateRequest" asp-action="GetRestaurants" method="post">
 
-    <button type="submit" class="btn btn-light">Restaurants in area</button>
-</form>
 
-        </div>
+        <br />
+        <form asp-controller="DateRequest" asp-action="Back" method="post">
+
+            <button type="submit" class="btn btn-danger">Back</button>
+        </form>
+        <br />
+        <form asp-controller="DateRequest" asp-action="GetRestaurants" method="post">
+
+            <button type="submit" class="btn btn-light">Restaurants in area</button>
+        </form>
+
     </div>
+</div>
 <footer class="bg-dark">
     <div class="container text-light text-center">
         <h5 class="p-5 mb-3">Copyright © 2024 Love Lounge. All rights reserved.</h5>

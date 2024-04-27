@@ -16,6 +16,15 @@ namespace TermProject.Controllers
         public IActionResult Index()
         {
 
+            // Check if the cookie exists to avoid bypass
+            if (!Request.Cookies.ContainsKey("Bypass"))
+            {
+                // Cookie doesn't exist or has been expired
+                return RedirectToAction("Index", "Login");
+
+            }
+
+
             if (HttpContext.Session.GetString("DateRequestedUser") != null)
             {
 

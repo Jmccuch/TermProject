@@ -102,20 +102,25 @@ namespace TermProjectAPI.Controllers
         }
 
         public class DateDto
-        {
-            public DateInfo DateInformation { get; set; }
+        { 
+                public string LoggedInUsername { get; set; }
+                public string Requestee { get; set; }
+                public string Description { get; set; }
+                public DateTime DateAndTime0 { get; set; }
+            
+
         }
 
         // update date
         [HttpPut("UpdateDate")]
-        public void UpdateDate([FromBody] DateDto dateInfoDto) {
+        public void UpdateDate([FromBody] DateDto dateDto) {
 
-            DateInfo dateInfo = dateInfoDto.DateInformation;
+          
 
-            System.Diagnostics.Debug.WriteLine("UPADTAING DATE " + dateInfo.userName1);
-            System.Diagnostics.Debug.WriteLine("UPADTAING DATE " + dateInfo.dateAndTime0);
-            System.Diagnostics.Debug.WriteLine("UPADTAING DATE " + dateInfo.userName2);
-            System.Diagnostics.Debug.WriteLine("UPADTAING DATE " + dateInfo.description);
+            System.Diagnostics.Debug.WriteLine("UPADTAING DATE " + dateDto.LoggedInUsername);
+            System.Diagnostics.Debug.WriteLine("UPADTAING DATE " + dateDto.DateAndTime0);
+            System.Diagnostics.Debug.WriteLine("UPADTAING DATE " + dateDto.Requestee);
+            System.Diagnostics.Debug.WriteLine("UPADTAING DATE " + dateDto.Description);
 
             objCommand.CommandType = CommandType.StoredProcedure;
             objCommand.CommandText = "UpdateDate";
@@ -123,10 +128,10 @@ namespace TermProjectAPI.Controllers
             // add param to obj command
             objCommand.Parameters.Clear();
 
-            objCommand.Parameters.AddWithValue("@userName1", dateInfo.userName1);
-            objCommand.Parameters.AddWithValue("@userName2", dateInfo.userName2);
-            objCommand.Parameters.AddWithValue("@date", dateInfo.dateAndTime0);
-            objCommand.Parameters.AddWithValue("@description", dateInfo.description);
+            objCommand.Parameters.AddWithValue("@userName1", dateDto.LoggedInUsername);
+            objCommand.Parameters.AddWithValue("@userName2", dateDto.Requestee);
+            objCommand.Parameters.AddWithValue("@date", dateDto.DateAndTime0);
+            objCommand.Parameters.AddWithValue("@description", dateDto.Description);
 
             // update
             objDB.DoUpdateUsingCmdObj(objCommand);

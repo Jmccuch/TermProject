@@ -7,7 +7,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TermProject", "TermProject\
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TermProjectAPI", "TermProjectAPI\TermProjectAPI.csproj", "{7306C771-D262-4595-B7D6-33AE61B9E0F2}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ThirdPartyAPI", "ThirdPartyAPI\ThirdPartyAPI.csproj", "{18EF1D74-0620-412A-87E9-D3C124FDB82A}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RestaurantAPI", "RestaurantAPI\RestaurantAPI.csproj", "{52B2FF81-841C-46AE-8CE3-131F29159D45}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -23,10 +23,10 @@ Global
 		{7306C771-D262-4595-B7D6-33AE61B9E0F2}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7306C771-D262-4595-B7D6-33AE61B9E0F2}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7306C771-D262-4595-B7D6-33AE61B9E0F2}.Release|Any CPU.Build.0 = Release|Any CPU
-		{18EF1D74-0620-412A-87E9-D3C124FDB82A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{18EF1D74-0620-412A-87E9-D3C124FDB82A}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{18EF1D74-0620-412A-87E9-D3C124FDB82A}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{18EF1D74-0620-412A-87E9-D3C124FDB82A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{52B2FF81-841C-46AE-8CE3-131F29159D45}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{52B2FF81-841C-46AE-8CE3-131F29159D45}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{52B2FF81-841C-46AE-8CE3-131F29159D45}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{52B2FF81-841C-46AE-8CE3-131F29159D45}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

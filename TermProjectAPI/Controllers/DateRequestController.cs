@@ -53,6 +53,7 @@ namespace TermProjectAPI.Controllers
             public string LoggedInUsername { get; set; }
             public string Requestee { get; set; }
 
+            public DateTime DateAndTime0 { get; set; }
           
         }
 
@@ -66,11 +67,24 @@ namespace TermProjectAPI.Controllers
 
             objCommand.Parameters.Clear();
 
+            System.Diagnostics.Debug.WriteLine(info.Requestee);
+
+            System.Diagnostics.Debug.WriteLine(info.LoggedInUsername);
+
+
+            System.Diagnostics.Debug.WriteLine(info.Requestee);
+
+
+
+
 
             // Add params for stored procedure
             objCommand.Parameters.AddWithValue("@receiver", info.Requestee);
             objCommand.Parameters.AddWithValue("@sender", info.LoggedInUsername);
             objCommand.Parameters.AddWithValue("@requestID", info.RequestID);
+
+
+
             objCommand.Parameters.AddWithValue("@viewed", "No");
 
 
