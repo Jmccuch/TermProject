@@ -8,7 +8,6 @@ using Azure.Core;
 
 namespace TermProjectAPI.Controllers
 {
-    [Route("TermProjectAPI/Date")]
 
     public class DateController : Controller
     {

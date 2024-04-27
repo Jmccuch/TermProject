@@ -7,7 +7,6 @@ using TermProjectAPI;
 
 namespace TermProjectAPI.Controllers
 {
-    [Route("TermProjectAPI/main")]
     public class MainController : Controller
     {
         DBConnect objDB = new DBConnect();

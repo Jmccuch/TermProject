@@ -1,4 +1,6 @@
-﻿@{
+﻿@model List<int>
+
+@{
     ViewData["Title"] = "Dashboard";
 }
 
@@ -18,9 +20,10 @@
 
             @if (ViewBag.DateRequest != null)
             {
-
-                <h2 class="text-center" style="color:white"> Message: @ViewBag.DateRequest</h2>
+                <div class="alert alert-success">
+                    <h2 class="text-center" style="color:forestgreen"> Message: @ViewBag.DateRequest</h2>
                 <br />
+                </div>
             }
 
             
@@ -56,10 +59,56 @@
             </div>
         </div>
     </div>
-    <footer class="bg-dark">
-        <div class="container text-light text-center">
-            <h5 class="p-5 mb-3">Copyright © 2024 Love Lounge. All rights reserved.</h5>
-        </div>
-    </footer>
 
 </form>
+
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card">
+                <div class="card-header">Average 2048 Score Chart</div>
+                <div class="card-body">
+                    <canvas id="myChart" width="400" height="200"></canvas>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+
+    var scores = @Html.Raw(Json.Serialize(Model));
+    var averageScore = scores.length > 0 ? scores.reduce((acc, val) => acc + val, 0) / scores.length : 0;
+
+    var ctx = document.getElementById('myChart').getContext('2d');
+    var myChart = new Chart(ctx, {
+        type: 'bar',
+        data: {
+            labels: ['Average 2048 Score'],
+            datasets: [{
+                label: 'Average 2048 Score',
+                data: [averageScore],
+                backgroundColor: 'rgba(255, 99, 132, 0.2)',
+                borderColor: 'rgba(255, 99, 132, 1)',
+                borderWidth: 1
+            }]
+        },
+        options: {
+            scales: {
+                yAxes: [{
+                    ticks: {
+                        beginAtZero: true
+                    }
+                }]
+            }
+        }
+    });
+</script>
+
+<footer class="bg-dark">
+    <div class="container text-light text-center">
+        <h5 class="p-5 mb-3">Copyright © 2024 Love Lounge. All rights reserved.</h5>
+    </div>
+</footer>
+

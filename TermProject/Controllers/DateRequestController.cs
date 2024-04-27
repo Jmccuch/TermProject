@@ -6,6 +6,7 @@ using Newtonsoft.Json.Linq;
 using System.Net.Http;
 using System.Threading.Tasks;
 using static System.Runtime.InteropServices.JavaScript.JSType;
+using TermProject.Models;
 
 
 namespace TermProject.Controllers
@@ -14,24 +15,28 @@ namespace TermProject.Controllers
     {
         API api = new API();
 
+        RestaurantService restaurantService = new RestaurantService();
+
         private readonly IHttpClientFactory _clientFactory;
 
-        public DateRequestController(IHttpClientFactory clientFactory)
-        {
-            _clientFactory = clientFactory;
-        }
+        private readonly RestaurantService _restaurantService;
 
-     /*   public async Task<IActionResult> GetRestaurants(string location)
+
+
+
+
+
+        public IActionResult GetRestaurants(string location)
 
         {
+            List<RestaurantViewModel> restaurants = restaurantService.GetRestaurantsNearby(location);
+
            
 
-
-
-
+            return View("~/Views/Restaurants/Index.cshtml", restaurants);
 
         }
-*/
+
 
 
 

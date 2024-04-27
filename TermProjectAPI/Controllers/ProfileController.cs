@@ -7,7 +7,7 @@ using Utilities;
 
 namespace TermProjectAPI.Controllers
 {
-    [Route("TermProjectAPI/Profile")]
+
     public class ProfileController : Controller
     {
         DBConnect objDB = new DBConnect();

@@ -3,7 +3,7 @@
 namespace RestaurantAPI.Controllers
 {
     [ApiController]
-    [Route("RestaurantAPI/GetRestaurants")]
+    [Route("RestaurantAPI/GETR")]
     public class RestaurantsController : ControllerBase
     {
         private readonly HttpClient _httpClient;
@@ -13,8 +13,8 @@ namespace RestaurantAPI.Controllers
             _httpClient = httpClient;
         }
 
-        [HttpGet("{location}")]
-        public async Task<IActionResult> GetRestaurants(string location)
+        [HttpGet("GetRestaurantsNearby/{location}")]
+        public async Task<IActionResult> GetRestaurantsNearby(string location)
         {
             string apiUrl = $"https://opentable.herokuapp.com/api/restaurants?city={location}";
 
@@ -30,3 +30,4 @@ namespace RestaurantAPI.Controllers
         }
     }
 }
+

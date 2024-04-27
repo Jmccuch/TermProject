@@ -915,5 +915,30 @@ namespace TermProject
 
         }
 
+
+
+        public List<int> GetAll2048()
+        {
+            string route = $"{urlAPI}TermProjectAPI/Like/GetAll2048";
+
+            WebRequest request = WebRequest.Create(route);
+            request.Method = "GET";
+
+            WebResponse response = request.GetResponse();
+            Stream dataStream = response.GetResponseStream();
+            StreamReader reader = new StreamReader(dataStream);
+            string jsonData = reader.ReadToEnd();
+
+            reader.Close();
+            response.Close();
+
+            // Deserialize 
+            List<int> scores = JsonSerializer.Deserialize<List<int>>(jsonData);
+
+            return scores;
+        }
+
+
+
     }
 }

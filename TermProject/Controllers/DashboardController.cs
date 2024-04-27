@@ -14,6 +14,18 @@ namespace TermProject.Controllers
 
         public IActionResult Index()
         {
+
+            List<int> scores = api.GetAll2048();
+            foreach (int score in scores) {
+
+                System.Diagnostics.Debug.WriteLine(score);
+
+            }
+
+
+
+
+
             // Check if the cookie exists to avoid bypass
             if (!Request.Cookies.ContainsKey("Bypass"))
             {
@@ -33,7 +45,7 @@ namespace TermProject.Controllers
             }
 
 
-            return View();
+            return View(scores);
         }
 
         public IActionResult RedirectLogOut()

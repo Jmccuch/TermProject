@@ -7,8 +7,6 @@ using Utilities;
 namespace TermProjectAPI.Controllers
 {
 
-    [Route("TermProjectAPI/Like")]
-
     public class LikesAPIController : Controller
     {
         DBConnect objDB = new DBConnect();
@@ -212,6 +210,35 @@ namespace TermProjectAPI.Controllers
 
         }
 
+
+        // return like ds 
+        [HttpGet("GetAll2048")]
+        public List<int> GetAll2048()
+        {
+
+            // get likes
+            objCommand.CommandType = CommandType.StoredProcedure;
+            objCommand.CommandText = "GetAll2048";
+
+            objCommand.Parameters.Clear();
+
+
+            DataSet all2048 = objDB.GetDataSetUsingCmdObj(objCommand);
+
+
+            List<int> scores = new List<int>();
+
+            foreach (DataRow record in all2048.Tables[0].Rows)
+            {
+
+                scores.Add(int.Parse(record["Score"].ToString()));
+
+
+            }
+
+            return scores;
+
+        }
 
 
 

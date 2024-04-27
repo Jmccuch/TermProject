@@ -7,7 +7,6 @@ using System.Data.SqlClient;
 
 namespace TermProjectAPI.Controllers
 {
-    [Route("TermProjectAPI/AddAccount")]
     public class AddAcountController : Controller
     {
         DBConnect objDB = new DBConnect();

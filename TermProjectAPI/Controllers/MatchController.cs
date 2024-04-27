@@ -10,7 +10,6 @@ using Microsoft.AspNetCore.Mvc.ModelBinding.Metadata;
 namespace TermProjectAPI.Controllers
 {  
     
-    [Route("TermProjectAPI/Match")]
     public class MatchController : Controller
     {
         DBConnect objDB = new DBConnect();

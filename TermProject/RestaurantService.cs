@@ -1,29 +1,50 @@
 ﻿using System;
+using System.Net;
 using System.Net.Http;
 using System.Threading.Tasks;
+using TermProject.Models;
+using Azure.Core;
+using Microsoft.VisualBasic;
+using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Net;
+using System.Text.Json;
+using System.Xml.Serialization;
+using TermProjectAPI;
 
-public class RestaurantService
+namespace TermProject
 {
-    private readonly HttpClient _httpClient;
-
-    public RestaurantService(HttpClient httpClient)
+    public class RestaurantService
     {
-        _httpClient = httpClient ?? throw new ArgumentNullException(nameof(httpClient));
-    }
 
-    public async Task<string> GetRestaurantsNearbyAsync(string location)
-    {
-        string apiUrl = $"http://localhost:5281/restaurants/{location}";
 
-        var response = await _httpClient.GetAsync(apiUrl);
+        public List<RestaurantViewModel> GetRestaurantsNearby(string location)
 
-        if (!response.IsSuccessStatusCode)
         {
-            throw new HttpRequestException($"Failed to retrieve nearby restaurants: {response.StatusCode}");
+            location = "new-york-city";
+
+            string route = $"http://localhost:5281/RestaurantAPI/GETR/GetRestaurantsNearby/{location}";
+
+
+            WebRequest request = WebRequest.Create(route);
+            request.Method = "GET";
+
+            WebResponse response = request.GetResponse();
+            Stream dataStream = response.GetResponseStream();
+            StreamReader reader = new StreamReader(dataStream);
+            string jsonData = reader.ReadToEnd();
+
+            reader.Close();
+            response.Close();
+
+            // Deserialize 
+            List<RestaurantViewModel> restaurants = JsonSerializer.Deserialize<List<RestaurantViewModel>>(jsonData);
+
+            return restaurants;
+
+
         }
 
-        var restaurantsJson = await response.Content.ReadAsStringAsync();
-
-        return restaurantsJson;
     }
 }

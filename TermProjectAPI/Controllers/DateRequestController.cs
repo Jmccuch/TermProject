@@ -8,7 +8,7 @@ using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace TermProjectAPI.Controllers
 {
-    [Route("TermProjectAPI/DateRequest")]
+  
 
     public class DateRequestController : Controller
     {
