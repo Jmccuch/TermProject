@@ -14,12 +14,14 @@ namespace TermProject
     {
 
 
-        private string urlAPI = "http://localhost:5281/";
+       // private string urlAPI = "http://localhost:5281";
+
+        string urlAPI = "https://cis-iis2.temple.edu/Spring2024/CIS3342_tuk02734/WebAPI";
 
         public List<User> GetUserPotentialMatches(string username)
         {
            
-            string route = $"{urlAPI}TermProjectAPI/main/GetUserPotentialMatches/{username}";
+            string route = $"{urlAPI}/GetUserPotentialMatches/{username}";
 
 
             WebRequest request = WebRequest.Create(route);
@@ -49,7 +51,7 @@ namespace TermProject
         public User GetUserInfo(string username)
         {
 
-            string route = $"{urlAPI}TermProjectAPI/Profile/GetUserInfo/{username}";
+            string route = $"{urlAPI}/GetUserInfo/{username}";
 
 
             System.Diagnostics.Debug.WriteLine(route);
@@ -81,7 +83,7 @@ namespace TermProject
             // Serialize UserAccount 
             string jsonData = JsonSerializer.Serialize(userAccount);
 
-            string route = $"{urlAPI}TermProjectAPI/AddAccount/AddNewUserAccount";
+            string route = $"{urlAPI}/AddNewUserAccount";
             WebRequest request = WebRequest.Create(route);
             request.Method = "PUT";
             request.ContentType = "application/json";
@@ -103,7 +105,7 @@ namespace TermProject
         public List<UserAccount> GetUserAccount()
         {
 
-            string route = $"{urlAPI}TermProjectAPI/AddAccount/GetUseraccount";
+            string route = $"{urlAPI}/GetUseraccount";
 
 
             WebRequest request = WebRequest.Create(route);
@@ -143,7 +145,7 @@ namespace TermProject
             // Serialize 
             string jsonData = JsonSerializer.Serialize(requestData);
 
-            string route = $"{urlAPI}TermProjectAPI/Profile/UpdateUserInfo";
+            string route = $"{urlAPI}/UpdateUserInfo";
 
   
             WebRequest request = WebRequest.Create(route);
@@ -179,7 +181,7 @@ namespace TermProject
             // Serialize 
             string jsonData = JsonSerializer.Serialize(requestData);
 
-            string route = $"{urlAPI}TermProjectAPI/AddAccount/UpdateUserPassword";
+            string route = $"{urlAPI}/UpdateUserPassword";
 
 
             WebRequest request = WebRequest.Create(route);
@@ -205,7 +207,7 @@ namespace TermProject
 
         public List<string> GetLikers(string username)
         {
-            string route = $"{urlAPI}TermProjectAPI/Like/GetLikers/{username}";
+            string route = $"{urlAPI}/GetLikers/{username}";
 
             WebRequest request = WebRequest.Create(route);
             request.Method = "GET";
@@ -228,7 +230,7 @@ namespace TermProject
 
         public List<int> GetLikeIDs()
         {
-            string route = $"{urlAPI}TermProjectAPI/Like/GetLikeIDs";
+            string route = $"{urlAPI}/GetLikeIDs";
 
             WebRequest request = WebRequest.Create(route);
             request.Method = "GET";
@@ -266,7 +268,7 @@ namespace TermProject
             // Serialize all 3 
             string jsonData = JsonSerializer.Serialize(requestData);
 
-            string route = $"{urlAPI}TermProjectAPI/Like/AddNewLike";
+            string route = $"{urlAPI}/AddNewLike";
 
 
             WebRequest request = WebRequest.Create(route);
@@ -314,7 +316,7 @@ namespace TermProject
             // Serializ 
             string jsonData = JsonSerializer.Serialize(requestData);
 
-            string route = $"{urlAPI}TermProjectAPI/Like/RemoveLike";
+            string route = $"{urlAPI}/RemoveLike";
 
 
             WebRequest request = WebRequest.Create(route);
@@ -339,7 +341,7 @@ namespace TermProject
 
         public List<string> GetLikerUsernames()
         {
-            string route = $"{urlAPI}TermProjectAPI/Like/GetLikerUsernames";
+            string route = $"{urlAPI}/GetLikerUsernames";
 
             WebRequest request = WebRequest.Create(route);
             request.Method = "GET";
@@ -364,7 +366,7 @@ namespace TermProject
 
         public List<string> GetLikedUsernames()
         {
-            string route = $"{urlAPI}TermProjectAPI/Like/GetLikedUsernames";
+            string route = $"{urlAPI}/GetLikedUsernames";
 
             WebRequest request = WebRequest.Create(route);
             request.Method = "GET";
@@ -406,7 +408,7 @@ namespace TermProject
             // Serialize all 3 
             string jsonData = JsonSerializer.Serialize(requestData);
 
-            string route = $"{urlAPI}TermProjectAPI/Match/AddNewMatch";
+            string route = $"{urlAPI}/AddNewMatch";
 
 
             WebRequest request = WebRequest.Create(route);
@@ -433,7 +435,7 @@ namespace TermProject
 
         public List<Match> GetMatches()
         {
-            string route = $"{urlAPI}TermProjectAPI/Match/GetMatches";
+            string route = $"{urlAPI}/GetMatches";
 
             WebRequest request = WebRequest.Create(route);
             request.Method = "GET";
@@ -456,7 +458,7 @@ namespace TermProject
 
         public List<string> GetMatchUsername1()
         {
-            string route = $"{urlAPI}TermProjectAPI/Match/GetMatchUsername1";
+            string route = $"{urlAPI}/GetMatchUsername1";
 
             WebRequest request = WebRequest.Create(route);
             request.Method = "GET";
@@ -485,7 +487,7 @@ namespace TermProject
 
         public List<string> GetMatchUsername2()
         {
-            string route = $"{urlAPI}TermProjectAPI/Match/GetMatchUsername2";
+            string route = $"{urlAPI}/GetMatchUsername2";
 
             WebRequest request = WebRequest.Create(route);
             request.Method = "GET";
@@ -525,7 +527,7 @@ namespace TermProject
             // Serializ 
             string jsonData = JsonSerializer.Serialize(requestData);
 
-            string route = $"{urlAPI}TermProjectAPI/Match/RemoveMatch";
+            string route = $"{urlAPI}/RemoveMatch";
 
 
             WebRequest request = WebRequest.Create(route);
@@ -549,7 +551,7 @@ namespace TermProject
 
         public List<DateRequest> GetDateRequestIDs()
         {
-            string route = $"{urlAPI}TermProjectAPI/DateRequest/GetDateRequestIDs";
+            string route = $"{urlAPI}/GetDateRequestIDs";
 
             WebRequest request = WebRequest.Create(route);
             request.Method = "GET";
@@ -584,7 +586,7 @@ namespace TermProject
             // Serialize all 3 
             string jsonData = JsonSerializer.Serialize(requestData);
 
-            string route = $"{urlAPI}TermProjectAPI/DateRequest/AddNewDateRequest";
+            string route = $"{urlAPI}/AddNewDateRequest";
 
 
             WebRequest request = WebRequest.Create(route);
@@ -609,7 +611,7 @@ namespace TermProject
 
         public List<DateInfo> GetUserDates(string username)
         {
-            string route = $"{urlAPI}TermProjectAPI/Date/GetUserDates/{username}";
+            string route = $"{urlAPI}/GetUserDates/{username}";
 
             WebRequest request = WebRequest.Create(route);
             request.Method = "GET";
@@ -634,7 +636,7 @@ namespace TermProject
         public DateInfo GetDateBetweenUsers(string loggedInUserName, string accountUserName)
         {
 
-            string route = $"{urlAPI}TermProjectAPI/Date/GetDateBetweenUsers/{loggedInUserName}/{accountUserName}";
+            string route = $"{urlAPI}/GetDateBetweenUsers/{loggedInUserName}/{accountUserName}";
 
 
             System.Diagnostics.Debug.WriteLine(route);
@@ -673,7 +675,7 @@ namespace TermProject
             // Serialize 
             string jsonData = JsonSerializer.Serialize(requestData);
 
-            string route = $"{urlAPI}TermProjectAPI/Date/UpdateDate";
+            string route = $"{urlAPI}/UpdateDate";
 
             try
             {
@@ -710,7 +712,7 @@ namespace TermProject
 
         public List<DateRequest> GetDateRequests(string username)
         {
-            string route = $"{urlAPI}TermProjectAPI/DateRequest/GetDateRequests/{username}";
+            string route = $"{urlAPI}/GetDateRequests/{username}";
 
             WebRequest request = WebRequest.Create(route);
             request.Method = "GET";
@@ -732,7 +734,7 @@ namespace TermProject
 
         public List<DateInfo> GetDates()
         {
-            string route = $"{urlAPI}TermProjectAPI/Date/GetDates";
+            string route = $"{urlAPI}/GetDates";
 
             WebRequest request = WebRequest.Create(route);
             request.Method = "GET";
@@ -774,7 +776,7 @@ namespace TermProject
             // Serialize all 3 
             string jsonData = JsonSerializer.Serialize(requestData);
 
-            string route = $"{urlAPI}TermProjectAPI/Date/AddNewDate";
+            string route = $"{urlAPI}/AddNewDate";
 
 
             WebRequest request = WebRequest.Create(route);
@@ -815,7 +817,7 @@ namespace TermProject
             // Serializ 
             string jsonData = JsonSerializer.Serialize(requestData);
 
-            string route = $"{urlAPI}TermProjectAPI/DateRequest/RemoveDateRequest";
+            string route = $"{urlAPI}/RemoveDateRequest";
 
 
             WebRequest request = WebRequest.Create(route);
@@ -852,7 +854,7 @@ namespace TermProject
             // Serialize 
             string jsonData = JsonSerializer.Serialize(requestData);
 
-            string route = $"{urlAPI}TermProjectAPI/DateRequest/UpdateUserDateRequestView";
+            string route = $"{urlAPI}/UpdateUserDateRequestView";
 
 
             WebRequest request = WebRequest.Create(route);
@@ -891,7 +893,7 @@ namespace TermProject
             // Serialize 
             string jsonData = JsonSerializer.Serialize(requestData);
 
-            string route = $"{urlAPI}TermProjectAPI/Match/UpdateUserMatchesView";
+            string route = $"{urlAPI}/UpdateUserMatchesView";
 
 
             WebRequest request = WebRequest.Create(route);
@@ -919,7 +921,7 @@ namespace TermProject
 
         public List<int> GetAll2048()
         {
-            string route = $"{urlAPI}TermProjectAPI/Like/GetAll2048";
+            string route = $"{urlAPI}/GetAll2048";
 
             WebRequest request = WebRequest.Create(route);
             request.Method = "GET";
